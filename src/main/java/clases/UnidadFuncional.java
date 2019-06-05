@@ -1,20 +1,35 @@
 package clases;
 
+import javax.persistence.*;
 import java.util.Observable;
 import java.util.Observer;
-
+@Entity
 public class UnidadFuncional implements Observer {
+    @Id
     private int id;
-
-    private enum tipo {
-        Departamento,
-        Cochera,
-        Local
-    }
+    private String tipo;
+    @ManyToOne(cascade = CascadeType.ALL)
     private Propietario propietario;
-    private float coeficiente;
+    private double coeficiente;
     private String pisoNum;
-    private float saldo;
+    private double saldo;
+
+    public UnidadFuncional(int id, String tipo,Propietario propietario, double coeficiente, String pisoNum, double saldo) {
+        this.id = id;
+        this.tipo = tipo;
+        this.propietario = propietario;
+        this.coeficiente = coeficiente;
+        this.pisoNum = pisoNum;
+        this.saldo = saldo;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 
     public int getId() {
         return id;
@@ -32,11 +47,11 @@ public class UnidadFuncional implements Observer {
         this.propietario = propietario;
     }
 
-    public float getCoeficiente() {
+    public double getCoeficiente() {
         return coeficiente;
     }
 
-    public void setCoeficiente(float coeficiente) {
+    public void setCoeficiente(double coeficiente) {
         this.coeficiente = coeficiente;
     }
 
@@ -48,14 +63,14 @@ public class UnidadFuncional implements Observer {
         this.pisoNum = pisoNum;
     }
 
-    public float getSaldo() {
+    public double getSaldo() {
         return saldo;
     }
-    public void setSaldo(float saldo) {
+    public void setSaldo(double saldo) {
         this.saldo = saldo;
     }
 
-    public void modificarSaldo(float valor) {
+    public void modificarSaldo(double valor) {
         saldo += valor;
     }
 

@@ -1,5 +1,7 @@
 package clases.filtro;
 
+import clases.UnidadFuncional;
+
 public class FiltroIgual extends FiltroSaldo {
 
     public FiltroIgual(float saldo) {

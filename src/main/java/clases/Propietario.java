@@ -3,12 +3,25 @@ package clases;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Propietario implements Observable {
+    @Id
     private String dni;
     private String nombreApellido;
     private String mail;
     private String direccion;
     private String telefono;
+
+    public Propietario(String dni, String nombreApellido, String mail, String direccion, String telefono) {
+        this.dni = dni;
+        this.nombreApellido = nombreApellido;
+        this.mail = mail;
+        this.direccion = direccion;
+        this.telefono = telefono;
+    }
 
     public String getDni() {
         return dni;

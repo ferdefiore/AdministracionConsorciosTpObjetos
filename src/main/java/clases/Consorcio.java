@@ -1,40 +1,44 @@
 package clases;
 
-import org.hibernate.annotations.Target;
-
 import javax.persistence.*;
-import java.util.LinkedList;
+import java.time.YearMonth;
+import java.util.List;
+
 @Entity
-@Table(name = "TBL_CONSORCIOS")
 public class Consorcio {
     @Id
-    @Column(name = "ID_CONS")
     private int id;
-
-    @Column(name = "NOMBRE")
     private String nombre;
-
-    @Column(name = "CUIT")
     private String cuit;
-
-    @Column(name = "DIRECCION")
     private String direccion;
-
-    @Column(name = "CIUDAD")
     private String ciudad;
 
-    //todo estudiar este cascadeType.All, se puede usar orphan para borrado
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn (name = "id_liquidacion")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn (name = "id_liquidacionVigente")
     private Liquidacion liquidacionVigente;
 
-    @ManyToMany()
-    private LinkedList<UnidadFuncional> unidadesFuncionales;
+    //todo esto queda horrible en cuanto a DB, hace una tercera tabla con id cons, id liq no pude hacer que uf tenga consorcio.
+    //@ManyToMany() esto andaba pero agrega una tabla de consorcio,uf ... lo ideal seria q uf tenga un id consorcio
+    //Bueno quedo arreglado como esta ahora, espero que ande
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_consorcio_dueño")
+    private List<UnidadFuncional> unidadesFuncionales;
+
+    @Override
+    public String toString() {
+        return "Consorcio{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", cuit='" + cuit + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", ciudad='" + ciudad + '\'' +
+                '}';
+    }
 
     public Consorcio() {
     }
 
-    public Consorcio(int id, String nombre, String cuit, String direccion, String ciudad, Liquidacion liquidacionVigente, LinkedList<UnidadFuncional> unidadesFuncionales) {
+    public Consorcio(int id, String nombre, String cuit, String direccion, String ciudad, Liquidacion liquidacionVigente, List<UnidadFuncional> unidadesFuncionales) {
         this.id = id;
         this.nombre = nombre;
         this.cuit = cuit;
@@ -101,8 +105,19 @@ public class Consorcio {
         unidadesFuncionales.remove(uf);
     }
 
-    public void cerrarLiquidacion() {
+    public Liquidacion cerrarLiquidacion() {
         //todo aca cierra la liquidacion ya me olvide que habiamos planteado
+        /* Liquidacion vigente dame el total de los gastos, a cada unidad funcional que tengo le sumo total de gasto*%pago de cada uf
+        * la liquidacion que tengo, la tengo que mandar a historicas y debo crear una nueva para el proximo mes.
+        * */
+        float gastoFinal = liquidacionVigente.getGastoParcial();
+        for (UnidadFuncional uf:unidadesFuncionales) {
+            uf.modificarSaldo(gastoFinal*uf.getCoeficiente());
+        }
+        //todo aumentar el mes en uno
+        Liquidacion cerrada = liquidacionVigente;
+        liquidacionVigente = new Liquidacion(cerrada.getId_liquidacion()+1,cerrada.getPeriodo().plusMonths(1),0,this);
+        return cerrada;
     }
 
 }
