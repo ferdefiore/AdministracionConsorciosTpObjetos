@@ -31,4 +31,7 @@ public abstract class Gasto {
         this.concepto = concepto;
         this.monto = monto;
     }
+
+    public Gasto() {
+    }
 }

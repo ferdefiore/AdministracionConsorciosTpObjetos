@@ -15,6 +15,9 @@ public class Propietario implements Observable {
     private String direccion;
     private String telefono;
 
+    public Propietario() {
+    }
+
     public Propietario(String dni, String nombreApellido, String mail, String direccion, String telefono) {
         this.dni = dni;
         this.nombreApellido = nombreApellido;
@@ -33,7 +36,6 @@ public class Propietario implements Observable {
     public String getNombreApellido() {
         return nombreApellido;
     }
-
     public void setNombreApellido(String nombreApellido) {
         this.nombreApellido = nombreApellido;
     }
@@ -41,7 +43,6 @@ public class Propietario implements Observable {
     public String getMail() {
         return mail;
     }
-
     public void setMail(String mail) {
         this.mail = mail;
     }
@@ -49,7 +50,6 @@ public class Propietario implements Observable {
     public String getDireccion() {
         return direccion;
     }
-
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
@@ -57,7 +57,6 @@ public class Propietario implements Observable {
     public String getTelefono() {
         return telefono;
     }
-
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }

@@ -1,7 +1,7 @@
 package clases;
 
 import javax.persistence.*;
-import java.time.YearMonth;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,23 +17,9 @@ public class Consorcio {
     @JoinColumn (name = "id_liquidacionVigente")
     private Liquidacion liquidacionVigente;
 
-    //todo esto queda horrible en cuanto a DB, hace una tercera tabla con id cons, id liq no pude hacer que uf tenga consorcio.
-    //@ManyToMany() esto andaba pero agrega una tabla de consorcio,uf ... lo ideal seria q uf tenga un id consorcio
-    //Bueno quedo arreglado como esta ahora, espero que ande
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_consorcio_dueño")
     private List<UnidadFuncional> unidadesFuncionales;
-
-    @Override
-    public String toString() {
-        return "Consorcio{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", cuit='" + cuit + '\'' +
-                ", direccion='" + direccion + '\'' +
-                ", ciudad='" + ciudad + '\'' +
-                '}';
-    }
 
     public Consorcio() {
     }
@@ -100,13 +86,22 @@ public class Consorcio {
         unidadesFuncionales.add(uf);
     }
 
-    //todo verificar funcionamiento remove
     public void eliminarUnidadFuncional(UnidadFuncional uf){
         unidadesFuncionales.remove(uf);
     }
 
+    @Override
+    public String toString() {
+        return "Consorcio{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", cuit='" + cuit + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", ciudad='" + ciudad + '\'' +
+                '}';
+    }
+
     public Liquidacion cerrarLiquidacion() {
-        //todo aca cierra la liquidacion ya me olvide que habiamos planteado
         /* Liquidacion vigente dame el total de los gastos, a cada unidad funcional que tengo le sumo total de gasto*%pago de cada uf
         * la liquidacion que tengo, la tengo que mandar a historicas y debo crear una nueva para el proximo mes.
         * */
@@ -114,9 +109,8 @@ public class Consorcio {
         for (UnidadFuncional uf:unidadesFuncionales) {
             uf.modificarSaldo(gastoFinal*uf.getCoeficiente());
         }
-        //todo aumentar el mes en uno
         Liquidacion cerrada = liquidacionVigente;
-        liquidacionVigente = new Liquidacion(cerrada.getId_liquidacion()+1,cerrada.getPeriodo().plusMonths(1),0,this);
+        liquidacionVigente = new Liquidacion(cerrada.getId_liquidacion()+1,cerrada.getPeriodo().plusMonths(1),new ArrayList<>(),this);
         return cerrada;
     }
 

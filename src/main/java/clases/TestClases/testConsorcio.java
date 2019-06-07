@@ -22,7 +22,7 @@ public class testConsorcio {
         Propietario p2 = new Propietario("2","FDF","FFF","NECO","1555");
         UnidadFuncional uf1= new UnidadFuncional(1,"dpto",p1,0.2,"1A", 0f);
         UnidadFuncional uf2= new UnidadFuncional(2,"dpto",p2,0.2,"1B", 0f);
-        Liquidacion lq = new Liquidacion(1,YearMonth.of(2019,4),0f,new Consorcio());
+        Liquidacion lq = new Liquidacion(1,YearMonth.of(2019,4),new ArrayList<>(),new Consorcio());
         Gasto g1 = new GastoSimple(1,"pruebaGasto1",15F);
         Gasto g2 = new GastoSimple(2,"pruebaGasto2",30F);
         List<Gasto> lg3= new ArrayList<>();

@@ -14,7 +14,10 @@ public class UnidadFuncional implements Observer {
     private String pisoNum;
     private double saldo;
 
-    public UnidadFuncional(int id, String tipo,Propietario propietario, double coeficiente, String pisoNum, double saldo) {
+    public UnidadFuncional() {
+    }
+
+    public UnidadFuncional(int id, String tipo, Propietario propietario, double coeficiente, String pisoNum, double saldo) {
         this.id = id;
         this.tipo = tipo;
         this.propietario = propietario;
@@ -26,7 +29,6 @@ public class UnidadFuncional implements Observer {
     public String getTipo() {
         return tipo;
     }
-
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
@@ -34,7 +36,6 @@ public class UnidadFuncional implements Observer {
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -42,7 +43,6 @@ public class UnidadFuncional implements Observer {
     public Propietario getPropietario() {
         return propietario;
     }
-
     public void setPropietario(Propietario propietario) {
         this.propietario = propietario;
     }
@@ -50,7 +50,6 @@ public class UnidadFuncional implements Observer {
     public double getCoeficiente() {
         return coeficiente;
     }
-
     public void setCoeficiente(double coeficiente) {
         this.coeficiente = coeficiente;
     }
@@ -58,7 +57,6 @@ public class UnidadFuncional implements Observer {
     public String getPisoNum() {
         return pisoNum;
     }
-
     public void setPisoNum(String pisoNum) {
         this.pisoNum = pisoNum;
     }
