@@ -90,6 +90,12 @@ public class Consorcio {
         unidadesFuncionales.remove(uf);
     }
 
+    public void agregarUnidadFuncional(List<UnidadFuncional> ufs){unidadesFuncionales.addAll(ufs);}
+
+    public void eliminarUnidadFuncional(List<UnidadFuncional> ufs){
+        unidadesFuncionales.removeAll(ufs);
+    }
+
     @Override
     public String toString() {
         return "Consorcio{" +
@@ -107,6 +113,7 @@ public class Consorcio {
         * */
         float gastoFinal = liquidacionVigente.getGastoParcial();
         for (UnidadFuncional uf:unidadesFuncionales) {
+            //todo verificar q de 100% los coef
             uf.modificarSaldo(gastoFinal*uf.getCoeficiente());
         }
         Liquidacion cerrada = liquidacionVigente;

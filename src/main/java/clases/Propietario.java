@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Propietario implements Observable {
+public class Propietario {
     @Id
     private String dni;
     private String nombreApellido;
@@ -60,17 +60,4 @@ public class Propietario implements Observable {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-
-    //todo completar observable
-    @Override
-    public void addListener(InvalidationListener listener) {
-
-    }
-
-    @Override
-    public void removeListener(InvalidationListener listener) {
-
-    }
-
-
 }

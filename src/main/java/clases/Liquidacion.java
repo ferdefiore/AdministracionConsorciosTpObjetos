@@ -20,7 +20,7 @@ public class Liquidacion {
     //constructores
     public Liquidacion(){    }
 
-      public Liquidacion(int id_liquidacion, YearMonth periodo, List<Gasto> gastos, Consorcio consorcio) {
+    public Liquidacion(int id_liquidacion, YearMonth periodo, List<Gasto> gastos, Consorcio consorcio) {
         this.id_liquidacion = id_liquidacion;
         this.periodo = periodo;
         this.gastos = gastos;
@@ -60,8 +60,12 @@ public class Liquidacion {
     public void setPeriodo(YearMonth periodo) {
         this.periodo = periodo;
     }
+
     public void agregarGasto(Gasto g) {
-        gastos.add(g);
+        this.gastos.add(g);
+    }
+    public void agregarGasto(List<Gasto> gastos){
+        this.gastos.addAll(gastos);
     }
     public void eliminarGasto(Gasto g) {
         gastos.remove(g);

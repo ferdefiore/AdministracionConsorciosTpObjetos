@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+//todo liquidacioneshistoricas tendra que ser tratado como un singleton, va a guardar las historicas de todos los consorcios
 @Entity
 public class LiquidacionesHistoricas {
     @Id
@@ -14,17 +15,23 @@ public class LiquidacionesHistoricas {
     //Liquidaciones grupo funciona tipo un wrapper, porque no me deja crear un hash con <clave,lista<entidad>>
     private Map<Integer, LiquidacionesGrupo> liquidaciones;
 
+    public LiquidacionesHistoricas() {
+    }
+
     public LiquidacionesHistoricas(int id) {
         this.id = id;
         this.liquidaciones = new HashMap<>();
+
     }
 
     public void agregarHistorica(Integer i, Liquidacion lq){
-        //liquidaciones.get(i).getLiquidaciones().add(lq);
-        LiquidacionesGrupo lg = new LiquidacionesGrupo(this.id);
-        lg.getLiquidaciones().add(lq);
-        //todo aca no tendria que poner lg, sino que tendria que sumar los elemnetos que haya... cambio a futuro
-        liquidaciones.put(i,lg);
+        if (liquidaciones.get(i)==null){
+            LiquidacionesGrupo liquidacionesGrupo = new LiquidacionesGrupo();//todo entre parentesis ponerle id automatico
+            liquidacionesGrupo.getLiquidaciones().add(lq);
+            liquidaciones.put(i,liquidacionesGrupo);
+        }else {
+            liquidaciones.get(i).getLiquidaciones().add(lq);
+        }
     }
 
     public List<Liquidacion> getHashLiquidaciones(Integer i){

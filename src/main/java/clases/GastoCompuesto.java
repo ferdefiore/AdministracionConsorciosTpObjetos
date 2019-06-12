@@ -19,13 +19,6 @@ public class GastoCompuesto extends Gasto {
 
     public void setGastos(List<Gasto> gastos) {
         this.gastos = gastos;
-        //todo, se puede sumar directamente cuando la asigno asi no tengo que hacerlo cada vez que lo piden
-        //pero para que quede claro que reimplementa getGasto de otra manera, lo dejo q haga mas laburo. Borraria lo de abajo.
-/*        float suma = 0f;
-        for (Gasto g:gastos) {
-            suma+= g.getMonto();
-        }
-        this.monto = suma;*/
     }
 
     public List<Gasto> getGastos() {

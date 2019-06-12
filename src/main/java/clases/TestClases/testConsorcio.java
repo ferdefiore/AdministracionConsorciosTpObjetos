@@ -28,8 +28,8 @@ public class testConsorcio {
         List<Gasto> lg3= new ArrayList<>();
         Gasto g3 = new GastoCompuesto(3,"pruebaCompuesto",lg3);
         Consorcio c1 = new Consorcio(1,"Prueba","123","Abc","Neco",lq, ufs);
-        LiquidacionesHistoricas lqh = new LiquidacionesHistoricas(1);
-        lqh.agregarHistorica(lq.getId_liquidacion(),lq);
+        //LiquidacionesHistoricas lqh = new LiquidacionesHistoricas(1);
+        //lqh.agregarHistorica(lq.getId_liquidacion(),lq);
         lg3.add(g1);
         lg3.add(g2);
         ufs.add(uf1);
@@ -39,7 +39,7 @@ public class testConsorcio {
         lq.agregarGasto(g3);
         lq.setConsorcio(c1);
         manager.persist(c1);
-        manager.persist(lqh);
+        //manager.persist(lqh);
         List<Consorcio> prueba = (List<Consorcio>) manager.createQuery("FROM Consorcio").getResultList();
         for (int i = 0; i < prueba.size(); i++) {
             System.out.println(prueba.get(i).toString());

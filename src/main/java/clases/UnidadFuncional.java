@@ -1,10 +1,9 @@
 package clases;
 
 import javax.persistence.*;
-import java.util.Observable;
-import java.util.Observer;
+
 @Entity
-public class UnidadFuncional implements Observer {
+public class UnidadFuncional {
     @Id
     private int id;
     private String tipo;
@@ -29,6 +28,7 @@ public class UnidadFuncional implements Observer {
     public String getTipo() {
         return tipo;
     }
+
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
@@ -36,6 +36,7 @@ public class UnidadFuncional implements Observer {
     public int getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -43,6 +44,7 @@ public class UnidadFuncional implements Observer {
     public Propietario getPropietario() {
         return propietario;
     }
+
     public void setPropietario(Propietario propietario) {
         this.propietario = propietario;
     }
@@ -50,6 +52,7 @@ public class UnidadFuncional implements Observer {
     public double getCoeficiente() {
         return coeficiente;
     }
+
     public void setCoeficiente(double coeficiente) {
         this.coeficiente = coeficiente;
     }
@@ -57,6 +60,7 @@ public class UnidadFuncional implements Observer {
     public String getPisoNum() {
         return pisoNum;
     }
+
     public void setPisoNum(String pisoNum) {
         this.pisoNum = pisoNum;
     }
@@ -64,17 +68,12 @@ public class UnidadFuncional implements Observer {
     public double getSaldo() {
         return saldo;
     }
+
     public void setSaldo(double saldo) {
         this.saldo = saldo;
     }
 
     public void modificarSaldo(double valor) {
         saldo += valor;
-    }
-
-    //todo completar observer
-    @Override
-    public void update(Observable o, Object arg) {
-
     }
 }
