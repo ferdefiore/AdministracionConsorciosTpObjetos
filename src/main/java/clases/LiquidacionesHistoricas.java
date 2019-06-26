@@ -9,6 +9,7 @@ import java.util.Map;
 @Entity
 public class LiquidacionesHistoricas {
     @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int id;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_liquidacion_wrapper ")
@@ -16,12 +17,7 @@ public class LiquidacionesHistoricas {
     private Map<Integer, LiquidacionesGrupo> liquidaciones;
 
     public LiquidacionesHistoricas() {
-    }
-
-    public LiquidacionesHistoricas(int id) {
-        this.id = id;
         this.liquidaciones = new HashMap<>();
-
     }
 
     public void agregarHistorica(Integer i, Liquidacion lq){

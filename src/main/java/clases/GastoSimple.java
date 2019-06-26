@@ -7,8 +7,8 @@ public class GastoSimple extends Gasto{
     public GastoSimple() {
     }
 
-    public GastoSimple(int id, String concepto, float monto) {
-        super(id, concepto, monto);
+    public GastoSimple(String concepto, float monto) {
+        super(concepto, monto);
     }
 
     public void setMonto(float montoNuevo){

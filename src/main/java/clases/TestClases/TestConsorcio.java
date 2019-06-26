@@ -9,7 +9,7 @@ import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
 
-public class testConsorcio {
+public class TestConsorcio {
     private static EntityManager manager;
     private static EntityManagerFactory emf;
 
@@ -20,14 +20,14 @@ public class testConsorcio {
         List<UnidadFuncional> ufs = new ArrayList<>();
         Propietario p1 = new Propietario("1","FDF","FFF","NECO","1555");
         Propietario p2 = new Propietario("2","FDF","FFF","NECO","1555");
-        UnidadFuncional uf1= new UnidadFuncional(1,"dpto",p1,0.2,"1A", 0f);
-        UnidadFuncional uf2= new UnidadFuncional(2,"dpto",p2,0.2,"1B", 0f);
-        Liquidacion lq = new Liquidacion(1,YearMonth.of(2019,4),new ArrayList<>(),new Consorcio());
-        Gasto g1 = new GastoSimple(1,"pruebaGasto1",15F);
-        Gasto g2 = new GastoSimple(2,"pruebaGasto2",30F);
+        UnidadFuncional uf1= new UnidadFuncional("dpto",p1,0.2,"1A", 0f);
+        UnidadFuncional uf2= new UnidadFuncional("dpto",p2,0.2,"1B", 0f);
+        Liquidacion lq = new Liquidacion(YearMonth.of(2019,4),new ArrayList<>(),new Consorcio());
+        Gasto g1 = new GastoSimple("pruebaGasto1",15F);
+        Gasto g2 = new GastoSimple("pruebaGasto2",30F);
         List<Gasto> lg3= new ArrayList<>();
-        Gasto g3 = new GastoCompuesto(3,"pruebaCompuesto",lg3);
-        Consorcio c1 = new Consorcio(1,"Prueba","123","Abc","Neco",lq, ufs);
+        Gasto g3 = new GastoCompuesto("pruebaCompuesto",lg3);
+        Consorcio c1 = new Consorcio("Prueba","123","Abc","Neco",lq, ufs);
         //LiquidacionesHistoricas lqh = new LiquidacionesHistoricas(1);
         //lqh.agregarHistorica(lq.getId_liquidacion(),lq);
         lg3.add(g1);
@@ -44,7 +44,7 @@ public class testConsorcio {
         for (int i = 0; i < prueba.size(); i++) {
             System.out.println(prueba.get(i).toString());
         }
-        c1.setNombre("Cambio de nombre correcto");
+        //c1.setNombre("Cambio de nombre correcto");
         prueba.clear();
         prueba = (List<Consorcio>) manager.createQuery("FROM Consorcio").getResultList();
         for (int i = 0; i < prueba.size(); i++) {

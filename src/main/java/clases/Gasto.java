@@ -1,16 +1,19 @@
 package clases;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
+import javax.persistence.*;
 
 @Entity
 @Inheritance
 public abstract class Gasto {
     @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     protected int id;
     protected String concepto;
     protected float monto;
+
+    public int getId(){
+        return id;
+    }
 
     public String getConcepto() {
         return concepto;
@@ -26,8 +29,8 @@ public abstract class Gasto {
 
     public abstract float getMonto();
 //todo chequear recomendacion del public, si lo cambio a private ver en gastosimple la recomendacion del porque no deberia estar hecho asi
-    public Gasto(int id, String concepto, float monto) {
-        this.id = id;
+    public Gasto(String concepto, float monto) {
+        //this.id = id;
         this.concepto = concepto;
         this.monto = monto;
     }

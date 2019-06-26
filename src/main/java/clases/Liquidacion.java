@@ -8,6 +8,7 @@ import java.util.List;
 public class Liquidacion {
     //atributos
     @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int id_liquidacion;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_consorcio")
@@ -20,8 +21,8 @@ public class Liquidacion {
     //constructores
     public Liquidacion(){    }
 
-    public Liquidacion(int id_liquidacion, YearMonth periodo, List<Gasto> gastos, Consorcio consorcio) {
-        this.id_liquidacion = id_liquidacion;
+    public Liquidacion( YearMonth periodo, List<Gasto> gastos, Consorcio consorcio) {
+        //.id_liquidacion = id_liquidacion;
         this.periodo = periodo;
         this.gastos = gastos;
         this.consorcio = consorcio;

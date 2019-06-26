@@ -7,6 +7,7 @@ import java.util.List;
 @Entity
 public class Consorcio {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String nombre;
     private String cuit;
@@ -24,8 +25,8 @@ public class Consorcio {
     public Consorcio() {
     }
 
-    public Consorcio(int id, String nombre, String cuit, String direccion, String ciudad, Liquidacion liquidacionVigente, List<UnidadFuncional> unidadesFuncionales) {
-        this.id = id;
+    public Consorcio(String nombre, String cuit, String direccion, String ciudad, Liquidacion liquidacionVigente, List<UnidadFuncional> unidadesFuncionales) {
+        //this.id = id;
         this.nombre = nombre;
         this.cuit = cuit;
         this.direccion = direccion;
@@ -117,7 +118,7 @@ public class Consorcio {
             uf.modificarSaldo(gastoFinal*uf.getCoeficiente());
         }
         Liquidacion cerrada = liquidacionVigente;
-        liquidacionVigente = new Liquidacion(cerrada.getId_liquidacion()+1,cerrada.getPeriodo().plusMonths(1),new ArrayList<>(),this);
+        liquidacionVigente = new Liquidacion(cerrada.getPeriodo().plusMonths(1),new ArrayList<>(),this);
         return cerrada;
     }
 

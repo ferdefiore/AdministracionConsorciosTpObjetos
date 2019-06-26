@@ -5,6 +5,7 @@ import javax.persistence.*;
 @Entity
 public class UnidadFuncional {
     @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int id;
     private String tipo;
     @ManyToOne(cascade = CascadeType.ALL)
@@ -16,8 +17,7 @@ public class UnidadFuncional {
     public UnidadFuncional() {
     }
 
-    public UnidadFuncional(int id, String tipo, Propietario propietario, double coeficiente, String pisoNum, double saldo) {
-        this.id = id;
+    public UnidadFuncional( String tipo, Propietario propietario, double coeficiente, String pisoNum, double saldo) {
         this.tipo = tipo;
         this.propietario = propietario;
         this.coeficiente = coeficiente;

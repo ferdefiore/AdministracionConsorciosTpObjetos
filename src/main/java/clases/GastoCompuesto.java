@@ -12,8 +12,8 @@ public class GastoCompuesto extends Gasto {
 
     public GastoCompuesto(){    }
 
-    public GastoCompuesto(int id, String concepto,List<Gasto> gastos) {
-        super(id, concepto,0);
+    public GastoCompuesto( String concepto,List<Gasto> gastos) {
+        super( concepto,0);
         this.gastos = gastos;
     }
 

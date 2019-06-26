@@ -5,17 +5,14 @@ import java.util.List;
 @Entity
 public class LiquidacionesGrupo {
     @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int id;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_liquidacion_grupoPerteneciente")
     private List<Liquidacion> liquidaciones;
 
-    public LiquidacionesGrupo(int id) {
-        this.id = id;
-        this.liquidaciones = new ArrayList<>();
-    }
-
     public LiquidacionesGrupo() {
+        this.liquidaciones = new ArrayList<>();
     }
 
     public int getId() {

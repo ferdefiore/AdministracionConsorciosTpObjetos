@@ -5,14 +5,15 @@ import javax.persistence.*;
 @Entity
 public class Pago {
     @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int id;
     private long montoPagado;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_unidadFuncional")
     private UnidadFuncional unidadFuncional;
 
-    public Pago(int id, long montoPagado, UnidadFuncional unidadFuncional) {
-        this.id = id;
+    public Pago(long montoPagado, UnidadFuncional unidadFuncional) {
+        //this.id = id;
         this.montoPagado = montoPagado;
         this.unidadFuncional = unidadFuncional;
     }
