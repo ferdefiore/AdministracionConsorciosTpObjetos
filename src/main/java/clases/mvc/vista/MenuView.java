@@ -1,14 +1,18 @@
 package clases.mvc.vista;
 
+import clases.EventBusFactory;
+import clases.mvc.controlador.AgregarGastoController;
+import clases.mvc.controlador.NuevoPagoController;
+import com.google.common.eventbus.EventBus;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MenuView extends Application {
+    EventBus bus;
     JFrame frame;
     private JPanel panel1;
     private JButton verLiquidacionesHistoricasButton;
@@ -20,6 +24,8 @@ public class MenuView extends Application {
     private JButton modificarDatosButton;
 
     public MenuView(){
+        bus = EventBusFactory.getEventBus();
+        bus.register(this);
         frame = new JFrame("Bienvenido");
         frame.setSize(300,400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -28,23 +34,20 @@ public class MenuView extends Application {
         nuevoGastoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new AgregarGasto();
+                new AgregarGastoController();
             }
         });
         frame.setVisible(true);
+        nuevoPagoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new NuevoPagoController();
+            }
+        });
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
     }
 
-    public void setData(MenuView data) {
-    }
-
-    public void getData(MenuView data) {
-    }
-
-    public boolean isModified(MenuView data) {
-        return false;
-    }
 }

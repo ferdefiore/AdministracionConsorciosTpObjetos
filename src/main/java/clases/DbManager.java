@@ -76,9 +76,10 @@ public class DbManager {
         GastoCompuesto gastoCompuesto = new GastoCompuesto(concepto,new ArrayList<Gasto>());
         resultList.get(0).getLiquidacionVigente().agregarGasto(gastoCompuesto);
         manager.persist(gastoCompuesto);
+        //todo revisar esto porque no estoy iniciando la transaccion pero igual parece que esta andando
     }
 
-    public void agregarAGastoSimple(String nombreConsorcio, Integer idGastoSeleccionado, String concepto, Float monto) {
+    public void agregarAGasto(String nombreConsorcio, Integer idGastoSeleccionado, String concepto, Float monto) {
         Integer idConsorcio = getIdFromNombreConsorcio(nombreConsorcio);
         GastoSimple gastoSimple = new GastoSimple(concepto,monto);
         List<Consorcio> resultList = (List<Consorcio>) manager.createQuery("FROM Consorcio WHERE nombre = '"+ nombreConsorcio +"'").getResultList();
@@ -91,7 +92,7 @@ public class DbManager {
         manager.persist(gastoSimple);
     }
 
-    public void agregarAGastoCompuesto(String nombreConsorcio, Integer idGastoSeleccionado, String concepto, Float monto) {
+    public void agregarAGasto(String nombreConsorcio, Integer idGastoSeleccionado, String concepto) {
         Integer idConsorcio = getIdFromNombreConsorcio(nombreConsorcio);
         GastoCompuesto gastoCompuesto = new GastoCompuesto(concepto,new ArrayList<Gasto>());
         List<Consorcio> resultList = (List<Consorcio>) manager.createQuery("FROM Consorcio WHERE nombre = '"+ nombreConsorcio +"'").getResultList();
@@ -102,5 +103,19 @@ public class DbManager {
             }
         }
         manager.persist(gastoCompuesto);
+    }
+
+    public List<Integer> getListaUnidadesFuncionalesConsorcio(String nombreConsorcio) {
+        Integer idConsorcio = getIdFromNombreConsorcio(nombreConsorcio);
+        List<Integer> idUnidadesFuncionales = (List<Integer>) manager.createNativeQuery("SELECT id FROM UNIDADFUNCIONAL WHERE ID_CONSORCIO_DUEÑO = " + idConsorcio).getResultList();
+        return idUnidadesFuncionales;
+    }
+
+    public void generarPago(String nombreConsorcio, Integer idUnidadFuncional, Double monto) {
+        manager.getTransaction().begin();
+        Integer idConsorcio = dbManager.getIdFromNombreConsorcio(nombreConsorcio);
+         List<UnidadFuncional> ufs = (List<UnidadFuncional>) manager.createQuery("FROM UnidadFuncional WHERE id =" +idUnidadFuncional).getResultList();
+        ufs.get(0).modificarSaldo(monto);
+        manager.getTransaction().commit();
     }
 }
