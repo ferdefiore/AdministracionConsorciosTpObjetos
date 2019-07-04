@@ -37,4 +37,16 @@ public class AgregarGastoController {
         agregarGastoModel.agregarAGasto(event.nombreConsorcio,event.idGastoSeleccionado,event.concepto,event.monto);
     }
 
+    @Subscribe
+    public  void onTerminar(String event){
+        if (event.equals("Cerrame todo que ya termino los gastos papa")){
+            System.out.println("Cerrame todo que ya termino los gastos papa");
+            bus.unregister(this);
+            bus.unregister(agregarGastoView);
+            bus.unregister(agregarGastoModel);
+            agregarGastoView = null;
+            agregarGastoModel = null;
+            System.gc();
+        }
+    }
 }

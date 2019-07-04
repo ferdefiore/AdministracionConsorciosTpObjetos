@@ -61,6 +61,7 @@ public class AgregarGastoView {
                     bus.post(new AgregarAGasto(nombreConsorcio,idGastoSeleccionado,concepto));
                 }
                 //todo hay que hacer el unregister del bus para los tres componentes
+                bus.post("Cerrame todo que ya termino los gastos papa");
                 frame.dispose();
             }
         });
