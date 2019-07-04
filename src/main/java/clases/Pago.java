@@ -7,12 +7,12 @@ public class Pago {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int id;
-    private long montoPagado;
+    private Double montoPagado;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_unidadFuncional")
     private UnidadFuncional unidadFuncional;
 
-    public Pago(long montoPagado, UnidadFuncional unidadFuncional) {
+    public Pago(Double montoPagado, UnidadFuncional unidadFuncional) {
         //this.id = id;
         this.montoPagado = montoPagado;
         this.unidadFuncional = unidadFuncional;
@@ -29,11 +29,11 @@ public class Pago {
         this.id = id;
     }
 
-    public long getMontoPagado() {
+    public Double getMontoPagado() {
         return montoPagado;
     }
 
-    public void setMontoPagado(long montoPagado) {
+    public void setMontoPagado(Double montoPagado) {
         this.montoPagado = montoPagado;
     }
 

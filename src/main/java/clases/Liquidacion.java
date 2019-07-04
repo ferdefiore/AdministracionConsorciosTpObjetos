@@ -14,7 +14,7 @@ public class Liquidacion {
     @JoinColumn(name = "id_consorcio")
     private Consorcio consorcio;
     private YearMonth periodo;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "id_liq_perteneciente")
     private List<Gasto> gastos;
 

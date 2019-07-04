@@ -26,6 +26,7 @@ public class AgregarGastoView {
         frame.setSize(600,300);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setResizable(false);
+        frame.setLocation(400,250);
         frame.add(this.panel);
         DbManager dbManager = DbManager.getDbManager();
         for (String nombre: listaNombresConsorcios) {
@@ -40,10 +41,11 @@ public class AgregarGastoView {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String nombreConsorcio = (String)comboConsorcios.getSelectedItem();
-                String idGasto = (String) comboGastos.getSelectedItem();
+                String idGasto = comboGastos.getSelectedItem().toString();
+                //System.out.println(comboGastos.getSelectedItem().toString());
                 Integer idGastoSeleccionado = 0;
                 if (!(idGasto.equals("Nuevo Gasto"))){
-                    idGastoSeleccionado = Integer.valueOf((String)comboGastos.getSelectedItem());
+                    idGastoSeleccionado = Integer.valueOf(comboGastos.getSelectedItem().toString());
                 }
                 String concepto = textConcepto.getText();
                 Float monto = 0f;

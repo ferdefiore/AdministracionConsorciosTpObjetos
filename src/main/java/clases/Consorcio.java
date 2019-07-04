@@ -97,6 +97,10 @@ public class Consorcio {
         unidadesFuncionales.removeAll(ufs);
     }
 
+    public void agregarGasto(Gasto g) {
+        this.liquidacionVigente.getGastos().add(g);
+    }
+
     @Override
     public String toString() {
         return "Consorcio{" +
@@ -114,7 +118,7 @@ public class Consorcio {
         * */
         float gastoFinal = liquidacionVigente.getGastoParcial();
         for (UnidadFuncional uf:unidadesFuncionales) {
-            //todo verificar q de 100% los coef
+            //todo verificar q de 100% los coefa
             uf.modificarSaldo(gastoFinal*uf.getCoeficiente());
         }
         Liquidacion cerrada = liquidacionVigente;

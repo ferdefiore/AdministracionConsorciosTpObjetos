@@ -27,6 +27,7 @@ public class NuevoPagoView {
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setResizable(false);
         frame.add(this.panel1);
+        frame.setLocation(450,250);
         frame.setVisible(true);
         for (String nombre: nombresConsorcios) {
             comboConsorcios.addItem(nombre);
@@ -46,6 +47,7 @@ public class NuevoPagoView {
             @Override
             public void actionPerformed(ActionEvent e) {
             bus.post(new GenerarPago((String)comboConsorcios.getSelectedItem(),(Integer)comboUnidadesFuncionales.getSelectedItem(),Double.valueOf(textMonto.getText())));
+            frame.dispose();
             }
         });
     }

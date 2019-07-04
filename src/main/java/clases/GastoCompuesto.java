@@ -2,12 +2,13 @@ package clases;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import java.util.List;
 
 @Entity
 public class GastoCompuesto extends Gasto {
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Gasto> gastos;
 
     public GastoCompuesto(){    }

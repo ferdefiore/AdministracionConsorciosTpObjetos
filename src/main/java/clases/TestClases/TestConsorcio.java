@@ -14,8 +14,7 @@ public class TestConsorcio {
     private static EntityManagerFactory emf;
 
     public static void main(String[] args) {
-        emf = Persistence.createEntityManagerFactory("Persistencia");
-        manager = emf.createEntityManager();
+        manager = JPAUtility.getEntityManager();
         manager.getTransaction().begin();
         List<UnidadFuncional> ufs = new ArrayList<>();
         Propietario p1 = new Propietario("1","FDF","FFF","NECO","1555");
@@ -58,6 +57,7 @@ public class TestConsorcio {
         manager.getTransaction().commit();
         List<Liquidacion> consulta = (List<Liquidacion>) manager.createQuery("FROM Liquidacion").getResultList();
         System.out.println(consulta.get(0).getPeriodo().toString());
-
+        manager.close();
+        JPAUtility.getEntityManager().close();
     }
 }

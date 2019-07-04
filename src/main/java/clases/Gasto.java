@@ -28,7 +28,7 @@ public abstract class Gasto {
     }
 
     public abstract float getMonto();
-//todo chequear recomendacion del public, si lo cambio a private ver en gastosimple la recomendacion del porque no deberia estar hecho asi
+
     public Gasto(String concepto, float monto) {
         //this.id = id;
         this.concepto = concepto;
@@ -36,5 +36,13 @@ public abstract class Gasto {
     }
 
     public Gasto() {
+    }
+
+    @Override
+    public String toString() {
+        return "Gasto: " +
+                "Concepto: '" + concepto + '\'' +
+                "Monto Total:" + this.getMonto() +
+                '.';
     }
 }

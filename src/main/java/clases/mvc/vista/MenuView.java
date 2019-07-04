@@ -2,6 +2,8 @@ package clases.mvc.vista;
 
 import clases.EventBusFactory;
 import clases.mvc.controlador.AgregarGastoController;
+import clases.mvc.controlador.CerrarLiquidacionController;
+import clases.mvc.controlador.LiquidacionVigenteController;
 import clases.mvc.controlador.NuevoPagoController;
 import com.google.common.eventbus.EventBus;
 import javafx.application.Application;
@@ -31,17 +33,30 @@ public class MenuView extends Application {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(this.panel1);
         frame.setResizable(false);
+        frame.setLocation(550,200);
+        frame.setVisible(true);
         nuevoGastoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new AgregarGastoController();
             }
         });
-        frame.setVisible(true);
         nuevoPagoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new NuevoPagoController();
+            }
+        });
+        cerrarLiquidacionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CerrarLiquidacionController();
+            }
+        });
+        verLiquidacionVigenteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new LiquidacionVigenteController();
             }
         });
     }
