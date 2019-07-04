@@ -1,7 +1,6 @@
 package clases.mvc.modelo;
 
-import clases.DbManager;
-import clases.EventBusFactory;
+import clases.*;
 import com.google.common.eventbus.EventBus;
 
 import java.util.List;

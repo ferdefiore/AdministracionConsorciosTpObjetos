@@ -1,9 +1,9 @@
 package clases.mvc.vista;
 
-import clases.DbManager;
-import clases.EventBusFactory;
+import clases.*;
 import com.google.common.eventbus.EventBus;
 
+import javax.persistence.EntityManager;
 import javax.swing.*;
 import java.awt.event.*;
 import java.util.List;
@@ -42,7 +42,6 @@ public class AgregarGastoView {
             public void actionPerformed(ActionEvent e) {
                 String nombreConsorcio = (String)comboConsorcios.getSelectedItem();
                 String idGasto = comboGastos.getSelectedItem().toString();
-                //System.out.println(comboGastos.getSelectedItem().toString());
                 Integer idGastoSeleccionado = 0;
                 if (!(idGasto.equals("Nuevo Gasto"))){
                     idGastoSeleccionado = Integer.valueOf(comboGastos.getSelectedItem().toString());
@@ -61,6 +60,7 @@ public class AgregarGastoView {
                 } else {
                     bus.post(new AgregarAGasto(nombreConsorcio,idGastoSeleccionado,concepto));
                 }
+                //todo hay que hacer el unregister del bus para los tres componentes
                 frame.dispose();
             }
         });

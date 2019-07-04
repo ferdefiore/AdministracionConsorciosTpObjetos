@@ -13,7 +13,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Integer hacer = 0;
+        Integer hacer = 1;
 
         if (hacer == 0){
             DbManager.getDbManager().inicDB();
