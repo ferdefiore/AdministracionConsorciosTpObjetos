@@ -3,6 +3,7 @@ package clases.mvc.modelo;
 import clases.DbManager;
 import clases.EventBusFactory;
 import clases.Gasto;
+import clases.UnidadFuncional;
 import com.google.common.eventbus.EventBus;
 
 import java.util.List;
@@ -22,5 +23,9 @@ public class LiquidacionVigenteModel {
 
     public List<Gasto> getDatosLiquidacionVigente(String nombreConsorcio) {
         return dbManager.getGastosLiquidacionVigente(nombreConsorcio);
+    }
+
+    public List<UnidadFuncional> getUnidadesFuncionales(String nombreConsorcio) {
+        return dbManager.getListaUnidadesFuncionalesConsorcio(nombreConsorcio);
     }
 }

@@ -24,8 +24,10 @@ public class CerrarLiquidacionModel {
     }
 
     public void cerrarLiquidacionGenerarInforme(String nombreConsorcio) throws IOException {
-        Liquidacion liquidacion = dbManager.cerrarLiquidacionGenerarInforme(nombreConsorcio);
-        Printer.printLiquidacionCierre(liquidacion);
+        Liquidacion liquidacionVieja = dbManager.cerrarLiquidacionGenerarInforme(nombreConsorcio);
+        Printer.printLiquidacionCierre(liquidacionVieja);
+        List<UnidadFuncional> ufs = dbManager.getListaUnidadesFuncionalesConsorcio(nombreConsorcio);
+        Printer.printSaldosCierre(ufs);
     }
 }
 

@@ -22,7 +22,7 @@ public class CerrarLiquidacionView {
         bus = EventBusFactory.getEventBus();
         bus.register(this);
         frame = new JFrame("Cierre de liquidacion");
-        frame.setSize(300,300);
+        frame.setSize(400,300);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setResizable(false);
         frame.add(this.panel1);

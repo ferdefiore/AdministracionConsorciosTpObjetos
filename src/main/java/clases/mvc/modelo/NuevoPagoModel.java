@@ -2,8 +2,10 @@ package clases.mvc.modelo;
 
 import clases.DbManager;
 import clases.EventBusFactory;
+import clases.UnidadFuncional;
 import com.google.common.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NuevoPagoModel {
@@ -21,7 +23,12 @@ public class NuevoPagoModel {
     }
 
     public List<Integer> getListaUnidadesFuncionalesConsorcio(String nombreConsorcio) {
-        return dbManager.getListaUnidadesFuncionalesConsorcio(nombreConsorcio);
+        List<Integer> idsUf = new ArrayList<>();
+        List<UnidadFuncional> ufs = dbManager.getListaUnidadesFuncionalesConsorcio(nombreConsorcio);
+        for (UnidadFuncional uf: ufs) {
+            idsUf.add(uf.getId());
+        }
+        return idsUf;
     }
 
     public void generarPago(String nombreConsorcio, Integer idUnidadFuncional, Double monto) {

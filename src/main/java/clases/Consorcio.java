@@ -101,6 +101,10 @@ public class Consorcio {
         this.liquidacionVigente.getGastos().add(g);
     }
 
+    public List<UnidadFuncional> getUnidadesFuncionales(){
+    return unidadesFuncionales;
+    }
+
     @Override
     public String toString() {
         return "Consorcio{" +

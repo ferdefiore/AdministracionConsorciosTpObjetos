@@ -30,7 +30,6 @@ public abstract class Gasto {
     public abstract float getMonto();
 
     public Gasto(String concepto, float monto) {
-        //this.id = id;
         this.concepto = concepto;
         this.monto = monto;
     }
@@ -40,9 +39,6 @@ public abstract class Gasto {
 
     @Override
     public String toString() {
-        return "Gasto: " +
-                "Concepto: '" + concepto + '\'' +
-                "Monto Total:" + this.getMonto() +
-                '.';
+        return "Gasto: Monto Total: $" + this.getMonto() + '\t' + " Concepto: ' " + concepto + " '";
     }
 }

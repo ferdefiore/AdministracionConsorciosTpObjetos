@@ -1,27 +1,15 @@
 package clases;
 
-import clases.TestClases.TestConsorcio;
-import org.hibernate.metamodel.model.convert.spi.JpaAttributeConverter;
-
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DbManager {
 
     public static DbManager dbManager;
-    //private static EntityManagerFactory emf;
-
-    private DbManager() {
-        //emf = Persistence.createEntityManagerFactory("Persistencia");
-        //manager = JPAUtility.getEntityManager();
-    }
 
     public void inicDB() {
-        //manager = JPAUtility.getEntityManager();
+        JPAUtility.getEntityManager();
     }
 
     public static DbManager getDbManager() {
@@ -59,6 +47,15 @@ public class DbManager {
                 "AND g.dtype = 'GastoCompuesto' AND l.id_liquidacion ="+ getIdLiquidacionVigenteConsorcio(nombreConsorcio);
         List<Integer> resultList = (List<Integer>) manager.createNativeQuery(query).getResultList();
         return resultList;
+    }
+
+    public List<Gasto> getGastosLiquidacionVigente(String nombreConsorcio){
+        EntityManager manager;
+        manager = JPAUtility.getEntityManager();
+        Integer idConsorcio = dbManager.getIdFromNombreConsorcio(nombreConsorcio);
+        Consorcio consorcio = (Consorcio) manager.createQuery("FROM Consorcio WHERE id = " + idConsorcio).getSingleResult();
+        List<Gasto> retorno = consorcio.getLiquidacionVigente().getGastos();
+        return retorno;
     }
 
     private Integer getIdLiquidacionVigenteConsorcio(String nombreConsorcio) {
@@ -134,12 +131,12 @@ public class DbManager {
         System.out.println(gastoCompuesto.toString());
     }
 
-    public List<Integer> getListaUnidadesFuncionalesConsorcio(String nombreConsorcio) {
+    public List<UnidadFuncional> getListaUnidadesFuncionalesConsorcio(String nombreConsorcio) {
         EntityManager manager;
         manager = JPAUtility.getEntityManager();
         Integer idConsorcio = getIdFromNombreConsorcio(nombreConsorcio);
-        List<Integer> idUnidadesFuncionales = (List<Integer>) manager.createNativeQuery("SELECT id FROM UNIDADFUNCIONAL WHERE ID_CONSORCIO_DUEÑO = " + idConsorcio).getResultList();
-        return idUnidadesFuncionales;
+        Consorcio c = manager.find(Consorcio.class,idConsorcio);
+        return c.getUnidadesFuncionales();
     }
 
     public void generarPago(String nombreConsorcio, Integer idUnidadFuncional, Double monto) {
@@ -174,14 +171,5 @@ public class DbManager {
         Liquidacion ret = consorcio.cerrarLiquidacion();
         manager.getTransaction().commit();
         return ret;
-    }
-
-    public List<Gasto> getGastosLiquidacionVigente(String nombreConsorcio){
-        EntityManager manager;
-        manager = JPAUtility.getEntityManager();
-        Integer idConsorcio = dbManager.getIdFromNombreConsorcio(nombreConsorcio);
-        Consorcio consorcio = (Consorcio) manager.createQuery("FROM Consorcio WHERE id = " + idConsorcio).getSingleResult();
-        List<Gasto> retorno = consorcio.getLiquidacionVigente().getGastos();
-        return retorno;
     }
 }

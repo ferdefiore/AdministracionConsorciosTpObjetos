@@ -17,7 +17,12 @@ public class UnidadFuncional {
     public UnidadFuncional() {
     }
 
-    public UnidadFuncional( String tipo, Propietario propietario, double coeficiente, String pisoNum, double saldo) {
+    @Override
+    public String toString() {
+        return "IdUf: " +this.getId()+ '\t' +" PisoNum: " + this.getPisoNum() + '\t' +  " Saldo: " + this.getSaldo() +  '\t' + " Propietario: " + this.getPropietario().getNombreApellido() + "." ;
+    }
+
+    public UnidadFuncional(String tipo, Propietario propietario, double coeficiente, String pisoNum, double saldo) {
         this.tipo = tipo;
         this.propietario = propietario;
         this.coeficiente = coeficiente;
