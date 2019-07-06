@@ -30,4 +30,16 @@ public class CerrarLiquidacionController {
             cerrarLiquidacionModel.cerrarLiquidacion(event.nombreConsorcio);
         }
     }
+
+    @Subscribe
+    public void onTerminoView(String event){
+        if (event.equals("Termino cerrar liquidacion")){
+            bus.unregister(this);
+            bus.unregister(cerrarLiquidacionView);
+            bus.unregister(cerrarLiquidacionModel);
+            cerrarLiquidacionView = null;
+            cerrarLiquidacionModel = null;
+            System.gc();
+        }
+    }
 }

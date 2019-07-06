@@ -30,4 +30,16 @@ public class NuevoPagoController {
     public void onGenerarPago(NuevoPagoView.GenerarPago event){
         nuevoPagoModel.generarPago(event.nombreConsorcio,event.idUnidadFuncional,event.monto);
     }
+
+    @Subscribe
+    public  void onTerminar(String event){
+        if (event.equals("Termino de agregar el pago")){
+            bus.unregister(this);
+            bus.unregister(nuevoPagoView);
+            bus.unregister(nuevoPagoModel);
+            nuevoPagoView = null;
+            nuevoPagoModel = null;
+            System.gc();
+        }
+    }
 }

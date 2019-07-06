@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.sql.BatchUpdateException;
 import java.util.List;
 
 public class CerrarLiquidacionView {
@@ -40,6 +41,7 @@ public class CerrarLiquidacionView {
                 }else{
                     bus.post(new CerrarLiquidacion((String)comboConsorcios.getSelectedItem(),false));
                 }
+                bus.post("Termino cerrar liquidacion");
                 frame.dispose();
             }
         });

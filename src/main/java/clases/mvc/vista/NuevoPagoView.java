@@ -47,6 +47,7 @@ public class NuevoPagoView {
             @Override
             public void actionPerformed(ActionEvent e) {
             bus.post(new GenerarPago((String)comboConsorcios.getSelectedItem(),(Integer)comboUnidadesFuncionales.getSelectedItem(),Double.valueOf(textMonto.getText())));
+            bus.post("Termino de agregar el pago");
             frame.dispose();
             }
         });

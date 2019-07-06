@@ -15,10 +15,10 @@ public class Main {
 
         Integer hacer = 1;
 
-        if (hacer == 0){
+        if (hacer == 0) {
             DbManager.getDbManager().inicDB();
         }
-        if (hacer == 1){
+        if (hacer == 1) {
             File file = new File("C:\\Users\\Fermin\\test.mv.db");
             file.delete();
             String[] lista = {};

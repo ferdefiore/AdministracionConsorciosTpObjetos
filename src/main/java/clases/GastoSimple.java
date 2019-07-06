@@ -11,10 +11,6 @@ public class GastoSimple extends Gasto{
         super(concepto, monto);
     }
 
-    public void setMonto(float montoNuevo){
-        monto = montoNuevo;
-    }
-
     @Override
     public float getMonto() {
         return monto;
