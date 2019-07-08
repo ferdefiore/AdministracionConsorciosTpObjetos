@@ -4,6 +4,8 @@ import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.google.common.net.HttpHeaders.FROM;
+
 public class DbManager {
 
     public static DbManager dbManager;
@@ -171,5 +173,51 @@ public class DbManager {
         Liquidacion ret = consorcio.cerrarLiquidacion();
         manager.getTransaction().commit();
         return ret;
+    }
+
+    public Integer getNroConsorcioSiguiente() {
+        EntityManager manager;
+        manager = JPAUtility.getEntityManager();
+        Integer ultimo = (Integer) manager.createNativeQuery("SELECT ID FROM CONSORCIO ORDER BY ID ASC LIMIT 1").getSingleResult();
+        return ultimo+1;
+    }
+
+    public void guardarConsorcio(Consorcio nuevoConsorcio) {
+        EntityManager manager = JPAUtility.getEntityManager();
+        manager.getTransaction().begin();
+        manager.persist(nuevoConsorcio);
+        manager.getTransaction().commit();
+        System.out.println("guardado");
+        System.out.println(nuevoConsorcio.toString());
+    }
+
+    public List<String> getLIstaDniNombrePropietario() {
+        EntityManager manager = JPAUtility.getEntityManager();
+        List<Propietario> propietarios = manager.createQuery("FROM Propietario").getResultList();
+        List<String> ret = new ArrayList<>();
+        for(Propietario p: propietarios){
+            ret.add(p.getDni() + " " + p.getNombreApellido());
+        }
+        return ret;
+    }
+
+    public Propietario getPropietarioFromDni(String dniPropietario) {
+        EntityManager manager = JPAUtility.getEntityManager();
+        return manager.find(Propietario.class,dniPropietario);
+    }
+
+    public void agregarUnidadFuncional(String nombreConsorcioPerteneciente, UnidadFuncional ufNueva) {
+        EntityManager manager = JPAUtility.getEntityManager();
+        Integer idConsorcio = this.getIdFromNombreConsorcio(nombreConsorcioPerteneciente);
+        manager.getTransaction().begin();
+        manager.find(Consorcio.class,idConsorcio).agregarUnidadFuncional(ufNueva);
+        manager.getTransaction().commit();
+    }
+
+    public void agregarPropietario(Propietario nuevoPropietario) {
+        EntityManager manager = JPAUtility.getEntityManager();
+        manager.getTransaction().begin();
+        manager.persist(nuevoPropietario);
+        manager.getTransaction().commit();
     }
 }

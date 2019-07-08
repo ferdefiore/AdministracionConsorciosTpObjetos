@@ -1,10 +1,7 @@
 package clases.mvc.vista;
 
 import clases.EventBusFactory;
-import clases.mvc.controlador.AgregarGastoController;
-import clases.mvc.controlador.CerrarLiquidacionController;
-import clases.mvc.controlador.LiquidacionVigenteController;
-import clases.mvc.controlador.NuevoPagoController;
+import clases.mvc.controlador.*;
 import com.google.common.eventbus.EventBus;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -57,6 +54,12 @@ public class MenuView extends Application {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new LiquidacionVigenteController();
+            }
+        });
+        nuevoConsorcioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new AgregarDatosController();
             }
         });
     }

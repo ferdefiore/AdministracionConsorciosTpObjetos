@@ -25,6 +25,11 @@ public class Main {
             TestConsorcio.main(lista);
             DbManager.getDbManager().inicDB();
         }
+        if (hacer == 2){
+            File file = new File("C:\\Users\\Fermin\\test.mv.db");
+            file.delete();
+            DbManager.getDbManager().inicDB();
+        }
         new MenuView();
     }
 }

@@ -22,7 +22,7 @@ public class LiquidacionVigenteView {
     public LiquidacionVigenteView(List<String> consorcios) {
         bus = EventBusFactory.getEventBus();
         bus.register(this);
-        frame = new JFrame("Cierre de liquidacion");
+        frame = new JFrame("Liquidacion Vigente Gastos y Saldos parciales");
         frame.setSize(400,400);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.add(this.panel1);

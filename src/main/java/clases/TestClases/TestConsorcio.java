@@ -38,6 +38,8 @@ public class TestConsorcio {
         lq.agregarGasto(g3);
         lq.setConsorcio(c1);
         manager.persist(c1);
+        manager.persist(p1);
+        manager.persist(p2);
         //manager.persist(lqh);
         List<Consorcio> prueba = (List<Consorcio>) manager.createQuery("FROM Consorcio").getResultList();
         for (int i = 0; i < prueba.size(); i++) {

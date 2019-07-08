@@ -1,5 +1,7 @@
 package clases;
 
+import org.hibernate.annotations.NaturalId;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +11,7 @@ public class Consorcio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NaturalId
     private String nombre;
     private String cuit;
     private String direccion;

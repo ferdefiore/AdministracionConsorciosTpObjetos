@@ -8,7 +8,7 @@ public class UnidadFuncional {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int id;
     private String tipo;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     private Propietario propietario;
     private double coeficiente;
     private String pisoNum;
