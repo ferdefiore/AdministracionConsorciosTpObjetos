@@ -6,9 +6,6 @@ import com.google.common.eventbus.EventBus;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.sql.BatchUpdateException;
 import java.util.List;
 
 public class CerrarLiquidacionView {
@@ -17,6 +14,7 @@ public class CerrarLiquidacionView {
     private JCheckBox generarArchivoDeTotalesCheckBox;
     private JPanel panel1;
     private JFrame frame;
+    private JFileChooser jFileChooser;
     EventBus bus;
 
     public CerrarLiquidacionView(List<String> listaConsorcios) {

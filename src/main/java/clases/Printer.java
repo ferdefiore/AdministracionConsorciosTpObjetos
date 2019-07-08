@@ -7,41 +7,29 @@ import java.util.List;
 
 public class Printer {
     public static void printLiquidacionCierre(Liquidacion liquidacion) throws IOException {
-        OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream("C:\\Users\\Fermin\\Desktop\\Prueba.txt"));
-        osw.write(liquidacion.getConsorcio().getNombre());
+        OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(liquidacion.getConsorcio().getNombre()+"InformeGastosYSaldos.txt"));
+        osw.write("Consorcio: " + liquidacion.getConsorcio().getNombre());
         osw.write(System.lineSeparator());
         osw.write("--------------------------------------------------------------------------------------");
         osw.write(System.lineSeparator());
         osw.write("Informe correspondiente al cierre de la liquidacion pertenenciente al periodo: " + liquidacion.getPeriodo().toString());
-        osw.write("--------------------------------------------------------------------------------------");
-        osw.write(System.lineSeparator());
-        osw.write("El total conformado por los gastos es de: " + liquidacion.getGastoParcial());
         osw.write(System.lineSeparator());
         osw.write("--------------------------------------------------------------------------------------");
+        osw.write(System.lineSeparator());
+        osw.write("El total conformado por los gastos es de: " + liquidacion.getGastoParcial() +". Gastos Detallados: ");
         osw.write(System.lineSeparator());
         for (Gasto g: liquidacion.getGastos()) {
             osw.write(g.toString());
             osw.write(System.lineSeparator());
         }
         osw.close();
+
     }
 
-    public static void printLiquidacionParcial(Liquidacion liquidacion) throws IOException {
-        OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream("C:\\Users\\Fermin\\Desktop\\Prueba.txt"));
-        osw.write(liquidacion.getConsorcio().getNombre());
-        osw.write("Informe parcial liquidacion pertenenciente al periodo: " + liquidacion.getPeriodo().toString());
+    public static void printSaldosCierre(String nombreConsorcio,List<UnidadFuncional> ufs) throws IOException {
+        OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(nombreConsorcio+"InformeGastosYSaldos.txt",true));
+        osw.write("--------------------------------------------------------------------------------------");
         osw.write(System.lineSeparator());
-        osw.write("El monto parcial conformado por los gastos es de: " + liquidacion.getGastoParcial());
-        osw.write(System.lineSeparator());
-        for (Gasto g: liquidacion.getGastos()) {
-            osw.write(g.toString());
-            osw.write(System.lineSeparator());
-        }
-        osw.close();
-    }
-
-    public static void printSaldosCierre(List<UnidadFuncional> ufs) throws IOException {
-        OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream("C:\\Users\\Fermin\\Desktop\\Prueba.txt",true));
         osw.write("--------------------------------------------------------------------------------------");
         osw.write(System.lineSeparator());
         osw.write("Informe saldos: ");

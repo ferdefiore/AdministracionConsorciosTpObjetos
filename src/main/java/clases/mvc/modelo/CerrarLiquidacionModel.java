@@ -27,7 +27,7 @@ public class CerrarLiquidacionModel {
         Liquidacion liquidacionVieja = dbManager.cerrarLiquidacionGenerarInforme(nombreConsorcio);
         Printer.printLiquidacionCierre(liquidacionVieja);
         List<UnidadFuncional> ufs = dbManager.getListaUnidadesFuncionalesConsorcio(nombreConsorcio);
-        Printer.printSaldosCierre(ufs);
+        Printer.printSaldosCierre(nombreConsorcio,ufs);
     }
 }
 
