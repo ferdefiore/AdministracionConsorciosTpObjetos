@@ -1,7 +1,5 @@
 package clases.filtro;
 
-import clases.UnidadFuncional;
-
 public abstract class Filtro {
-public abstract boolean seCumple(UnidadFuncional uf);
+public abstract boolean seCumple(Object entrada);
 }

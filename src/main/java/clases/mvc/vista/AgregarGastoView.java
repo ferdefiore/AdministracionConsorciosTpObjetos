@@ -1,11 +1,14 @@
 package clases.mvc.vista;
 
-import clases.*;
+import clases.DbManager;
+import clases.EventBusFactory;
 import com.google.common.eventbus.EventBus;
 
-import javax.persistence.EntityManager;
 import javax.swing.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.List;
 
 public class AgregarGastoView {
@@ -26,7 +29,7 @@ public class AgregarGastoView {
         frame.setSize(600,300);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setResizable(false);
-        frame.setLocation(400,250);
+        frame.setLocationRelativeTo(null);
         frame.add(this.panel);
         DbManager dbManager = DbManager.getDbManager();
         for (String nombre: listaNombresConsorcios) {
@@ -86,10 +89,11 @@ public class AgregarGastoView {
     }
     public void poblarGastos(List<Integer> gastos){
         comboGastos.removeAllItems();
+        comboGastos.addItem("Nuevo Gasto");
         for (Integer idGasto: gastos) {
             comboGastos.addItem(idGasto);
+            comboGastos.repaint();
         }
-        comboGastos.updateUI();
     }
     public static class SolicitudListaGastos{
         public String nombreConsorcio;

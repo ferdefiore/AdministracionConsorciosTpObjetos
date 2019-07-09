@@ -7,7 +7,7 @@ public class LiquidacionesGrupo {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int id;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany()
     @JoinColumn(name = "id_liquidacion_grupoPerteneciente")
     private List<Liquidacion> liquidaciones;
 

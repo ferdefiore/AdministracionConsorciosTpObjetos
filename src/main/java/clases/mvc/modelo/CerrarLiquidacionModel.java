@@ -3,7 +3,7 @@ package clases.mvc.modelo;
 import clases.*;
 import com.google.common.eventbus.EventBus;
 
-import java.io.*;
+import java.io.IOException;
 import java.util.List;
 
 public class CerrarLiquidacionModel {
@@ -27,7 +27,7 @@ public class CerrarLiquidacionModel {
         Liquidacion liquidacionVieja = dbManager.cerrarLiquidacionGenerarInforme(nombreConsorcio);
         Printer.printLiquidacionCierre(liquidacionVieja);
         List<UnidadFuncional> ufs = dbManager.getListaUnidadesFuncionalesConsorcio(nombreConsorcio);
-        Printer.printSaldosCierre(nombreConsorcio,ufs);
+        Printer.printSaldosCierre(nombreConsorcio,liquidacionVieja.getPeriodo().toString(),ufs);
     }
 }
 

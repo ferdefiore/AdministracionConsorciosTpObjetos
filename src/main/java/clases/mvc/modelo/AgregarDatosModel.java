@@ -29,7 +29,7 @@ public class AgregarDatosModel {
     }
 
     public List<String> getListaPropietarios() {
-        return dbManager.getLIstaDniNombrePropietario();
+        return dbManager.getListaDniNombrePropietario();
     }
 
     public void crearUnidadFuncional(String nombreConsorcioPerteneciente, String tipoUf, String dniPropietario, double coeficientePago, String pisoNum, double saldo) {

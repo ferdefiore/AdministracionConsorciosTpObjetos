@@ -1,17 +1,24 @@
 package clases;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.google.common.net.HttpHeaders.FROM;
-
 public class DbManager {
 
-    public static DbManager dbManager;
+    private static DbManager dbManager;
 
     public void inicDB() {
-        JPAUtility.getEntityManager();
+        EntityManager manager = JPAUtility.getEntityManager();
+        try{
+            LiquidacionesHistoricas lh = (LiquidacionesHistoricas) manager.createQuery("FROM LiquidacionesHistoricas").getSingleResult();
+        }catch (NoResultException e){
+            manager.getTransaction().begin();
+            LiquidacionesHistoricas liquidacionesHistoricas = new LiquidacionesHistoricas();
+            manager.persist(liquidacionesHistoricas);
+            manager.getTransaction().commit();
+        }
     }
 
     public static DbManager getDbManager() {
@@ -160,7 +167,8 @@ public class DbManager {
         Integer idConsorcio = dbManager.getIdFromNombreConsorcio(nombreConsorcio);
         Consorcio consorcio = (Consorcio) manager.createQuery("FROM Consorcio WHERE id = " + idConsorcio).getSingleResult();
         manager.getTransaction().begin();
-        consorcio.cerrarLiquidacion();
+        Liquidacion liquidacionCerrada = consorcio.cerrarLiquidacion();
+        AgregarHistorica(liquidacionCerrada,idConsorcio,manager);
         manager.getTransaction().commit();
     }
 
@@ -170,9 +178,15 @@ public class DbManager {
         Integer idConsorcio = dbManager.getIdFromNombreConsorcio(nombreConsorcio);
         Consorcio consorcio = (Consorcio) manager.createQuery("FROM Consorcio WHERE id = " + idConsorcio).getSingleResult();
         manager.getTransaction().begin();
-        Liquidacion ret = consorcio.cerrarLiquidacion();
+        Liquidacion liquidacionCerrada = consorcio.cerrarLiquidacion();
+        AgregarHistorica(liquidacionCerrada,idConsorcio,manager);
         manager.getTransaction().commit();
-        return ret;
+        return liquidacionCerrada;
+    }
+
+    private void AgregarHistorica(Liquidacion liquidacionCerrada, Integer idConsorcio, EntityManager manager){
+        LiquidacionesHistoricas lh = (LiquidacionesHistoricas) manager.createQuery("FROM LiquidacionesHistoricas").getSingleResult();
+        lh.agregarHistorica(idConsorcio,liquidacionCerrada);
     }
 
     public Integer getNroConsorcioSiguiente() {
@@ -191,7 +205,7 @@ public class DbManager {
         System.out.println(nuevoConsorcio.toString());
     }
 
-    public List<String> getLIstaDniNombrePropietario() {
+    public List<String> getListaDniNombrePropietario() {
         EntityManager manager = JPAUtility.getEntityManager();
         List<Propietario> propietarios = manager.createQuery("FROM Propietario").getResultList();
         List<String> ret = new ArrayList<>();
@@ -219,5 +233,32 @@ public class DbManager {
         manager.getTransaction().begin();
         manager.persist(nuevoPropietario);
         manager.getTransaction().commit();
+    }
+
+    public List<Liquidacion> getHistoricas(String nombreConsorcio) {
+        EntityManager manager = JPAUtility.getEntityManager();
+        Integer idConsorcio = this.getIdFromNombreConsorcio(nombreConsorcio);
+        LiquidacionesHistoricas lh = (LiquidacionesHistoricas) manager.createQuery("FROM LiquidacionesHistoricas").getSingleResult();
+        return lh.getHashLiquidaciones(idConsorcio);
+    }
+
+    public Liquidacion getLiquidacion(Integer idLiquidacion) {
+        EntityManager manager = JPAUtility.getEntityManager();
+        return manager.find(Liquidacion.class, idLiquidacion);
+        }
+
+    public List<String> getListaPropietarios() {
+        EntityManager manager = JPAUtility.getEntityManager();
+        List<Propietario> propietarios = manager.createQuery("FROM Propietario").getResultList();
+        List<String> ret = new ArrayList<>();
+        for(Propietario p: propietarios){
+            ret.add(p.toString());
+        }
+        return ret;
+    }
+
+    public List<UnidadFuncional> getListaUnidadesFuncionales() {
+        EntityManager manager = JPAUtility.getEntityManager();
+        return (List<UnidadFuncional>) manager.createQuery("FROM UnidadFuncional").getResultList();
     }
 }

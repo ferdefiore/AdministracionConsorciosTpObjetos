@@ -23,10 +23,11 @@ public class LiquidacionVigenteView {
         bus = EventBusFactory.getEventBus();
         bus.register(this);
         frame = new JFrame("Liquidacion Vigente Gastos y Saldos parciales");
-        frame.setSize(400,400);
+        frame.setSize(500,400);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.add(this.panel1);
-        frame.setLocation(450,250);
+        frame.setResizable(false);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
         for (String nombre: consorcios) {
@@ -58,8 +59,9 @@ public class LiquidacionVigenteView {
 
     public void poblarListaUf(List<UnidadFuncional> ufs) {
         list1.setListData(new String[0]);
-        String[] datos = new String[ufs.size()];
-        for (int i = 0; i < ufs.size(); i++) {
+        String[] datos = new String[ufs.size()+1];
+        datos[0] = "Los saldos se actualizaran una ves que se cierre la liquidacion: ";
+        for (int i = 1; i < ufs.size(); i++) {
             datos[i] = ufs.get(i).toString();
         }
         list1.setListData(datos);

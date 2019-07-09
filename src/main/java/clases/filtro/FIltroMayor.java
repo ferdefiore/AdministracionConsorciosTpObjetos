@@ -1,7 +1,5 @@
 package clases.filtro;
 
-import clases.UnidadFuncional;
-
 public class FIltroMayor extends FiltroSaldo {
 
     public FIltroMayor(float saldo) {
@@ -9,7 +7,8 @@ public class FIltroMayor extends FiltroSaldo {
     }
 
     @Override
-    public boolean seCumple(UnidadFuncional uf) {
-        return (uf.getSaldo() > saldo);
+    public boolean seCumple(Object entrada) {
+        double valorFiltro = (double) entrada;
+        return (valorFiltro>saldo);
     }
 }

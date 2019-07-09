@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Printer {
     public static void printLiquidacionCierre(Liquidacion liquidacion) throws IOException {
-        OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(liquidacion.getConsorcio().getNombre()+"InformeGastosYSaldos.txt"));
+        OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(liquidacion.getConsorcio().getNombre()+" Informe Gastos Y Saldos "+ liquidacion.getPeriodo()+".txt"));
         osw.write("Consorcio: " + liquidacion.getConsorcio().getNombre());
         osw.write(System.lineSeparator());
         osw.write("--------------------------------------------------------------------------------------");
@@ -16,7 +16,9 @@ public class Printer {
         osw.write(System.lineSeparator());
         osw.write("--------------------------------------------------------------------------------------");
         osw.write(System.lineSeparator());
-        osw.write("El total conformado por los gastos es de: " + liquidacion.getGastoParcial() +". Gastos Detallados: ");
+        osw.write("El total conformado por los gastos es de: " + liquidacion.getGastoParcial());
+        osw.write(System.lineSeparator());
+        osw.write("Detalle Gastos: ");
         osw.write(System.lineSeparator());
         for (Gasto g: liquidacion.getGastos()) {
             osw.write(g.toString());
@@ -26,8 +28,8 @@ public class Printer {
 
     }
 
-    public static void printSaldosCierre(String nombreConsorcio,List<UnidadFuncional> ufs) throws IOException {
-        OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(nombreConsorcio+"InformeGastosYSaldos.txt",true));
+    public static void printSaldosCierre(String nombreConsorcio,String periodo,List<UnidadFuncional> ufs) throws IOException {
+        OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(nombreConsorcio+" Informe Gastos Y Saldos "+ periodo+".txt",true));
         osw.write("--------------------------------------------------------------------------------------");
         osw.write(System.lineSeparator());
         osw.write("--------------------------------------------------------------------------------------");

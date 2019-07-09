@@ -1,8 +1,5 @@
 package clases;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -50,6 +47,12 @@ public class Propietario {
     public String getDireccion() {
         return direccion;
     }
+
+    @Override
+    public String toString() {
+        return (dni + ", " + nombreApellido + " ," +mail + " ," + direccion + ", " + telefono);
+    }
+
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }

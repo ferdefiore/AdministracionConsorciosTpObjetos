@@ -126,7 +126,7 @@ public class Consorcio {
         float gastoFinal = liquidacionVigente.getGastoParcial();
         for (UnidadFuncional uf:unidadesFuncionales) {
             //todo verificar q de 100% los coefa
-            uf.modificarSaldo(gastoFinal*uf.getCoeficiente());
+            uf.modificarSaldo(-gastoFinal*uf.getCoeficiente());
         }
         Liquidacion cerrada = liquidacionVigente;
         liquidacionVigente = new Liquidacion(cerrada.getPeriodo().plusMonths(1),new ArrayList<>(),this);

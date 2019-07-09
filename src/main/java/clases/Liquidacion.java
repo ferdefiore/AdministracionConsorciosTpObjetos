@@ -22,7 +22,6 @@ public class Liquidacion {
     public Liquidacion(){    }
 
     public Liquidacion( YearMonth periodo, List<Gasto> gastos, Consorcio consorcio) {
-        //.id_liquidacion = id_liquidacion;
         this.periodo = periodo;
         this.gastos = gastos;
         this.consorcio = consorcio;

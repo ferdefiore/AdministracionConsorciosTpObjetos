@@ -4,7 +4,8 @@ import clases.EventBusFactory;
 import com.google.common.eventbus.EventBus;
 
 import javax.swing.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 public class AgregarDatosView {
@@ -17,7 +18,6 @@ public class AgregarDatosView {
     private JTextField txtDireccionConsorcio;
     private JTextField txtCiudadConsorcio;
     private JButton guardarConsorcioButton;
-    private JTextField txtTipoUf;
     private JComboBox comboPropietarios;
     private JTextField txtCoeficienteUf;
     private JTextField txtPisoNumUf;
@@ -30,6 +30,7 @@ public class AgregarDatosView {
     private JTextField txtDireccionPropietario;
     private JTextField txtTelefonoPropietario;
     private JComboBox comboConsorcios;
+    private JComboBox comboTipos;
 
     public AgregarDatosView(List<String> consorcios, List<String> propietarios) {
         bus = EventBusFactory.getEventBus();
@@ -39,7 +40,7 @@ public class AgregarDatosView {
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setResizable(false);
         frame.add(this.panel1);
-        frame.setLocation(300,250);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         this.actualizarListaConsorciosUf(consorcios);
         this.actualizarListaPropietarios(propietarios);
@@ -57,11 +58,10 @@ public class AgregarDatosView {
         guardarUnidadFuncionalButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            bus.post(new CrearUnidadFuncionalNueva((String)comboConsorcios.getSelectedItem(),txtTipoUf.getText(),(String)comboPropietarios.getSelectedItem(),Double.valueOf(txtCoeficienteUf.getText()),txtPisoNumUf.getText(),Double.valueOf(txtSaldoInicialUf.getText())));
+            bus.post(new CrearUnidadFuncionalNueva((String)comboConsorcios.getSelectedItem(),(String)comboTipos.getSelectedItem(),(String)comboPropietarios.getSelectedItem(),Double.valueOf(txtCoeficienteUf.getText()),txtPisoNumUf.getText(),Double.valueOf(txtSaldoInicialUf.getText())));
             txtSaldoInicialUf.setText("");
             txtPisoNumUf.setText("");
             txtCoeficienteUf.setText("");
-            txtTipoUf.setText("");
             }
         });
         guardarPropietarioButton.addActionListener(new ActionListener() {

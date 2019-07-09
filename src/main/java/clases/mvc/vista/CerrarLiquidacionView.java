@@ -25,7 +25,7 @@ public class CerrarLiquidacionView {
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setResizable(false);
         frame.add(this.panel1);
-        frame.setLocation(450,250);
+        frame.setLocationRelativeTo(null);
         for (String nombre: listaConsorcios) {
             comboConsorcios.addItem(nombre);
         }

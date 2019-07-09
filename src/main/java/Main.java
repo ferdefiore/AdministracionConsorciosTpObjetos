@@ -1,6 +1,5 @@
 import clases.DbManager;
 import clases.TestClases.TestConsorcio;
-import clases.mvc.controlador.AgregarGastoController;
 import clases.mvc.vista.MenuView;
 
 import javax.persistence.EntityManager;
@@ -13,7 +12,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Integer hacer = 1;
+        Integer hacer = 2;
 
         if (hacer == 0) {
             DbManager.getDbManager().inicDB();
