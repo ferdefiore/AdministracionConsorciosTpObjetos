@@ -1,5 +1,6 @@
 package clases.mvc.controlador;
 
+import clases.Constantes;
 import clases.EventBusFactory;
 import clases.mvc.modelo.AgregarGastoModel;
 import clases.mvc.vista.AgregarGastoView;
@@ -39,11 +40,9 @@ public class AgregarGastoController {
 
     @Subscribe
     public  void onTerminar(String event){
-        if (event.equals("Cerrame todo que ya termino los gastos papa")){
-            System.out.println("Cerrame todo que ya termino los gastos papa");
+        if (event.equals(Constantes.terminarAgregarGasto)){
             bus.unregister(this);
             bus.unregister(agregarGastoView);
-            bus.unregister(agregarGastoModel);
             agregarGastoView = null;
             agregarGastoModel = null;
             System.gc();

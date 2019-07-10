@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 public class Consorcio {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
     @NaturalId
     private String nombre;
@@ -29,7 +29,6 @@ public class Consorcio {
     }
 
     public Consorcio(String nombre, String cuit, String direccion, String ciudad, Liquidacion liquidacionVigente, List<UnidadFuncional> unidadesFuncionales) {
-        //this.id = id;
         this.nombre = nombre;
         this.cuit = cuit;
         this.direccion = direccion;
@@ -94,12 +93,6 @@ public class Consorcio {
         unidadesFuncionales.remove(uf);
     }
 
-    public void agregarUnidadFuncional(List<UnidadFuncional> ufs){unidadesFuncionales.addAll(ufs);}
-
-    public void eliminarUnidadFuncional(List<UnidadFuncional> ufs){
-        unidadesFuncionales.removeAll(ufs);
-    }
-
     public void agregarGasto(Gasto g) {
         this.liquidacionVigente.getGastos().add(g);
     }
@@ -120,12 +113,9 @@ public class Consorcio {
     }
 
     public Liquidacion cerrarLiquidacion() {
-        /* Liquidacion vigente dame el total de los gastos, a cada unidad funcional que tengo le sumo total de gasto*%pago de cada uf
-        * la liquidacion que tengo, la tengo que mandar a historicas y debo crear una nueva para el proximo mes.
-        * */
         float gastoFinal = liquidacionVigente.getGastoParcial();
         for (UnidadFuncional uf:unidadesFuncionales) {
-            //todo verificar q de 100% los coefa
+            //lo ideal seria revisar que la suma de los coeficientes sea 1, pero asumimos que los datos se cargaran correctamente
             uf.modificarSaldo(-gastoFinal*uf.getCoeficiente());
         }
         Liquidacion cerrada = liquidacionVigente;

@@ -12,7 +12,6 @@
         <class>clases.GastoCompuesto</class>
         <class>clases.Liquidacion</class>
         <class>clases.LiquidacionesHistoricas</class>
-        <class>clases.Modelo</class>
         <class>clases.Propietario</class>
         <class>clases.UnidadFuncional</class>
 

@@ -1,5 +1,6 @@
 package clases.mvc.vista;
 
+import clases.Constantes;
 import clases.EventBusFactory;
 import clases.Gasto;
 import clases.UnidadFuncional;
@@ -8,6 +9,8 @@ import com.google.common.eventbus.EventBus;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 
 public class LiquidacionVigenteView {
@@ -22,7 +25,7 @@ public class LiquidacionVigenteView {
     public LiquidacionVigenteView(List<String> consorcios) {
         bus = EventBusFactory.getEventBus();
         bus.register(this);
-        frame = new JFrame("Liquidacion Vigente Gastos y Saldos parciales");
+        frame = new JFrame(Constantes.tituloLiquidacionVigenteView);
         frame.setSize(500,400);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.add(this.panel1);
@@ -46,10 +49,16 @@ public class LiquidacionVigenteView {
                 bus.post(new SolicitudSaldosLiquidacion((String)comboConsorcios.getSelectedItem()));
             }
         });
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                bus.post(Constantes.terminarLiquidacionVigente);
+            }
+        });
     }
 
     public void poblarListaGasto(List<Gasto> gastos) {
-        list1.setListData(new String[0]);
+        list1.removeAll();
         String[] datos = new String[gastos.size()];
         for (int i = 0; i < gastos.size(); i++) {
             datos[i] = gastos.get(i).toString();
@@ -58,9 +67,9 @@ public class LiquidacionVigenteView {
     }
 
     public void poblarListaUf(List<UnidadFuncional> ufs) {
-        list1.setListData(new String[0]);
+        list1.removeAll();
         String[] datos = new String[ufs.size()+1];
-        datos[0] = "Los saldos se actualizaran una ves que se cierre la liquidacion: ";
+        datos[0] = Constantes.mensajeActualizacionSueldosEnLiquidacionVigente;
         for (int i = 1; i < ufs.size(); i++) {
             datos[i] = ufs.get(i).toString();
         }

@@ -1,13 +1,11 @@
 package clases.mvc.vista;
 
+import clases.Constantes;
 import clases.EventBusFactory;
 import com.google.common.eventbus.EventBus;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.*;
 import java.util.List;
 
 public class LiquidacionesHistoricasView {
@@ -22,7 +20,7 @@ public class LiquidacionesHistoricasView {
     public LiquidacionesHistoricasView(List<String> nombresConsorcios, List<String> listaHistoricas) {
         bus = EventBusFactory.getEventBus();
         bus.register(this);
-        frame = new JFrame("Liquidaciones Historicas");
+        frame = new JFrame(Constantes.tituloLiquidacionesHistoricasView);
         frame.setSize(400,300);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setResizable(false);
@@ -33,6 +31,13 @@ public class LiquidacionesHistoricasView {
         }
         this.poblarLiquidacionesHistoricas(listaHistoricas);
         frame.setVisible(true);
+
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                bus.post(Constantes.terminarLiquidacionesHistoricas);
+            }
+        });
 
         comboConsorcios.addItemListener(new ItemListener() {
             @Override

@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 public class UnidadFuncional {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue (strategy = GenerationType.SEQUENCE)
     private int id;
     private String tipo;
     @ManyToOne()

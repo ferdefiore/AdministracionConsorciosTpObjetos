@@ -1,5 +1,6 @@
 package clases.mvc.controlador;
 
+import clases.Constantes;
 import clases.EventBusFactory;
 import clases.Liquidacion;
 import clases.mvc.modelo.LiquidacionesHistoricasModel;
@@ -23,7 +24,7 @@ public class LiquidacionesHistoricasController {
         model = new LiquidacionesHistoricasModel();
         List<String> nombresConsorcios = model.getListaConsorcios();
         List<String> periodos = new ArrayList<>();
-        liquidaciones = model.getListaHistoricas(nombresConsorcios.get(0));
+        liquidaciones = model.getListaHistoricas(nombresConsorcios.get(Constantes.ceroInteger));
         for(Liquidacion lq : liquidaciones){
             periodos.add(lq.getPeriodo().toString());
         }
@@ -42,13 +43,22 @@ public class LiquidacionesHistoricasController {
 
     @Subscribe
     public void onImprimirLiquidacion(LiquidacionesHistoricasView.ImprimirLiquidacion event) throws IOException {
-        /*String[] añomes = periodo.split("/");
-        YearMonth ym = YearMonth.of(Integer.valueOf(añomes[0]), Integer.valueOf(añomes[1]));*/
         for (Liquidacion lq: liquidaciones){
             if (lq.getPeriodo().toString().equals(event.periodo)){
                 model.imprimirLiquidacion(lq.getId_liquidacion());
                 return;
             }
+        }
+    }
+
+    @Subscribe
+    public void onCerrarVentanasLiquidacionesHistoricas(String event){
+        if (event.equals(Constantes.terminarLiquidacionesHistoricas)){
+            bus.unregister(this);
+            bus.unregister(view);
+            view = null;
+            model = null;
+            System.gc();
         }
     }
 

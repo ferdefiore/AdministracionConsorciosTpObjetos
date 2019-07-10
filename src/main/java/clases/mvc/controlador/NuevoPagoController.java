@@ -1,5 +1,6 @@
 package clases.mvc.controlador;
 
+import clases.Constantes;
 import clases.EventBusFactory;
 import clases.mvc.modelo.NuevoPagoModel;
 import clases.mvc.vista.NuevoPagoView;
@@ -28,12 +29,12 @@ public class NuevoPagoController {
 
     @Subscribe
     public void onGenerarPago(NuevoPagoView.GenerarPago event){
-        nuevoPagoModel.generarPago(event.nombreConsorcio,event.idUnidadFuncional,event.monto);
+        nuevoPagoModel.generarPago(event.idUnidadFuncional,event.monto);
     }
 
     @Subscribe
     public  void onTerminar(String event){
-        if (event.equals("Termino de agregar el pago")){
+        if (event.equals(Constantes.terminarAgregarPago)){
             bus.unregister(this);
             bus.unregister(nuevoPagoView);
             bus.unregister(nuevoPagoModel);

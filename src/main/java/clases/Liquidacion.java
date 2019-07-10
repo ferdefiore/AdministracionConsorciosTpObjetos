@@ -8,7 +8,7 @@ import java.util.List;
 public class Liquidacion {
     //atributos
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue (strategy = GenerationType.SEQUENCE)
     private int id_liquidacion;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_consorcio")
@@ -29,7 +29,7 @@ public class Liquidacion {
 
     //metodos
     public float getGastoParcial() {
-        float gastoTotal=0;
+        float gastoTotal= Constantes.ceroFloat;
         for (Gasto g: gastos) {
             gastoTotal+=g.getMonto();
         }

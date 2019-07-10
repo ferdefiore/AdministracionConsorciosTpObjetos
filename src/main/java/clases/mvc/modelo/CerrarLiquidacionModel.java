@@ -7,26 +7,21 @@ import java.io.IOException;
 import java.util.List;
 
 public class CerrarLiquidacionModel {
-    private EventBus bus;
-    DbManager dbManager = DbManager.getDbManager();
 
-    public CerrarLiquidacionModel() {
-        bus = EventBusFactory.getEventBus();
-        bus.register(this);
-    }
+    DAOmanager daoManager = DAOmanager.getDAOmanager();
 
     public List<String> getNombresDeConsorcios() {
-        return dbManager.getListaNombresConsorcios();
+        return daoManager.getListaNombresConsorcios();
     }
 
     public void cerrarLiquidacion(String nombreConsorcio) {
-        dbManager.cerrarLiquidacion(nombreConsorcio);
+        daoManager.cerrarLiquidacion(nombreConsorcio);
     }
 
     public void cerrarLiquidacionGenerarInforme(String nombreConsorcio) throws IOException {
-        Liquidacion liquidacionVieja = dbManager.cerrarLiquidacionGenerarInforme(nombreConsorcio);
+        Liquidacion liquidacionVieja = daoManager.cerrarLiquidacionGenerarInforme(nombreConsorcio);
         Printer.printLiquidacionCierre(liquidacionVieja);
-        List<UnidadFuncional> ufs = dbManager.getListaUnidadesFuncionalesConsorcio(nombreConsorcio);
+        List<UnidadFuncional> ufs = daoManager.getListaUnidadesFuncionalesConsorcio(nombreConsorcio);
         Printer.printSaldosCierre(nombreConsorcio,liquidacionVieja.getPeriodo().toString(),ufs);
     }
 }

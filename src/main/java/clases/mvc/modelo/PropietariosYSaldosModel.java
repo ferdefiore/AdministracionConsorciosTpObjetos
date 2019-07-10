@@ -1,35 +1,34 @@
 package clases.mvc.modelo;
 
-import clases.DbManager;
+import clases.DAOmanager;
 import clases.UnidadFuncional;
 import clases.filtro.*;
-import com.google.common.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PropietariosYSaldosModel {
-    private DbManager dbManager = DbManager.getDbManager();
-    private EventBus bus;
+    private DAOmanager daoManager = DAOmanager.getDAOmanager();
 
     public List<String> getListaPropietarios() {
-        return dbManager.getListaPropietarios();
+        return daoManager.getListaPropietarios();
     }
 
     public List<String> getListaPropietarios(String nomYApe, String dni) {
-        List<String> personasString =  dbManager.getListaPropietarios();
+        List<String> personasString =  daoManager.getListaPropietarios();
         FiltroTexto filtroNombreApellido = new FiltroTexto(nomYApe);
         FiltroTexto filtroDni = new FiltroTexto(dni);
+        List<String> retorno = new ArrayList<>();
         for (String s : personasString){
-            if (!(filtroNombreApellido.seCumple(s) || filtroDni.seCumple(s))){
-                personasString.remove(s);
+            if ((filtroNombreApellido.seCumple(s) || filtroDni.seCumple(s))){
+                retorno.add(s);
             }
         }
-        return personasString;
+        return retorno;
     }
 
     public List<String> getListaUnidadesFuncionales() {
-        List<UnidadFuncional> unidadesFuncionales = dbManager.getListaUnidadesFuncionales();
+        List<UnidadFuncional> unidadesFuncionales = daoManager.getListaUnidadesFuncionales();
         List<String> retList = new ArrayList<>();
         for (UnidadFuncional uf:unidadesFuncionales){
             retList.add(uf.toString());
@@ -38,7 +37,7 @@ public class PropietariosYSaldosModel {
     }
 
     public List<String> getListaUnidadesFuncionales(float monto, String comparador) {
-        List<UnidadFuncional> unidadesFuncionales = dbManager.getListaUnidadesFuncionales();
+        List<UnidadFuncional> unidadesFuncionales = daoManager.getListaUnidadesFuncionales();
         List<String> retList = new ArrayList<>();
         FiltroSaldo filtroSaldo;
         switch (comparador) {

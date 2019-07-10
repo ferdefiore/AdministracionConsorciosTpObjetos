@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 public class Pago {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue (strategy = GenerationType.SEQUENCE)
     private int id;
     private Double montoPagado;
     @ManyToOne(cascade = CascadeType.ALL)
@@ -13,7 +13,6 @@ public class Pago {
     private UnidadFuncional unidadFuncional;
 
     public Pago(Double montoPagado, UnidadFuncional unidadFuncional) {
-        //this.id = id;
         this.montoPagado = montoPagado;
         this.unidadFuncional = unidadFuncional;
     }

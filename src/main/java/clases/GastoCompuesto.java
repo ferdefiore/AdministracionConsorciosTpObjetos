@@ -14,28 +14,19 @@ public class GastoCompuesto extends Gasto {
     public GastoCompuesto(){    }
 
     public GastoCompuesto( String concepto,List<Gasto> gastos) {
-        super( concepto,0);
+        super( concepto,Constantes.ceroInteger);
         this.gastos = gastos;
-    }
-
-    public void setGastos(List<Gasto> gastos) {
-        this.gastos = gastos;
-    }
-
-    public List<Gasto> getGastos() {
-        return gastos;
     }
 
     @Override
     public float getMonto() {
-        float total = 0;
+        float total = Constantes.ceroFloat;
         for (Gasto g:gastos) {
             total+=g.getMonto();
         }
         return total;
     }
 
-    //todo estos nose si estan de mas, porque se puede hacer directamente con el getGastos.add (desde punto de vista objetos creo q da igual)
     public void agregarGasto(Gasto g){
         gastos.add(g);
     }

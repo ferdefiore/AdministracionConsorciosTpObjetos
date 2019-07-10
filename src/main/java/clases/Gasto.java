@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Inheritance
 public abstract class Gasto {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue (strategy = GenerationType.SEQUENCE)
     protected int id;
     protected String concepto;
     protected float monto;

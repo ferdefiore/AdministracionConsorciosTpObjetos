@@ -1,5 +1,6 @@
 package clases.mvc.controlador;
 
+import clases.Constantes;
 import clases.EventBusFactory;
 import clases.Gasto;
 import clases.UnidadFuncional;
@@ -33,5 +34,16 @@ public class LiquidacionVigenteController {
     public void onSolicitudSaldosLiquidacion(LiquidacionVigenteView.SolicitudSaldosLiquidacion event){
         List<UnidadFuncional> uf = liquidacionVigenteModel.getUnidadesFuncionales(event.nombreConsorcio);
         liquidacionVigenteView.poblarListaUf(uf);
+    }
+
+    @Subscribe
+    public void onCerrarVentanaLiquidacionVigente(String event){
+        if (event.equals(Constantes.terminarLiquidacionVigente)){
+            bus.unregister(this);
+            bus.unregister(liquidacionVigenteView);
+            liquidacionVigenteModel= null;
+            liquidacionVigenteView = null;
+            System.gc();
+        }
     }
 }

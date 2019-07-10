@@ -1,17 +1,21 @@
 package clases.mvc.vista;
 
+import clases.Constantes;
 import clases.EventBusFactory;
 import com.google.common.eventbus.EventBus;
+import com.sun.xml.bind.v2.runtime.reflect.opt.Const;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 
 public class PropietariosYSaldosView {
     private EventBus bus;
-    private JTextField nomYApe;
-    private JTextField dni;
+    private JTextField txtNomYApe;
+    private JTextField txtDni;
     private JFrame frame;
     private JPanel panel1;
     private JList list1;
@@ -22,12 +26,13 @@ public class PropietariosYSaldosView {
     private JTextField textField1;
     private JButton buscarButton1;
     private JList list2;
+    private JButton mostrarTodoButton;
 
 
     public PropietariosYSaldosView(List<String> propietarios, List<String> unidadesFuncionales) {
         bus = EventBusFactory.getEventBus();
         bus.register(this);
-        frame = new JFrame("Datos Propietarios");
+        frame = new JFrame(Constantes.tituloPropietariosYSaldosView);
         frame.setSize(500,500);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setResizable(false);
@@ -36,24 +41,27 @@ public class PropietariosYSaldosView {
         frame.setVisible(true);
         this.poblarPropietarios(propietarios);
         this.poblarUnidadesFuncionales(unidadesFuncionales);
-        buscarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                bus.post(new PedirFiltroPersona(dni.getText(), nomYApe.getText()));
+        buscarButton.addActionListener(e -> bus.post(new PedirFiltroPersona(txtDni.getText(), txtNomYApe.getText())));
+        buscarButton1.addActionListener(e -> {
+            String comparador=Constantes.stringVacio;
+            if (igualRadioButton.isSelected()){
+                comparador = Constantes.singoIgual;
+            } else if (menorRadioButton.isSelected()){
+                comparador = Constantes.signoMenor;
+            } else if (mayorRadioButton.isSelected()){
+                comparador = Constantes.signoMayor;
             }
+            bus.post(new PedirFiltroUnidadFunciona(Float.valueOf(textField1.getText()),comparador));
         });
-        buscarButton1.addActionListener(new ActionListener() {
+        mostrarTodoButton.addActionListener(e -> {
+            txtNomYApe.setText(Constantes.stringVacio);
+            txtDni.setText(Constantes.stringVacio);
+            bus.post(new PedirFiltroPersona(Constantes.stringVacio,Constantes.stringVacio));
+        });
+        frame.addWindowListener(new WindowAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                String comparador="";
-                if (igualRadioButton.isSelected()){
-                    comparador = "=";
-                } else if (menorRadioButton.isSelected()){
-                    comparador = "<";
-                } else if (mayorRadioButton.isSelected()){
-                    comparador = ">";
-                }
-                bus.post(new PedirFiltroUnidadFunciona(Float.valueOf(textField1.getText()),comparador));
+            public void windowClosing(WindowEvent e) {
+                bus.post(Constantes.terminarPropietariosYSaldos);
             }
         });
     }
@@ -94,5 +102,6 @@ public class PropietariosYSaldosView {
             this.monto = monto;
             this.comparador = comparador;
         }
+
     }
 }

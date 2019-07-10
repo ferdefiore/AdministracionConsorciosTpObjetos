@@ -10,7 +10,7 @@ import java.util.Map;
 @Entity
 public class LiquidacionesHistoricas {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue (strategy = GenerationType.SEQUENCE)
     private int id;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_liquidacion_wrapper ")
@@ -27,7 +27,7 @@ public class LiquidacionesHistoricas {
 
     public void agregarHistorica(Integer i, Liquidacion lq){
         if (liquidaciones.get(i)==null){
-            LiquidacionesGrupo liquidacionesGrupo = new LiquidacionesGrupo();//todo entre parentesis ponerle id automatico
+            LiquidacionesGrupo liquidacionesGrupo = new LiquidacionesGrupo();
             liquidacionesGrupo.getLiquidaciones().add(lq);
             liquidaciones.put(i,liquidacionesGrupo);
         }else {

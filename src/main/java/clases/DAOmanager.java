@@ -5,9 +5,17 @@ import javax.persistence.NoResultException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DbManager {
+public class DAOmanager {
 
-    private static DbManager dbManager;
+    private static DAOmanager DAOmanager;
+
+    //singleton
+    public static DAOmanager getDAOmanager() {
+        if (DAOmanager == null) {
+            DAOmanager = new DAOmanager();
+        }
+        return DAOmanager;
+    }
 
     public void inicDB() {
         EntityManager manager = JPAUtility.getEntityManager();
@@ -21,16 +29,8 @@ public class DbManager {
         }
     }
 
-    public static DbManager getDbManager() {
-        if (dbManager == null) {
-            dbManager = new DbManager();
-        }
-        return dbManager;
-    }
-
     public List<String> getListaNombresConsorcios() {
-        EntityManager manager;
-        manager = JPAUtility.getEntityManager();
+        EntityManager manager = JPAUtility.getEntityManager();
         List<String> nombres = new ArrayList<>();
         List<Consorcio> resultList = (List<Consorcio>) manager.createQuery("FROM Consorcio").getResultList();
         for (Consorcio c : resultList) {
@@ -40,15 +40,13 @@ public class DbManager {
     }
 
     public Integer getIdFromNombreConsorcio(String nombreConsorcio) {
-        EntityManager manager;
-        manager = JPAUtility.getEntityManager();
+        EntityManager manager = JPAUtility.getEntityManager();
         String queryGetIdFromNombre = "SELECT id FROM Consorcio WHERE nombre = '" + nombreConsorcio + "'";
         return (Integer) manager.createQuery(queryGetIdFromNombre).getSingleResult();
     }
 
     public List<Integer> getListaGastos(String nombreConsorcio) {
-        EntityManager manager;
-        manager = JPAUtility.getEntityManager();
+        EntityManager manager = JPAUtility.getEntityManager();
         String query = "SELECT id " +
                 "FROM Gasto g JOIN Liquidacion l " +
                 "ON g.id_liq_perteneciente = l.id_liquidacion " +
@@ -59,37 +57,33 @@ public class DbManager {
     }
 
     public List<Gasto> getGastosLiquidacionVigente(String nombreConsorcio){
-        EntityManager manager;
-        manager = JPAUtility.getEntityManager();
-        Integer idConsorcio = dbManager.getIdFromNombreConsorcio(nombreConsorcio);
+        EntityManager manager = JPAUtility.getEntityManager();
+        Integer idConsorcio = DAOmanager.getIdFromNombreConsorcio(nombreConsorcio);
         Consorcio consorcio = (Consorcio) manager.createQuery("FROM Consorcio WHERE id = " + idConsorcio).getSingleResult();
         List<Gasto> retorno = consorcio.getLiquidacionVigente().getGastos();
         return retorno;
     }
 
     private Integer getIdLiquidacionVigenteConsorcio(String nombreConsorcio) {
-        EntityManager manager;
-        manager = JPAUtility.getEntityManager();
+        EntityManager manager = JPAUtility.getEntityManager();
         String queryGetIdLiquidacionFromNombre = "SELECT liquidacionVigente FROM Consorcio WHERE nombre = '" + nombreConsorcio + "'";
         Liquidacion lq = (Liquidacion) manager.createQuery(queryGetIdLiquidacionFromNombre).getSingleResult();
         return lq.getId_liquidacion();
     }
 
     public void agregarNuevoGasto(String nombreConsorcio, String concepto, Float monto) {
-        EntityManager manager;
-        manager = JPAUtility.getEntityManager();
+        EntityManager manager = JPAUtility.getEntityManager();
         GastoSimple gastoSimple = new GastoSimple(concepto, monto);
-        Integer idConsorcio = dbManager.getIdFromNombreConsorcio(nombreConsorcio);
+        Integer idConsorcio = DAOmanager.getIdFromNombreConsorcio(nombreConsorcio);
         Consorcio resultList = manager.find(Consorcio.class,idConsorcio);
         manager.getTransaction().begin();
         resultList.agregarGasto(gastoSimple);
         manager.getTransaction().commit();
         System.out.println(gastoSimple.toString());
     }
-// todo se pueden cambiar las querys por find como en el agregarNuevoGasto
+
     public void agregarNuevoGasto(String nombreConsorcio, String concepto) {
-        EntityManager manager;
-        manager = JPAUtility.getEntityManager();
+        EntityManager manager = JPAUtility.getEntityManager();
         Integer idConsorcio = getIdFromNombreConsorcio(nombreConsorcio);
         Consorcio result = (Consorcio) manager.createQuery("FROM Consorcio WHERE nombre = '" + nombreConsorcio + "'").getSingleResult();
         GastoCompuesto gastoCompuesto = new GastoCompuesto(concepto, new ArrayList<Gasto>());
@@ -100,8 +94,7 @@ public class DbManager {
     }
 
     public void agregarAGasto(String nombreConsorcio, Integer idGastoSeleccionado, String concepto, Float monto) {
-        EntityManager manager;
-        manager = JPAUtility.getEntityManager();
+        EntityManager manager = JPAUtility.getEntityManager();
         Integer idConsorcio = getIdFromNombreConsorcio(nombreConsorcio);
         GastoSimple gastoSimple = new GastoSimple(concepto, monto);
         Consorcio result = (Consorcio) manager.createQuery("FROM Consorcio WHERE nombre = '" + nombreConsorcio + "'").getSingleResult();
@@ -124,8 +117,7 @@ public class DbManager {
     }
 
     public void agregarAGasto(String nombreConsorcio, Integer idGastoSeleccionado, String concepto) {
-        EntityManager manager;
-        manager = JPAUtility.getEntityManager();
+        EntityManager manager = JPAUtility.getEntityManager();
         Integer idConsorcio = getIdFromNombreConsorcio(nombreConsorcio);
         GastoCompuesto gastoCompuesto = new GastoCompuesto(concepto, new ArrayList<Gasto>());
         Consorcio result = (Consorcio) manager.createQuery("FROM Consorcio WHERE nombre = '" + nombreConsorcio + "'").getSingleResult();
@@ -135,24 +127,21 @@ public class DbManager {
                 manager.getTransaction().begin();
                 compuesto.agregarGasto(gastoCompuesto);
                 manager.getTransaction().commit();
+                break;
             }
         }
         System.out.println(gastoCompuesto.toString());
     }
 
     public List<UnidadFuncional> getListaUnidadesFuncionalesConsorcio(String nombreConsorcio) {
-        EntityManager manager;
-        manager = JPAUtility.getEntityManager();
+        EntityManager manager = JPAUtility.getEntityManager();
         Integer idConsorcio = getIdFromNombreConsorcio(nombreConsorcio);
         Consorcio c = manager.find(Consorcio.class,idConsorcio);
         return c.getUnidadesFuncionales();
     }
 
-    public void generarPago(String nombreConsorcio, Integer idUnidadFuncional, Double monto) {
-        EntityManager manager;
-        manager = JPAUtility.getEntityManager();
-        //Integer idConsorcio = dbManager.getIdFromNombreConsorcio(nombreConsorcio);
-        //todo no hace falta pasar el nombre del consorcio ya que los id de las liquidaciones son generados automaticos para todos los consorcios entonces un id solo pertence a un consorcio
+    public void generarPago(Integer idUnidadFuncional, Double monto) {
+        EntityManager manager = JPAUtility.getEntityManager();
         UnidadFuncional uf = (UnidadFuncional) manager.createQuery("FROM UnidadFuncional WHERE id =" + idUnidadFuncional).getSingleResult();
         Pago nuevoPago = new Pago(monto, uf);
         manager.getTransaction().begin();
@@ -162,9 +151,8 @@ public class DbManager {
     }
 
     public void cerrarLiquidacion(String nombreConsorcio) {
-        EntityManager manager;
-        manager = JPAUtility.getEntityManager();
-        Integer idConsorcio = dbManager.getIdFromNombreConsorcio(nombreConsorcio);
+        EntityManager manager = JPAUtility.getEntityManager();
+        Integer idConsorcio = DAOmanager.getIdFromNombreConsorcio(nombreConsorcio);
         Consorcio consorcio = (Consorcio) manager.createQuery("FROM Consorcio WHERE id = " + idConsorcio).getSingleResult();
         manager.getTransaction().begin();
         Liquidacion liquidacionCerrada = consorcio.cerrarLiquidacion();
@@ -173,9 +161,8 @@ public class DbManager {
     }
 
     public Liquidacion cerrarLiquidacionGenerarInforme(String nombreConsorcio) {
-        EntityManager manager;
-        manager = JPAUtility.getEntityManager();
-        Integer idConsorcio = dbManager.getIdFromNombreConsorcio(nombreConsorcio);
+        EntityManager manager = JPAUtility.getEntityManager();
+        Integer idConsorcio = DAOmanager.getIdFromNombreConsorcio(nombreConsorcio);
         Consorcio consorcio = (Consorcio) manager.createQuery("FROM Consorcio WHERE id = " + idConsorcio).getSingleResult();
         manager.getTransaction().begin();
         Liquidacion liquidacionCerrada = consorcio.cerrarLiquidacion();
@@ -190,8 +177,7 @@ public class DbManager {
     }
 
     public Integer getNroConsorcioSiguiente() {
-        EntityManager manager;
-        manager = JPAUtility.getEntityManager();
+        EntityManager manager = JPAUtility.getEntityManager();
         Integer ultimo = (Integer) manager.createNativeQuery("SELECT ID FROM CONSORCIO ORDER BY ID ASC LIMIT 1").getSingleResult();
         return ultimo+1;
     }

@@ -1,5 +1,6 @@
 package clases.mvc.controlador;
 
+import clases.Constantes;
 import clases.EventBusFactory;
 import clases.mvc.modelo.CerrarLiquidacionModel;
 import clases.mvc.vista.CerrarLiquidacionView;
@@ -33,10 +34,9 @@ public class CerrarLiquidacionController {
 
     @Subscribe
     public void onTerminoView(String event){
-        if (event.equals("Termino cerrar liquidacion")){
+        if (event.equals(Constantes.terminarCerrarLiquidacion)){
             bus.unregister(this);
             bus.unregister(cerrarLiquidacionView);
-            bus.unregister(cerrarLiquidacionModel);
             cerrarLiquidacionView = null;
             cerrarLiquidacionModel = null;
             System.gc();

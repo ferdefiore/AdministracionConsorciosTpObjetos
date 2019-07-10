@@ -1,6 +1,6 @@
 package clases.mvc.modelo;
 
-import clases.DbManager;
+import clases.DAOmanager;
 import clases.EventBusFactory;
 import clases.Gasto;
 import clases.UnidadFuncional;
@@ -9,23 +9,17 @@ import com.google.common.eventbus.EventBus;
 import java.util.List;
 
 public class LiquidacionVigenteModel {
-    private EventBus bus;
-    DbManager dbManager = DbManager.getDbManager();
-
-    public LiquidacionVigenteModel() {
-        bus = EventBusFactory.getEventBus();
-        bus.register(this);
-    }
+    DAOmanager daoManager = DAOmanager.getDAOmanager();
 
     public List<String> getNombresDeConsorcios() {
-        return dbManager.getListaNombresConsorcios();
+        return daoManager.getListaNombresConsorcios();
     }
 
     public List<Gasto> getDatosLiquidacionVigente(String nombreConsorcio) {
-        return dbManager.getGastosLiquidacionVigente(nombreConsorcio);
+        return daoManager.getGastosLiquidacionVigente(nombreConsorcio);
     }
 
     public List<UnidadFuncional> getUnidadesFuncionales(String nombreConsorcio) {
-        return dbManager.getListaUnidadesFuncionalesConsorcio(nombreConsorcio);
+        return daoManager.getListaUnidadesFuncionalesConsorcio(nombreConsorcio);
     }
 }

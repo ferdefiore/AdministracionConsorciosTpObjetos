@@ -1,5 +1,6 @@
 package clases.mvc.vista;
 
+import clases.Constantes;
 import clases.EventBusFactory;
 import com.google.common.eventbus.EventBus;
 
@@ -22,7 +23,7 @@ public class NuevoPagoView {
     public NuevoPagoView(List<String> nombresConsorcios, List<Integer> listaUnidadesFuncionales) {
         bus = EventBusFactory.getEventBus();
         bus.register(this);
-        frame = new JFrame("Agregar Pago");
+        frame = new JFrame(Constantes.tituloNuevoPagoView);
         frame.setSize(300,300);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setResizable(false);
@@ -46,8 +47,8 @@ public class NuevoPagoView {
         guardarPagoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            bus.post(new GenerarPago((String)comboConsorcios.getSelectedItem(),(Integer)comboUnidadesFuncionales.getSelectedItem(),Double.valueOf(textMonto.getText())));
-            bus.post("Termino de agregar el pago");
+            bus.post(new GenerarPago((Integer)comboUnidadesFuncionales.getSelectedItem(),Double.valueOf(textMonto.getText())));
+            bus.post(Constantes.terminarAgregarPago);
             frame.dispose();
             }
         });
@@ -69,12 +70,10 @@ public class NuevoPagoView {
     }
 
     public static class GenerarPago{
-        public String nombreConsorcio;
         public Integer idUnidadFuncional;
         public Double monto;
 
-        public GenerarPago(String nombreConsorcio, Integer idUnidadFuncional, Double monto) {
-            this.nombreConsorcio = nombreConsorcio;
+        public GenerarPago(Integer idUnidadFuncional, Double monto) {
             this.idUnidadFuncional = idUnidadFuncional;
             this.monto = monto;
         }

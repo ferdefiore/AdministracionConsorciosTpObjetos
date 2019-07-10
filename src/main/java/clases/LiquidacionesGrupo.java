@@ -5,7 +5,7 @@ import java.util.List;
 @Entity
 public class LiquidacionesGrupo {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue (strategy = GenerationType.SEQUENCE)
     private int id;
     @OneToMany()
     @JoinColumn(name = "id_liquidacion_grupoPerteneciente")

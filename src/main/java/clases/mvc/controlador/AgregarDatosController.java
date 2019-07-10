@@ -1,10 +1,13 @@
 package clases.mvc.controlador;
 
+import clases.Constantes;
 import clases.EventBusFactory;
 import clases.mvc.modelo.AgregarDatosModel;
 import clases.mvc.vista.AgregarDatosView;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
+
+import java.awt.*;
 
 public class AgregarDatosController {
     private EventBus bus;
@@ -25,8 +28,7 @@ public class AgregarDatosController {
 
     @Subscribe
     public void onCrearUnidadFuncionalNueva(AgregarDatosView.CrearUnidadFuncionalNueva event){
-        String[] dniPropietarioSplit = event.dniPropietario.split(" ");
-        System.out.println(dniPropietarioSplit[0]);
+        String[] dniPropietarioSplit = event.dniPropietario.split(Constantes.stringEspacio);
         model.crearUnidadFuncional(event.nombreConsorcioPerteneciente, event.tipoUf, dniPropietarioSplit[0], event.coeficientePago, event.pisoNum, event.saldo);
     }
 
@@ -34,5 +36,16 @@ public class AgregarDatosController {
     public void onCrearPropietarioNuevo(AgregarDatosView.CrearPropietarioNuevo event){
         model.crearPropietarioNuevo(event.dni,event.nomYApe,event.mail,event.direccion,event.telefono);
         view.actualizarListaPropietarios(model.getListaPropietarios());
+    }
+
+    @Subscribe
+    public void onTerminarDeAgregarDatos(String event){
+        if (event.equals(Constantes.terminarAgregarDatos)){
+            bus.unregister(this);
+            bus.unregister(view);
+            view=null;
+            model=null;
+            System.gc();
+        };
     }
 }

@@ -1,5 +1,6 @@
 package clases.mvc.vista;
 
+import clases.Constantes;
 import clases.EventBusFactory;
 import com.google.common.eventbus.EventBus;
 
@@ -20,7 +21,7 @@ public class CerrarLiquidacionView {
     public CerrarLiquidacionView(List<String> listaConsorcios) {
         bus = EventBusFactory.getEventBus();
         bus.register(this);
-        frame = new JFrame("Cierre de liquidacion");
+        frame = new JFrame(Constantes.tituloCerrarLiquidacionView);
         frame.setSize(400,300);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setResizable(false);
@@ -39,7 +40,7 @@ public class CerrarLiquidacionView {
                 }else{
                     bus.post(new CerrarLiquidacion((String)comboConsorcios.getSelectedItem(),false));
                 }
-                bus.post("Termino cerrar liquidacion");
+                bus.post(Constantes.terminarCerrarLiquidacion);
                 frame.dispose();
             }
         });

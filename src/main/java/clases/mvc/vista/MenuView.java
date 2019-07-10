@@ -1,5 +1,6 @@
 package clases.mvc.vista;
 
+import clases.Constantes;
 import clases.EventBusFactory;
 import clases.mvc.controlador.*;
 import com.google.common.eventbus.EventBus;
@@ -21,17 +22,15 @@ public class MenuView extends Application {
     private JButton nuevoGastoButton;
     private JButton nuevoPagoButton;
     private JButton verPropietariosButton;
-    private JButton verSaldosButton;
 
     public MenuView(){
         bus = EventBusFactory.getEventBus();
         bus.register(this);
-        frame = new JFrame("Bienvenido");
+        frame = new JFrame(Constantes.tituloMenuView);
         frame.setSize(500,400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(this.panel1);
         frame.setResizable(false);
-        //frame.setLocation(450,150);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         nuevoGastoButton.addActionListener(new ActionListener() {
