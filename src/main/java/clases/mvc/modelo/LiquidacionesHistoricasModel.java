@@ -1,10 +1,8 @@
 package clases.mvc.modelo;
 
-import clases.DAOmanager;
-import clases.EventBusFactory;
-import clases.Liquidacion;
-import clases.Printer;
-import com.google.common.eventbus.EventBus;
+import clases.utils.DAOmanager;
+import clases.clasesRelacionales.Liquidacion;
+import clases.utils.Printer;
 
 import java.io.IOException;
 import java.util.List;

@@ -1,11 +1,14 @@
 package clases.mvc.vista;
 
-import clases.Constantes;
-import clases.EventBusFactory;
+import clases.utils.Constantes;
+import clases.utils.EventBusFactory;
 import com.google.common.eventbus.EventBus;
 
 import javax.swing.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 
 public class AgregarDatosView {
@@ -36,7 +39,7 @@ public class AgregarDatosView {
         bus = EventBusFactory.getEventBus();
         bus.register(this);
         frame = new JFrame(Constantes.tituloAgregarDatosView);
-        frame.setSize(600,450);
+        frame.setSize(600, 450);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setResizable(false);
         frame.add(this.panel1);
@@ -55,7 +58,7 @@ public class AgregarDatosView {
         guardarConsorcioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                bus.post(new AgregarDatosView.CrearConsorcioNuevo(txtNombreConsorcio.getText(),txtCuitConsorcio.getText(),txtDireccionConsorcio.getText(),txtCiudadConsorcio.getText()));
+                bus.post(new AgregarDatosView.CrearConsorcioNuevo(txtNombreConsorcio.getText(), txtCuitConsorcio.getText(), txtDireccionConsorcio.getText(), txtCiudadConsorcio.getText()));
                 txtCiudadConsorcio.setText(Constantes.stringVacio);
                 txtCuitConsorcio.setText(Constantes.stringVacio);
                 txtDireccionConsorcio.setText(Constantes.stringVacio);
@@ -65,16 +68,16 @@ public class AgregarDatosView {
         guardarUnidadFuncionalButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            bus.post(new CrearUnidadFuncionalNueva((String)comboConsorcios.getSelectedItem(),(String)comboTipos.getSelectedItem(),(String)comboPropietarios.getSelectedItem(),Double.valueOf(txtCoeficienteUf.getText()),txtPisoNumUf.getText(),Double.valueOf(txtSaldoInicialUf.getText())));
-            txtSaldoInicialUf.setText(Constantes.stringVacio);
-            txtPisoNumUf.setText(Constantes.stringVacio);
-            txtCoeficienteUf.setText(Constantes.stringVacio);
+                bus.post(new CrearUnidadFuncionalNueva((String) comboConsorcios.getSelectedItem(), (String) comboTipos.getSelectedItem(), (String) comboPropietarios.getSelectedItem(), Double.valueOf(txtCoeficienteUf.getText()), txtPisoNumUf.getText(), Double.valueOf(txtSaldoInicialUf.getText())));
+                txtSaldoInicialUf.setText(Constantes.stringVacio);
+                txtPisoNumUf.setText(Constantes.stringVacio);
+                txtCoeficienteUf.setText(Constantes.stringVacio);
             }
         });
         guardarPropietarioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                bus.post(new CrearPropietarioNuevo(txtDniPropietario.getText(),txtNombreYApellidoPropietario.getText(),txtMailPropietario.getText(),txtDireccionPropietario.getText(),txtTelefonoPropietario.getText()));
+                bus.post(new CrearPropietarioNuevo(txtDniPropietario.getText(), txtNombreYApellidoPropietario.getText(), txtMailPropietario.getText(), txtDireccionPropietario.getText(), txtTelefonoPropietario.getText()));
                 txtDireccionPropietario.setText(Constantes.stringVacio);
                 txtDniPropietario.setText(Constantes.stringVacio);
                 txtMailPropietario.setText(Constantes.stringVacio);
@@ -86,19 +89,19 @@ public class AgregarDatosView {
 
     public void actualizarListaConsorciosUf(List<String> listaConsorcios) {
         comboConsorcios.removeAllItems();
-        for (String nombre:listaConsorcios) {
+        for (String nombre : listaConsorcios) {
             comboConsorcios.addItem(nombre);
         }
     }
 
     public void actualizarListaPropietarios(List<String> listaPropietarios) {
         comboPropietarios.removeAllItems();
-        for (String nombre:listaPropietarios) {
+        for (String nombre : listaPropietarios) {
             comboPropietarios.addItem(nombre);
         }
     }
 
-    public class CrearConsorcioNuevo{
+    public class CrearConsorcioNuevo {
         public String nombre;
         public String cuit;
         public String direccion;
@@ -112,7 +115,7 @@ public class AgregarDatosView {
         }
     }
 
-    public class CrearUnidadFuncionalNueva{
+    public class CrearUnidadFuncionalNueva {
         public String nombreConsorcioPerteneciente;
         public String tipoUf;
         public String dniPropietario;
@@ -130,7 +133,7 @@ public class AgregarDatosView {
         }
     }
 
-    public class CrearPropietarioNuevo{
+    public class CrearPropietarioNuevo {
         public String dni;
         public String nomYApe;
         public String mail;

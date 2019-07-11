@@ -1,4 +1,4 @@
-package clases;
+package clases.clasesRelacionales;
 
 import org.hibernate.annotations.NaturalId;
 
@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 public class Consorcio {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NaturalId
     private String nombre;
@@ -18,7 +18,7 @@ public class Consorcio {
     private String ciudad;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn (name = "id_liquidacionVigente")
+    @JoinColumn(name = "id_liquidacionVigente")
     private Liquidacion liquidacionVigente;
 
     @OneToMany(cascade = CascadeType.ALL)
@@ -85,20 +85,20 @@ public class Consorcio {
         this.liquidacionVigente = liquidacionVigente;
     }
 
-    public void agregarUnidadFuncional(UnidadFuncional uf){
+    public void agregarUnidadFuncional(UnidadFuncional uf) {
         unidadesFuncionales.add(uf);
     }
 
-    public void eliminarUnidadFuncional(UnidadFuncional uf){
+    public void eliminarUnidadFuncional(UnidadFuncional uf) {
         unidadesFuncionales.remove(uf);
     }
 
-    public void agregarGasto(Gasto g) {
+/*    public void agregarGasto(Gasto g) {
         this.liquidacionVigente.getGastos().add(g);
-    }
+    }*/
 
-    public List<UnidadFuncional> getUnidadesFuncionales(){
-    return unidadesFuncionales;
+    public List<UnidadFuncional> getUnidadesFuncionales() {
+        return unidadesFuncionales;
     }
 
     @Override
@@ -114,12 +114,12 @@ public class Consorcio {
 
     public Liquidacion cerrarLiquidacion() {
         float gastoFinal = liquidacionVigente.getGastoParcial();
-        for (UnidadFuncional uf:unidadesFuncionales) {
+        for (UnidadFuncional uf : unidadesFuncionales) {
             //lo ideal seria revisar que la suma de los coeficientes sea 1, pero asumimos que los datos se cargaran correctamente
-            uf.modificarSaldo(-gastoFinal*uf.getCoeficiente());
+            uf.modificarSaldo(-gastoFinal * uf.getCoeficiente());
         }
         Liquidacion cerrada = liquidacionVigente;
-        liquidacionVigente = new Liquidacion(cerrada.getPeriodo().plusMonths(1),new ArrayList<>(),this);
+        liquidacionVigente = new Liquidacion(cerrada.getPeriodo().plusMonths(1), new ArrayList<>(), this);
         return cerrada;
     }
 

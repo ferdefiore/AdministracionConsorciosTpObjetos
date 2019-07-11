@@ -1,7 +1,7 @@
 package clases.mvc.vista;
 
-import clases.Constantes;
-import clases.EventBusFactory;
+import clases.utils.Constantes;
+import clases.utils.EventBusFactory;
 import com.google.common.eventbus.EventBus;
 
 import javax.swing.*;
@@ -21,20 +21,21 @@ public class AgregarGastoView {
     private JTextField textConcepto;
     private JButton guardarGastoButton;
     private JCheckBox checkCompuesto;
+    private JList listaDetalleGasto;
 
     public AgregarGastoView(List<String> listaNombresConsorcios, List<Integer> listaIdGastos) {
         bus = EventBusFactory.getEventBus();
         bus.register(this);
         frame = new JFrame(Constantes.tituloAgregarGastoView);
-        frame.setSize(600,300);
+        frame.setSize(600, 300);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.add(this.panel);
-        for (String nombre: listaNombresConsorcios) {
+        for (String nombre : listaNombresConsorcios) {
             comboConsorcios.addItem(nombre);
         }
-        for (Integer idGasto: listaIdGastos) {
+        for (Integer idGasto : listaIdGastos) {
             comboGastos.addItem(idGasto);
         }
         frame.setVisible(true);
@@ -42,25 +43,25 @@ public class AgregarGastoView {
         guardarGastoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String nombreConsorcio = (String)comboConsorcios.getSelectedItem();
+                String nombreConsorcio = (String) comboConsorcios.getSelectedItem();
                 String idGasto = comboGastos.getSelectedItem().toString();
                 Integer idGastoSeleccionado = Constantes.ceroInteger;
-                if (!(idGasto.equals(Constantes.stringNuevoGasto))){
+                if (!(idGasto.equals(Constantes.stringNuevoGasto))) {
                     idGastoSeleccionado = Integer.valueOf(comboGastos.getSelectedItem().toString());
                 }
                 String concepto = textConcepto.getText();
                 Float monto = Constantes.ceroFloat;
-                if (!(textMonto.getText().equals(Constantes.stringVacio))){
+                if (!(textMonto.getText().equals(Constantes.stringVacio))) {
                     monto = Float.valueOf(textMonto.getText());
                 }
-                if (comboGastos.getSelectedItem().equals(Constantes.stringNuevoGasto) && !checkCompuesto.isSelected()){
-                    bus.post(new AgregarNuevoGasto(nombreConsorcio,concepto,monto));
-                } else if (comboGastos.getSelectedItem().equals(Constantes.stringNuevoGasto) && checkCompuesto.isSelected()){
-                    bus.post(new AgregarNuevoGasto(nombreConsorcio,concepto));
-                } else if (!(comboGastos.getSelectedItem().equals(Constantes.stringNuevoGasto)) && !checkCompuesto.isSelected()){
-                    bus.post(new AgregarAGasto(nombreConsorcio,idGastoSeleccionado,concepto,monto));
+                if (comboGastos.getSelectedItem().equals(Constantes.stringNuevoGasto) && !checkCompuesto.isSelected()) {
+                    bus.post(new AgregarNuevoGasto(nombreConsorcio, concepto, monto));
+                } else if (comboGastos.getSelectedItem().equals(Constantes.stringNuevoGasto) && checkCompuesto.isSelected()) {
+                    bus.post(new AgregarNuevoGasto(nombreConsorcio, concepto));
+                } else if (!(comboGastos.getSelectedItem().equals(Constantes.stringNuevoGasto)) && !checkCompuesto.isSelected()) {
+                    bus.post(new AgregarAGasto(nombreConsorcio, idGastoSeleccionado, concepto, monto));
                 } else {
-                    bus.post(new AgregarAGasto(nombreConsorcio,idGastoSeleccionado,concepto));
+                    bus.post(new AgregarAGasto(nombreConsorcio, idGastoSeleccionado, concepto));
                 }
                 bus.post(Constantes.terminarAgregarGasto);
                 frame.dispose();
@@ -69,10 +70,10 @@ public class AgregarGastoView {
         checkCompuesto.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (checkCompuesto.isSelected()){
+                if (checkCompuesto.isSelected()) {
                     textMonto.setText(Constantes.stringVacio);
                     textMonto.setEnabled(false);
-                }else{
+                } else {
                     textMonto.setEnabled(true);
                 }
 
@@ -85,48 +86,55 @@ public class AgregarGastoView {
             }
         });
     }
-    public void poblarGastos(List<Integer> gastos){
+
+    public void poblarGastos(List<Integer> gastos) {
         comboGastos.removeAllItems();
         comboGastos.addItem(Constantes.stringNuevoGasto);
-        for (Integer idGasto: gastos) {
+        for (Integer idGasto : gastos) {
             comboGastos.addItem(idGasto);
         }
     }
-    public static class SolicitudListaGastos{
+
+    public static class SolicitudListaGastos {
         public String nombreConsorcio;
-        public SolicitudListaGastos(String nombre){
+        public SolicitudListaGastos(String nombre) {
             nombreConsorcio = nombre;
         }
     }
+
     public static class AgregarNuevoGasto {
         public String nombreConsorcio;
         public String concepto;
         public Float monto;
+
         public AgregarNuevoGasto(String nombreConsorcio, String concepto, Float monto) {
-            this.nombreConsorcio =nombreConsorcio;
+            this.nombreConsorcio = nombreConsorcio;
             this.concepto = concepto;
             this.monto = monto;
         }
+
         public AgregarNuevoGasto(String nombreConsorcio, String concepto) {
-            this.nombreConsorcio =nombreConsorcio;
+            this.nombreConsorcio = nombreConsorcio;
             this.concepto = concepto;
             this.monto = Constantes.discernibleGasto;
         }
     }
+
     public static class AgregarAGasto {
         public String nombreConsorcio;
         public String concepto;
         public Float monto;
         public Integer idGastoSeleccionado;
 
-        public AgregarAGasto(String nombreConsorcio,Integer idGastoSeleccionado, String concepto, Float monto) {
-            this.nombreConsorcio =nombreConsorcio;
+        public AgregarAGasto(String nombreConsorcio, Integer idGastoSeleccionado, String concepto, Float monto) {
+            this.nombreConsorcio = nombreConsorcio;
             this.idGastoSeleccionado = idGastoSeleccionado;
             this.concepto = concepto;
             this.monto = monto;
         }
-        public AgregarAGasto(String nombreConsorcio,Integer idGastoSeleccionado, String concepto) {
-            this.nombreConsorcio =nombreConsorcio;
+
+        public AgregarAGasto(String nombreConsorcio, Integer idGastoSeleccionado, String concepto) {
+            this.nombreConsorcio = nombreConsorcio;
             this.idGastoSeleccionado = idGastoSeleccionado;
             this.concepto = concepto;
             this.monto = Constantes.discernibleGasto;

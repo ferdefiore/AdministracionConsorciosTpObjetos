@@ -9,6 +9,6 @@ public class FIltroMayor extends FiltroSaldo {
     @Override
     public boolean seCumple(Object entrada) {
         double valorFiltro = (double) entrada;
-        return (valorFiltro>saldo);
+        return (valorFiltro > saldo);
     }
 }

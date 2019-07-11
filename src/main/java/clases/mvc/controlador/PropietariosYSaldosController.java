@@ -1,7 +1,7 @@
 package clases.mvc.controlador;
 
-import clases.Constantes;
-import clases.EventBusFactory;
+import clases.utils.Constantes;
+import clases.utils.EventBusFactory;
 import clases.mvc.modelo.PropietariosYSaldosModel;
 import clases.mvc.vista.PropietariosYSaldosView;
 import com.google.common.eventbus.EventBus;
@@ -22,10 +22,10 @@ public class PropietariosYSaldosController {
     }
 
     @Subscribe
-    public void onPedirFiltroPersona(PropietariosYSaldosView.PedirFiltroPersona event){
-        if (event.dni.equals(Constantes.stringVacio) && event.nya.equals(Constantes.stringVacio)){
+    public void onPedirFiltroPersona(PropietariosYSaldosView.PedirFiltroPersona event) {
+        if (event.dni.equals(Constantes.stringVacio) && event.nya.equals(Constantes.stringVacio)) {
             view.poblarPropietarios(model.getListaPropietarios());
-        }else {
+        } else {
             String nomYApe;
             String documento;
             if (event.nya.equals(Constantes.stringVacio)) nomYApe = Constantes.txtVacioDocumentoNyA;
@@ -37,18 +37,18 @@ public class PropietariosYSaldosController {
     }
 
     @Subscribe
-    public void onPedirFiltroUnidadFuncional(PropietariosYSaldosView.PedirFiltroUnidadFunciona event){
-        view.poblarUnidadesFuncionales(model.getListaUnidadesFuncionales(event.monto,event.comparador));
+    public void onPedirFiltroUnidadFuncional(PropietariosYSaldosView.PedirFiltroUnidadFunciona event) {
+        view.poblarUnidadesFuncionales(model.getListaUnidadesFuncionales(event.monto, event.comparador));
     }
 
     @Subscribe
-    public void onTerminarPropietariosYSaldos(String event){
-        if (event.equals(Constantes.terminarPropietariosYSaldos)){
+    public void onTerminarPropietariosYSaldos(String event) {
+        if (event.equals(Constantes.terminarPropietariosYSaldos)) {
             bus.unregister(this);
             bus.unregister(view);
             bus.unregister(model);
-            view=null;
-            model=null;
+            view = null;
+            model = null;
             System.gc();
         }
     }

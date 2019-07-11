@@ -1,4 +1,6 @@
-package clases;
+package clases.clasesRelacionales;
+
+import clases.utils.Constantes;
 
 import javax.persistence.*;
 import java.time.YearMonth;
@@ -8,20 +10,21 @@ import java.util.List;
 public class Liquidacion {
     //atributos
     @Id
-    @GeneratedValue (strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_liquidacion;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_consorcio")
     private Consorcio consorcio;
     private YearMonth periodo;
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_liq_perteneciente")
     private List<Gasto> gastos;
 
     //constructores
-    public Liquidacion(){    }
+    public Liquidacion() {
+    }
 
-    public Liquidacion( YearMonth periodo, List<Gasto> gastos, Consorcio consorcio) {
+    public Liquidacion(YearMonth periodo, List<Gasto> gastos, Consorcio consorcio) {
         this.periodo = periodo;
         this.gastos = gastos;
         this.consorcio = consorcio;
@@ -29,9 +32,9 @@ public class Liquidacion {
 
     //metodos
     public float getGastoParcial() {
-        float gastoTotal= Constantes.ceroFloat;
-        for (Gasto g: gastos) {
-            gastoTotal+=g.getMonto();
+        float gastoTotal = Constantes.ceroFloat;
+        for (Gasto g : gastos) {
+            gastoTotal += g.getMonto();
         }
         return gastoTotal;
     }
@@ -39,24 +42,31 @@ public class Liquidacion {
     public Consorcio getConsorcio() {
         return consorcio;
     }
+
     public void setConsorcio(Consorcio consorcio) {
         this.consorcio = consorcio;
     }
+
     public int getId_liquidacion() {
         return id_liquidacion;
     }
+
     public void setId_liquidacion(int id_liquidacion) {
         this.id_liquidacion = id_liquidacion;
     }
+
     public List<Gasto> getGastos() {
         return gastos;
     }
+
     public void setGastos(List<Gasto> gastos) {
         this.gastos = gastos;
     }
+
     public YearMonth getPeriodo() {
         return periodo;
     }
+
     public void setPeriodo(YearMonth periodo) {
         this.periodo = periodo;
     }
@@ -64,8 +74,15 @@ public class Liquidacion {
     public void agregarGasto(Gasto g) {
         this.gastos.add(g);
     }
-    public void agregarGasto(List<Gasto> gastos){
-        this.gastos.addAll(gastos);
+
+    public void agregarAGastoCompuesto(Gasto nuevo, Integer idGastoPadre){
+        for (Gasto g:gastos) {
+            if (g.id == idGastoPadre){
+                GastoCompuesto temporal = (GastoCompuesto) g;
+                temporal.agregarGasto(nuevo);
+                break;
+            }
+        }
     }
     public void eliminarGasto(Gasto g) {
         gastos.remove(g);

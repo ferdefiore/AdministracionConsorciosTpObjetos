@@ -1,8 +1,8 @@
-package clases;
+package clases.utils;
 
 public class Constantes {
     public static String stringVacio = "";
-    public static String txtVacioDocumentoNyA = "-1";
+    public static String txtVacioDocumentoNyA = "!!!";
     public static String stringEspacio = " ";
     public static String stringNuevoGasto = "Nuevo Gasto";
     public static float discernibleGasto = -1f;
@@ -15,10 +15,10 @@ public class Constantes {
     //////----------------------------MENSAJES BUS-------------------------------------------//////
     public static String terminarAgregarDatos = "Termino de agregar datos";
     public static String terminarAgregarGasto = "Termino de agregar gastos";
-    public static String terminarCerrarLiquidacion= "Termino cerrar liquidacion";
+    public static String terminarCerrarLiquidacion = "Termino cerrar liquidacion";
     public static String terminarLiquidacionesHistoricas = "Se cerro ventana de liquidaciones historicas";
     public static String terminarLiquidacionVigente = "Se cerro ventana de liquidacion vigente";
-    public static String terminarAgregarPago ="Termino de agregar el pago";
+    public static String terminarAgregarPago = "Termino de agregar el pago";
     public static String terminarPropietariosYSaldos = "Terminar Propietarios Y Saldos";
 
     /////----------------------------COMPONENTES VISTAS-------------------------------------//////
@@ -31,7 +31,8 @@ public class Constantes {
     public static String tituloPropietariosYSaldosView = "Datos Propietarios y Saldos";
     public static String tituloMenuView = "Bienvenido";
 
-    /////----------------------------MENSAJES-----------------------------------------------//////
-    public static String mensajeActualizacionSueldosEnLiquidacionVigente ="Los saldos se actualizaran una ves que se cierre la liquidacion: ";
-
+    /////----------------------------DB-----------------------------------------------//////
+    public static String pathArchivoBaseDatos = "\\dataBase.mv.db";
+    public static String nombreCarpetaContenedoraBaseDatosInicial = "\\DBInicFile";
+    public static String nombreBaseDatos = "dataBase.mv.db";
 }

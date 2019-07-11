@@ -1,6 +1,6 @@
 package clases.filtro;
 
-public class FiltroTexto extends Filtro{
+public class FiltroTexto extends Filtro {
     private String textoContenido;
 
     public FiltroTexto(String texto) {

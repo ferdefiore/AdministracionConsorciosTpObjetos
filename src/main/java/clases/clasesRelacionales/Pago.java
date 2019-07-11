@@ -1,11 +1,11 @@
-package clases;
+package clases.clasesRelacionales;
 
 import javax.persistence.*;
 
 @Entity
 public class Pago {
     @Id
-    @GeneratedValue (strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private Double montoPagado;
     @ManyToOne(cascade = CascadeType.ALL)

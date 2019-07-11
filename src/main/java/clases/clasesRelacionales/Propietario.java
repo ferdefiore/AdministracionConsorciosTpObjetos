@@ -1,4 +1,4 @@
-package clases;
+package clases.clasesRelacionales;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -26,6 +26,7 @@ public class Propietario {
     public String getDni() {
         return dni;
     }
+
     public void setDni(String dni) {
         this.dni = dni;
     }
@@ -33,6 +34,7 @@ public class Propietario {
     public String getNombreApellido() {
         return nombreApellido;
     }
+
     public void setNombreApellido(String nombreApellido) {
         this.nombreApellido = nombreApellido;
     }
@@ -40,6 +42,7 @@ public class Propietario {
     public String getMail() {
         return mail;
     }
+
     public void setMail(String mail) {
         this.mail = mail;
     }
@@ -50,7 +53,7 @@ public class Propietario {
 
     @Override
     public String toString() {
-        return (dni + ", " + nombreApellido + " ," +mail + " ," + direccion + ", " + telefono);
+        return (dni + ", " + nombreApellido + " ," + mail + " ," + direccion + ", " + telefono);
     }
 
     public void setDireccion(String direccion) {
@@ -60,6 +63,7 @@ public class Propietario {
     public String getTelefono() {
         return telefono;
     }
+
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }

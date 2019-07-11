@@ -1,10 +1,8 @@
 package clases.mvc.modelo;
 
-import clases.DAOmanager;
-import clases.EventBusFactory;
-import clases.Gasto;
-import clases.UnidadFuncional;
-import com.google.common.eventbus.EventBus;
+import clases.utils.DAOmanager;
+import clases.clasesRelacionales.Gasto;
+import clases.clasesRelacionales.UnidadFuncional;
 
 import java.util.List;
 

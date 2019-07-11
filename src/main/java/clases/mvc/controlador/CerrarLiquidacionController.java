@@ -1,7 +1,7 @@
 package clases.mvc.controlador;
 
-import clases.Constantes;
-import clases.EventBusFactory;
+import clases.utils.Constantes;
+import clases.utils.EventBusFactory;
 import clases.mvc.modelo.CerrarLiquidacionModel;
 import clases.mvc.vista.CerrarLiquidacionView;
 import com.google.common.eventbus.EventBus;
@@ -25,16 +25,16 @@ public class CerrarLiquidacionController {
 
     @Subscribe
     public void onCerrarLiquidacion(CerrarLiquidacionView.CerrarLiquidacion event) throws IOException {
-        if (event.generarInforme){
+        if (event.generarInforme) {
             cerrarLiquidacionModel.cerrarLiquidacionGenerarInforme(event.nombreConsorcio);
-        }else {
+        } else {
             cerrarLiquidacionModel.cerrarLiquidacion(event.nombreConsorcio);
         }
     }
 
     @Subscribe
-    public void onTerminoView(String event){
-        if (event.equals(Constantes.terminarCerrarLiquidacion)){
+    public void onTerminoView(String event) {
+        if (event.equals(Constantes.terminarCerrarLiquidacion)) {
             bus.unregister(this);
             bus.unregister(cerrarLiquidacionView);
             cerrarLiquidacionView = null;

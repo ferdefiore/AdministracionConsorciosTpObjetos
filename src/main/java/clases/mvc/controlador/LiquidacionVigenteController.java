@@ -1,9 +1,9 @@
 package clases.mvc.controlador;
 
-import clases.Constantes;
-import clases.EventBusFactory;
-import clases.Gasto;
-import clases.UnidadFuncional;
+import clases.utils.Constantes;
+import clases.utils.EventBusFactory;
+import clases.clasesRelacionales.Gasto;
+import clases.clasesRelacionales.UnidadFuncional;
 import clases.mvc.modelo.LiquidacionVigenteModel;
 import clases.mvc.vista.LiquidacionVigenteView;
 import com.google.common.eventbus.EventBus;
@@ -25,23 +25,23 @@ public class LiquidacionVigenteController {
     }
 
     @Subscribe
-    public void onSolicitudGastosLiquidacion(LiquidacionVigenteView.SolicitudGastosLiquidacion event){
+    public void onSolicitudGastosLiquidacion(LiquidacionVigenteView.SolicitudGastosLiquidacion event) {
         List<Gasto> gastos = liquidacionVigenteModel.getDatosLiquidacionVigente(event.nombreConsorcio);
         liquidacionVigenteView.poblarListaGasto(gastos);
     }
 
     @Subscribe
-    public void onSolicitudSaldosLiquidacion(LiquidacionVigenteView.SolicitudSaldosLiquidacion event){
+    public void onSolicitudSaldosLiquidacion(LiquidacionVigenteView.SolicitudSaldosLiquidacion event) {
         List<UnidadFuncional> uf = liquidacionVigenteModel.getUnidadesFuncionales(event.nombreConsorcio);
         liquidacionVigenteView.poblarListaUf(uf);
     }
 
     @Subscribe
-    public void onCerrarVentanaLiquidacionVigente(String event){
-        if (event.equals(Constantes.terminarLiquidacionVigente)){
+    public void onCerrarVentanaLiquidacionVigente(String event) {
+        if (event.equals(Constantes.terminarLiquidacionVigente)) {
             bus.unregister(this);
             bus.unregister(liquidacionVigenteView);
-            liquidacionVigenteModel= null;
+            liquidacionVigenteModel = null;
             liquidacionVigenteView = null;
             System.gc();
         }

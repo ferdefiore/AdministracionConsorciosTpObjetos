@@ -1,4 +1,5 @@
-package clases;
+package clases.utils;
+
 import com.google.common.eventbus.AsyncEventBus;
 import com.google.common.eventbus.EventBus;
 

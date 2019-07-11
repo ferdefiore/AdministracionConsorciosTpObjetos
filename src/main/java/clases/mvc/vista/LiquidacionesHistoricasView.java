@@ -1,7 +1,7 @@
 package clases.mvc.vista;
 
-import clases.Constantes;
-import clases.EventBusFactory;
+import clases.utils.Constantes;
+import clases.utils.EventBusFactory;
 import com.google.common.eventbus.EventBus;
 
 import javax.swing.*;
@@ -21,12 +21,12 @@ public class LiquidacionesHistoricasView {
         bus = EventBusFactory.getEventBus();
         bus.register(this);
         frame = new JFrame(Constantes.tituloLiquidacionesHistoricasView);
-        frame.setSize(400,300);
+        frame.setSize(400, 300);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setResizable(false);
         frame.add(this.panel1);
         frame.setLocationRelativeTo(null);
-        for (String nombreConsorcio: nombresConsorcios){
+        for (String nombreConsorcio : nombresConsorcios) {
             comboConsorcios.addItem(nombreConsorcio);
         }
         this.poblarLiquidacionesHistoricas(listaHistoricas);
@@ -42,25 +42,25 @@ public class LiquidacionesHistoricasView {
         comboConsorcios.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                bus.post(new SolicitudPeriodos((String)comboConsorcios.getSelectedItem()));
+                bus.post(new SolicitudPeriodos((String) comboConsorcios.getSelectedItem()));
             }
         });
         importarLiquidacionAArchivoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                bus.post(new ImprimirLiquidacion((String) comboConsorcios.getSelectedItem(),(String) comboPeriodos.getSelectedItem()));
+                bus.post(new ImprimirLiquidacion((String) comboConsorcios.getSelectedItem(), (String) comboPeriodos.getSelectedItem()));
             }
         });
     }
 
-    public void poblarLiquidacionesHistoricas(List<String> periodos){
+    public void poblarLiquidacionesHistoricas(List<String> periodos) {
         comboPeriodos.removeAllItems();
-        for (String p : periodos){
+        for (String p : periodos) {
             comboPeriodos.addItem(p);
         }
     }
 
-    public class SolicitudPeriodos{
+    public class SolicitudPeriodos {
         public String nombreConsorcio;
 
         public SolicitudPeriodos(String nombreConsorcio) {
@@ -68,7 +68,7 @@ public class LiquidacionesHistoricasView {
         }
     }
 
-    public class ImprimirLiquidacion{
+    public class ImprimirLiquidacion {
         public String nombreConsorcio;
         public String periodo;
 

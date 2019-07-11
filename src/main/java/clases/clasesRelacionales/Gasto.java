@@ -1,4 +1,4 @@
-package clases;
+package clases.clasesRelacionales;
 
 import javax.persistence.*;
 
@@ -6,12 +6,12 @@ import javax.persistence.*;
 @Inheritance
 public abstract class Gasto {
     @Id
-    @GeneratedValue (strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int id;
     protected String concepto;
     protected float monto;
 
-    public int getId(){
+    public int getId() {
         return id;
     }
 
@@ -37,8 +37,5 @@ public abstract class Gasto {
     public Gasto() {
     }
 
-    @Override
-    public String toString() {
-        return "Gasto: Monto Total: $" + this.getMonto() + '\t' + " Concepto: ' " + concepto + " '";
-    }
+
 }

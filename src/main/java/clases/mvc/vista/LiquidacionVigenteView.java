@@ -1,9 +1,9 @@
 package clases.mvc.vista;
 
-import clases.Constantes;
-import clases.EventBusFactory;
-import clases.Gasto;
-import clases.UnidadFuncional;
+import clases.utils.Constantes;
+import clases.utils.EventBusFactory;
+import clases.clasesRelacionales.Gasto;
+import clases.clasesRelacionales.UnidadFuncional;
 import com.google.common.eventbus.EventBus;
 
 import javax.swing.*;
@@ -26,27 +26,27 @@ public class LiquidacionVigenteView {
         bus = EventBusFactory.getEventBus();
         bus.register(this);
         frame = new JFrame(Constantes.tituloLiquidacionVigenteView);
-        frame.setSize(500,400);
+        frame.setSize(600, 400);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.add(this.panel1);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
-        for (String nombre: consorcios) {
+        for (String nombre : consorcios) {
             comboConsorcios.addItem(nombre);
         }
 
         buscarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            bus.post(new SolicitudGastosLiquidacion((String)comboConsorcios.getSelectedItem()));
+                bus.post(new SolicitudGastosLiquidacion((String) comboConsorcios.getSelectedItem()));
             }
         });
         verSaldosButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                bus.post(new SolicitudSaldosLiquidacion((String)comboConsorcios.getSelectedItem()));
+                bus.post(new SolicitudSaldosLiquidacion((String) comboConsorcios.getSelectedItem()));
             }
         });
         frame.addWindowListener(new WindowAdapter() {
@@ -68,9 +68,8 @@ public class LiquidacionVigenteView {
 
     public void poblarListaUf(List<UnidadFuncional> ufs) {
         list1.removeAll();
-        String[] datos = new String[ufs.size()+1];
-        datos[0] = Constantes.mensajeActualizacionSueldosEnLiquidacionVigente;
-        for (int i = 1; i < ufs.size(); i++) {
+        String[] datos = new String[ufs.size()];
+        for (int i = 0; i < ufs.size(); i++) {
             datos[i] = ufs.get(i).toString();
         }
         list1.setListData(datos);
@@ -78,12 +77,13 @@ public class LiquidacionVigenteView {
 
     public class SolicitudGastosLiquidacion {
         public String nombreConsorcio;
+
         public SolicitudGastosLiquidacion(String nombreConsorcio) {
             this.nombreConsorcio = nombreConsorcio;
         }
     }
 
-    public class SolicitudSaldosLiquidacion{
+    public class SolicitudSaldosLiquidacion {
         public String nombreConsorcio;
 
         public SolicitudSaldosLiquidacion(String nombreConsorcio) {

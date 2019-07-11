@@ -1,9 +1,9 @@
-package clases;
+package clases.clasesRelacionales;
 
 import javax.persistence.Entity;
 
 @Entity
-public class GastoSimple extends Gasto{
+public class GastoSimple extends Gasto {
     public GastoSimple() {
     }
 
@@ -16,4 +16,8 @@ public class GastoSimple extends Gasto{
         return monto;
     }
 
+    @Override
+    public String toString() {
+        return "Gasto Simple: Monto Total: $" + this.getMonto() + '\t' + " Concepto: ' " + concepto + " '";
+    }
 }

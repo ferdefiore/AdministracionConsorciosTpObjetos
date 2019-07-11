@@ -1,13 +1,10 @@
 package clases.mvc.vista;
 
-import clases.Constantes;
-import clases.EventBusFactory;
+import clases.utils.Constantes;
+import clases.utils.EventBusFactory;
 import com.google.common.eventbus.EventBus;
-import com.sun.xml.bind.v2.runtime.reflect.opt.Const;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
@@ -33,7 +30,7 @@ public class PropietariosYSaldosView {
         bus = EventBusFactory.getEventBus();
         bus.register(this);
         frame = new JFrame(Constantes.tituloPropietariosYSaldosView);
-        frame.setSize(500,500);
+        frame.setSize(800, 500);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setResizable(false);
         frame.add(this.panel1);
@@ -43,20 +40,20 @@ public class PropietariosYSaldosView {
         this.poblarUnidadesFuncionales(unidadesFuncionales);
         buscarButton.addActionListener(e -> bus.post(new PedirFiltroPersona(txtDni.getText(), txtNomYApe.getText())));
         buscarButton1.addActionListener(e -> {
-            String comparador=Constantes.stringVacio;
-            if (igualRadioButton.isSelected()){
+            String comparador = Constantes.stringVacio;
+            if (igualRadioButton.isSelected()) {
                 comparador = Constantes.singoIgual;
-            } else if (menorRadioButton.isSelected()){
+            } else if (menorRadioButton.isSelected()) {
                 comparador = Constantes.signoMenor;
-            } else if (mayorRadioButton.isSelected()){
+            } else if (mayorRadioButton.isSelected()) {
                 comparador = Constantes.signoMayor;
             }
-            bus.post(new PedirFiltroUnidadFunciona(Float.valueOf(textField1.getText()),comparador));
+            bus.post(new PedirFiltroUnidadFunciona(Float.valueOf(textField1.getText()), comparador));
         });
         mostrarTodoButton.addActionListener(e -> {
             txtNomYApe.setText(Constantes.stringVacio);
             txtDni.setText(Constantes.stringVacio);
-            bus.post(new PedirFiltroPersona(Constantes.stringVacio,Constantes.stringVacio));
+            bus.post(new PedirFiltroPersona(Constantes.stringVacio, Constantes.stringVacio));
         });
         frame.addWindowListener(new WindowAdapter() {
             @Override
@@ -69,13 +66,13 @@ public class PropietariosYSaldosView {
     public void poblarUnidadesFuncionales(List<String> unidadesFuncionales) {
         list1.removeAll();
         String[] datos = new String[unidadesFuncionales.size()];
-        for(int i = 0; i < unidadesFuncionales.size(); i++){
+        for (int i = 0; i < unidadesFuncionales.size(); i++) {
             datos[i] = unidadesFuncionales.get(i);
         }
         list2.setListData(datos);
     }
 
-    public void poblarPropietarios(List<String> propietarios){
+    public void poblarPropietarios(List<String> propietarios) {
         list1.removeAll();
         String[] datos = new String[propietarios.size()];
         for (int i = 0; i < propietarios.size(); i++) {
@@ -94,7 +91,7 @@ public class PropietariosYSaldosView {
         }
     }
 
-    public class PedirFiltroUnidadFunciona{
+    public class PedirFiltroUnidadFunciona {
         public float monto;
         public String comparador;
 

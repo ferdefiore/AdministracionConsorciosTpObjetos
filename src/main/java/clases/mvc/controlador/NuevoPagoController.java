@@ -1,7 +1,7 @@
 package clases.mvc.controlador;
 
-import clases.Constantes;
-import clases.EventBusFactory;
+import clases.utils.Constantes;
+import clases.utils.EventBusFactory;
 import clases.mvc.modelo.NuevoPagoModel;
 import clases.mvc.vista.NuevoPagoView;
 import com.google.common.eventbus.EventBus;
@@ -20,21 +20,22 @@ public class NuevoPagoController {
         this.nuevoPagoModel = new NuevoPagoModel();
         List<String> listaConsorcios = nuevoPagoModel.getListaConsorcios();
         List<Integer> listaUnidadesFuncionales = nuevoPagoModel.getListaUnidadesFuncionalesConsorcio(listaConsorcios.get(0));
-        this.nuevoPagoView = new NuevoPagoView(listaConsorcios,listaUnidadesFuncionales);
+        this.nuevoPagoView = new NuevoPagoView(listaConsorcios, listaUnidadesFuncionales);
     }
+
     @Subscribe
-    public void onSolicitudListaUf(NuevoPagoView.SolicitudListaUf event){
+    public void onSolicitudListaUf(NuevoPagoView.SolicitudListaUf event) {
         nuevoPagoView.poblarUnidadesFuncionales(nuevoPagoModel.getListaUnidadesFuncionalesConsorcio(event.nombreConsorcio));
     }
 
     @Subscribe
-    public void onGenerarPago(NuevoPagoView.GenerarPago event){
-        nuevoPagoModel.generarPago(event.idUnidadFuncional,event.monto);
+    public void onGenerarPago(NuevoPagoView.GenerarPago event) {
+        nuevoPagoModel.generarPago(event.idUnidadFuncional, event.monto);
     }
 
     @Subscribe
-    public  void onTerminar(String event){
-        if (event.equals(Constantes.terminarAgregarPago)){
+    public void onTerminar(String event) {
+        if (event.equals(Constantes.terminarAgregarPago)) {
             bus.unregister(this);
             bus.unregister(nuevoPagoView);
             bus.unregister(nuevoPagoModel);

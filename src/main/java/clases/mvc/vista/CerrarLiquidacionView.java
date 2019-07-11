@@ -1,7 +1,7 @@
 package clases.mvc.vista;
 
-import clases.Constantes;
-import clases.EventBusFactory;
+import clases.utils.Constantes;
+import clases.utils.EventBusFactory;
 import com.google.common.eventbus.EventBus;
 
 import javax.swing.*;
@@ -22,12 +22,12 @@ public class CerrarLiquidacionView {
         bus = EventBusFactory.getEventBus();
         bus.register(this);
         frame = new JFrame(Constantes.tituloCerrarLiquidacionView);
-        frame.setSize(400,300);
+        frame.setSize(400, 300);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setResizable(false);
         frame.add(this.panel1);
         frame.setLocationRelativeTo(null);
-        for (String nombre: listaConsorcios) {
+        for (String nombre : listaConsorcios) {
             comboConsorcios.addItem(nombre);
         }
         frame.setVisible(true);
@@ -35,10 +35,10 @@ public class CerrarLiquidacionView {
         confirmarCierreButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(generarArchivoDeTotalesCheckBox.isSelected()){
-                    bus.post(new CerrarLiquidacion((String)comboConsorcios.getSelectedItem(),true));
-                }else{
-                    bus.post(new CerrarLiquidacion((String)comboConsorcios.getSelectedItem(),false));
+                if (generarArchivoDeTotalesCheckBox.isSelected()) {
+                    bus.post(new CerrarLiquidacion((String) comboConsorcios.getSelectedItem(), true));
+                } else {
+                    bus.post(new CerrarLiquidacion((String) comboConsorcios.getSelectedItem(), false));
                 }
                 bus.post(Constantes.terminarCerrarLiquidacion);
                 frame.dispose();
@@ -46,7 +46,7 @@ public class CerrarLiquidacionView {
         });
     }
 
-    public static class CerrarLiquidacion{
+    public static class CerrarLiquidacion {
         public String nombreConsorcio;
         public boolean generarInforme;
 

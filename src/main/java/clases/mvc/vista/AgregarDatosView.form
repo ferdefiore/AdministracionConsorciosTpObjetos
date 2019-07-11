@@ -48,7 +48,7 @@
                   <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="3" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Cuit"/>
+                  <text value="Cuit (EJ: 20-30245968-7)"/>
                 </properties>
               </component>
               <component id="ca9be" class="javax.swing.JTextField" binding="txtCuitConsorcio">
@@ -144,7 +144,7 @@
                   <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="3" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Coeficiente"/>
+                  <text value="Coeficiente (EJ: 0.2)"/>
                 </properties>
               </component>
               <component id="4cb78" class="javax.swing.JTextField" binding="txtCoeficienteUf">
@@ -160,7 +160,7 @@
                   <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="3" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Piso Numero"/>
+                  <text value="Piso Numero (EJ: 1A)"/>
                 </properties>
               </component>
               <component id="3958" class="javax.swing.JTextField" binding="txtPisoNumUf">
@@ -176,7 +176,7 @@
                   <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="3" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Saldo Inicial"/>
+                  <text value="Saldo Inicial (EJ: 200.0)"/>
                 </properties>
               </component>
               <component id="cec97" class="javax.swing.JTextField" binding="txtSaldoInicialUf">
@@ -238,7 +238,7 @@
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="3" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Dni"/>
+                  <text value="Dni (EJ: 99100999)"/>
                 </properties>
               </component>
               <component id="c5e0a" class="javax.swing.JTextField" binding="txtDniPropietario">
@@ -254,7 +254,7 @@
                   <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="3" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Nombre y Apellido"/>
+                  <text value="Nombre y Apellido (EJ: Juan Perez)"/>
                 </properties>
               </component>
               <component id="f325" class="javax.swing.JTextField" binding="txtNombreYApellidoPropietario">
@@ -302,7 +302,7 @@
                   <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="3" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Telefono"/>
+                  <text value="Telefono (EJ: 2262-656565)"/>
                 </properties>
               </component>
               <component id="3e046" class="javax.swing.JTextField" binding="txtTelefonoPropietario">

@@ -1,11 +1,13 @@
-package clases;
+package clases.clasesRelacionales;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+
 @Entity
 public class LiquidacionesGrupo {
     @Id
-    @GeneratedValue (strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @OneToMany()
     @JoinColumn(name = "id_liquidacion_grupoPerteneciente")

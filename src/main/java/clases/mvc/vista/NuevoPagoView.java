@@ -1,7 +1,7 @@
 package clases.mvc.vista;
 
-import clases.Constantes;
-import clases.EventBusFactory;
+import clases.utils.Constantes;
+import clases.utils.EventBusFactory;
 import com.google.common.eventbus.EventBus;
 
 import javax.swing.*;
@@ -24,52 +24,52 @@ public class NuevoPagoView {
         bus = EventBusFactory.getEventBus();
         bus.register(this);
         frame = new JFrame(Constantes.tituloNuevoPagoView);
-        frame.setSize(300,300);
+        frame.setSize(300, 300);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setResizable(false);
         frame.add(this.panel1);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-        for (String nombre: nombresConsorcios) {
+        for (String nombre : nombresConsorcios) {
             comboConsorcios.addItem(nombre);
         }
-        for (Integer id: listaUnidadesFuncionales) {
+        for (Integer id : listaUnidadesFuncionales) {
             comboUnidadesFuncionales.addItem(id);
         }
 
         comboConsorcios.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-            bus.post(new SolicitudListaUf((String)comboConsorcios.getSelectedItem()));
+                bus.post(new SolicitudListaUf((String) comboConsorcios.getSelectedItem()));
             }
         });
 
         guardarPagoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            bus.post(new GenerarPago((Integer)comboUnidadesFuncionales.getSelectedItem(),Double.valueOf(textMonto.getText())));
-            bus.post(Constantes.terminarAgregarPago);
-            frame.dispose();
+                bus.post(new GenerarPago((Integer) comboUnidadesFuncionales.getSelectedItem(), Double.valueOf(textMonto.getText())));
+                bus.post(Constantes.terminarAgregarPago);
+                frame.dispose();
             }
         });
     }
 
     public void poblarUnidadesFuncionales(List<Integer> listaUnidadesFuncionalesConsorcio) {
         comboUnidadesFuncionales.removeAllItems();
-        for (Integer idGasto: listaUnidadesFuncionalesConsorcio) {
+        for (Integer idGasto : listaUnidadesFuncionalesConsorcio) {
             comboUnidadesFuncionales.addItem(idGasto);
         }
     }
 
-    public static class SolicitudListaUf{
+    public static class SolicitudListaUf {
         public String nombreConsorcio;
 
-        public SolicitudListaUf(String nombre){
+        public SolicitudListaUf(String nombre) {
             nombreConsorcio = nombre;
         }
     }
 
-    public static class GenerarPago{
+    public static class GenerarPago {
         public Integer idUnidadFuncional;
         public Double monto;
 

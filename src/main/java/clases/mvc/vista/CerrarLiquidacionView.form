@@ -40,7 +40,8 @@
           <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Generar archivo de totales para unidades funcionales"/>
+          <text value="Generar informe de gastos y saldos de unidades funcionales"/>
+          <toolTipText value="Genera un archivo de salida, con los gastos de la liquidacion cerrada y los saldos actualizados."/>
         </properties>
       </component>
       <vspacer id="164a2">

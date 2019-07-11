@@ -1,4 +1,4 @@
-package clases;
+package clases.clasesRelacionales;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import java.util.Map;
 @Entity
 public class LiquidacionesHistoricas {
     @Id
-    @GeneratedValue (strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_liquidacion_wrapper ")
@@ -25,18 +25,18 @@ public class LiquidacionesHistoricas {
         this.liquidaciones.get(id).agregarLiquidacion(cerrada);
     }
 
-    public void agregarHistorica(Integer i, Liquidacion lq){
-        if (liquidaciones.get(i)==null){
+    public void agregarHistorica(Integer i, Liquidacion lq) {
+        if (liquidaciones.get(i) == null) {
             LiquidacionesGrupo liquidacionesGrupo = new LiquidacionesGrupo();
             liquidacionesGrupo.getLiquidaciones().add(lq);
-            liquidaciones.put(i,liquidacionesGrupo);
-        }else {
+            liquidaciones.put(i, liquidacionesGrupo);
+        } else {
             liquidaciones.get(i).getLiquidaciones().add(lq);
         }
     }
 
-    public List<Liquidacion> getHashLiquidaciones(Integer i){
-        if (null == liquidaciones.get(i)){
+    public List<Liquidacion> getHashLiquidaciones(Integer i) {
+        if (null == liquidaciones.get(i)) {
             return new ArrayList<>();
         }
         List<Liquidacion> ret = liquidaciones.get(i).getLiquidaciones();

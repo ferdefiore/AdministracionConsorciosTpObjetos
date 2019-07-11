@@ -1,7 +1,7 @@
 package clases.mvc.modelo;
 
-import clases.DAOmanager;
-import clases.UnidadFuncional;
+import clases.utils.DAOmanager;
+import clases.clasesRelacionales.UnidadFuncional;
 import clases.filtro.*;
 
 import java.util.ArrayList;
@@ -15,12 +15,12 @@ public class PropietariosYSaldosModel {
     }
 
     public List<String> getListaPropietarios(String nomYApe, String dni) {
-        List<String> personasString =  daoManager.getListaPropietarios();
+        List<String> personasString = daoManager.getListaPropietarios();
         FiltroTexto filtroNombreApellido = new FiltroTexto(nomYApe);
         FiltroTexto filtroDni = new FiltroTexto(dni);
         List<String> retorno = new ArrayList<>();
-        for (String s : personasString){
-            if ((filtroNombreApellido.seCumple(s) || filtroDni.seCumple(s))){
+        for (String s : personasString) {
+            if ((filtroNombreApellido.seCumple(s) || filtroDni.seCumple(s))) {
                 retorno.add(s);
             }
         }
@@ -30,7 +30,7 @@ public class PropietariosYSaldosModel {
     public List<String> getListaUnidadesFuncionales() {
         List<UnidadFuncional> unidadesFuncionales = daoManager.getListaUnidadesFuncionales();
         List<String> retList = new ArrayList<>();
-        for (UnidadFuncional uf:unidadesFuncionales){
+        for (UnidadFuncional uf : unidadesFuncionales) {
             retList.add(uf.toString());
         }
         return retList;
@@ -51,8 +51,8 @@ public class PropietariosYSaldosModel {
                 filtroSaldo = new FIltroMayor(monto);
                 break;
         }
-        for (UnidadFuncional uf:unidadesFuncionales){
-            if (filtroSaldo.seCumple(uf.getSaldo())){
+        for (UnidadFuncional uf : unidadesFuncionales) {
+            if (filtroSaldo.seCumple(uf.getSaldo())) {
                 retList.add(uf.toString());
             }
         }

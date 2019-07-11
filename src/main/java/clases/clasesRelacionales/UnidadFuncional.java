@@ -1,11 +1,11 @@
-package clases;
+package clases.clasesRelacionales;
 
 import javax.persistence.*;
 
 @Entity
 public class UnidadFuncional {
     @Id
-    @GeneratedValue (strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String tipo;
     @ManyToOne()
@@ -19,7 +19,7 @@ public class UnidadFuncional {
 
     @Override
     public String toString() {
-        return "IdUf: " +this.getId()+ '\t' +" PisoNum: " + this.getPisoNum() + '\t' +  " Saldo: " + this.getSaldo() +  '\t' + " Propietario: " + this.getPropietario().getNombreApellido() + "." ;
+        return "IdUf: " + this.getId() + '\t' + " PisoNum: " + this.getPisoNum() + '\t' + " Saldo: " + this.getSaldo() + '\t' + " Propietario: " + this.getPropietario().getNombreApellido() + ".";
     }
 
     public UnidadFuncional(String tipo, Propietario propietario, double coeficiente, String pisoNum, double saldo) {
