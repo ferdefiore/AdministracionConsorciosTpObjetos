@@ -24,7 +24,7 @@ public class EventBusFactory {
             model = null;
             System.gc();
         }catch (Exception e){
-
+            e.printStackTrace();
         }
     }
 }
