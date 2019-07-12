@@ -1,8 +1,8 @@
 package clases.mvc.modelo;
 
-import clases.utils.DAOmanager;
 import clases.clasesRelacionales.UnidadFuncional;
 import clases.filtro.*;
+import clases.utils.DAOmanager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +18,10 @@ public class PropietariosYSaldosModel {
         List<String> personasString = daoManager.getListaPropietarios();
         FiltroTexto filtroNombreApellido = new FiltroTexto(nomYApe);
         FiltroTexto filtroDni = new FiltroTexto(dni);
+        FiltroOr filtroOr = new FiltroOr(filtroNombreApellido,filtroDni);
         List<String> retorno = new ArrayList<>();
         for (String s : personasString) {
-            if ((filtroNombreApellido.seCumple(s) || filtroDni.seCumple(s))) {
+            if (filtroOr.seCumple(s)) {
                 retorno.add(s);
             }
         }

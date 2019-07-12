@@ -48,7 +48,11 @@ public class LiquidacionesHistoricasView {
         importarLiquidacionAArchivoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                bus.post(new ImprimirLiquidacion((String) comboConsorcios.getSelectedItem(), (String) comboPeriodos.getSelectedItem()));
+                try {
+                    bus.post(new ImprimirLiquidacion((String) comboConsorcios.getSelectedItem(), (String) comboPeriodos.getSelectedItem()));
+                }catch (Exception exeption){
+                    JOptionPane.showMessageDialog(null, Constantes.mensajeExepcionValidacion +  exeption.getMessage(), Constantes.stringError, JOptionPane.INFORMATION_MESSAGE);
+                }
             }
         });
     }

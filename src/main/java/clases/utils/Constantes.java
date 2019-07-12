@@ -11,6 +11,10 @@ public class Constantes {
     public static String singoIgual = "=";
     public static String signoMenor = "<";
     public static String signoMayor = ">";
+    public static String mensajeExepcionValidacion = "Error al cargar los datos, verifique que esten completos o su formato.\n ErrorMessage: ";
+    public static String stringError = "Error!";
+    public static String mensajeErrorInicializacion = "Ocurrio un error, verifique que haya datos cargados para poder trabajar.\n ErrorMessage: ";
+    public static String comboVacio = "Combo vacio, no hay datos para mostrar";
 
     //////----------------------------MENSAJES BUS-------------------------------------------//////
     public static String terminarAgregarDatos = "Termino de agregar datos";

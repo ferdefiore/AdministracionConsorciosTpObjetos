@@ -1,8 +1,8 @@
 package clases.mvc.modelo;
 
-import clases.utils.DAOmanager;
 import clases.clasesRelacionales.Gasto;
 import clases.clasesRelacionales.UnidadFuncional;
+import clases.utils.DAOmanager;
 
 import java.util.List;
 

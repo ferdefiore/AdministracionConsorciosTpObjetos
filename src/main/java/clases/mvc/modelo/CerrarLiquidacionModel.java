@@ -1,9 +1,9 @@
 package clases.mvc.modelo;
 
-import clases.utils.DAOmanager;
 import clases.clasesRelacionales.Liquidacion;
-import clases.utils.Printer;
 import clases.clasesRelacionales.UnidadFuncional;
+import clases.utils.DAOmanager;
+import clases.utils.Printer;
 
 import java.io.IOException;
 import java.util.List;
@@ -20,11 +20,12 @@ public class CerrarLiquidacionModel {
         daoManager.cerrarLiquidacion(nombreConsorcio);
     }
 
-    public void cerrarLiquidacionGenerarInforme(String nombreConsorcio) throws IOException {
-        Liquidacion liquidacionVieja = daoManager.cerrarLiquidacionGenerarInforme(nombreConsorcio);
-        Printer.printLiquidacionCierre(liquidacionVieja);
-        List<UnidadFuncional> ufs = daoManager.getListaUnidadesFuncionalesConsorcio(nombreConsorcio);
-        Printer.printSaldosCierre(nombreConsorcio, liquidacionVieja.getPeriodo().toString(), ufs);
+    public Liquidacion cerrarLiquidacionGenerarInforme(String nombreConsorcio) throws IOException {
+        return daoManager.cerrarLiquidacionGenerarInforme(nombreConsorcio);
+    }
+
+    public List<UnidadFuncional> getListaUnidadesFuncionales(String nombreConsorcio){
+        return daoManager.getListaUnidadesFuncionalesConsorcio(nombreConsorcio);
     }
 }
 

@@ -68,21 +68,29 @@ public class AgregarDatosView {
         guardarUnidadFuncionalButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                bus.post(new CrearUnidadFuncionalNueva((String) comboConsorcios.getSelectedItem(), (String) comboTipos.getSelectedItem(), (String) comboPropietarios.getSelectedItem(), Double.valueOf(txtCoeficienteUf.getText()), txtPisoNumUf.getText(), Double.valueOf(txtSaldoInicialUf.getText())));
-                txtSaldoInicialUf.setText(Constantes.stringVacio);
-                txtPisoNumUf.setText(Constantes.stringVacio);
-                txtCoeficienteUf.setText(Constantes.stringVacio);
+                try {
+                    bus.post(new CrearUnidadFuncionalNueva((String) comboConsorcios.getSelectedItem(), (String) comboTipos.getSelectedItem(), (String) comboPropietarios.getSelectedItem(), Double.valueOf(txtCoeficienteUf.getText()), txtPisoNumUf.getText(), Double.valueOf(txtSaldoInicialUf.getText())));
+                    txtSaldoInicialUf.setText(Constantes.stringVacio);
+                    txtPisoNumUf.setText(Constantes.stringVacio);
+                    txtCoeficienteUf.setText(Constantes.stringVacio);
+                }catch (Exception exeption){
+                    JOptionPane.showMessageDialog(null, Constantes.mensajeExepcionValidacion +  exeption.getMessage(), Constantes.stringError, JOptionPane.INFORMATION_MESSAGE);
+                }
             }
         });
         guardarPropietarioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                bus.post(new CrearPropietarioNuevo(txtDniPropietario.getText(), txtNombreYApellidoPropietario.getText(), txtMailPropietario.getText(), txtDireccionPropietario.getText(), txtTelefonoPropietario.getText()));
-                txtDireccionPropietario.setText(Constantes.stringVacio);
-                txtDniPropietario.setText(Constantes.stringVacio);
-                txtMailPropietario.setText(Constantes.stringVacio);
-                txtTelefonoPropietario.setText(Constantes.stringVacio);
-                txtNombreYApellidoPropietario.setText(Constantes.stringVacio);
+                try {
+                    bus.post(new CrearPropietarioNuevo(txtDniPropietario.getText(), txtNombreYApellidoPropietario.getText(), txtMailPropietario.getText(), txtDireccionPropietario.getText(), txtTelefonoPropietario.getText()));
+                    txtDireccionPropietario.setText(Constantes.stringVacio);
+                    txtDniPropietario.setText(Constantes.stringVacio);
+                    txtMailPropietario.setText(Constantes.stringVacio);
+                    txtTelefonoPropietario.setText(Constantes.stringVacio);
+                    txtNombreYApellidoPropietario.setText(Constantes.stringVacio);
+                }catch (Exception exeption){
+                    JOptionPane.showMessageDialog(null, "Error al cargar los datos, verifique su formato.\n ErrorMessage:" +  exeption.getMessage(), "Error!", JOptionPane.INFORMATION_MESSAGE);
+                }
             }
         });
     }

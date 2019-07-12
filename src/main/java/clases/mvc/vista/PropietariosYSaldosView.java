@@ -5,6 +5,7 @@ import clases.utils.EventBusFactory;
 import com.google.common.eventbus.EventBus;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
@@ -21,7 +22,7 @@ public class PropietariosYSaldosView {
     private JRadioButton mayorRadioButton;
     private JRadioButton igualRadioButton;
     private JTextField textField1;
-    private JButton buscarButton1;
+    private JButton buscarSaldosButton;
     private JList list2;
     private JButton mostrarTodoButton;
 
@@ -38,17 +39,30 @@ public class PropietariosYSaldosView {
         frame.setVisible(true);
         this.poblarPropietarios(propietarios);
         this.poblarUnidadesFuncionales(unidadesFuncionales);
-        buscarButton.addActionListener(e -> bus.post(new PedirFiltroPersona(txtDni.getText(), txtNomYApe.getText())));
-        buscarButton1.addActionListener(e -> {
-            String comparador = Constantes.stringVacio;
-            if (igualRadioButton.isSelected()) {
-                comparador = Constantes.singoIgual;
-            } else if (menorRadioButton.isSelected()) {
-                comparador = Constantes.signoMenor;
-            } else if (mayorRadioButton.isSelected()) {
-                comparador = Constantes.signoMayor;
+
+        buscarButton.addActionListener((ActionEvent e) -> {
+            try {
+                bus.post(new PedirFiltroPersona(txtDni.getText(), txtNomYApe.getText()));
+            }catch (Exception exeption){
+                JOptionPane.showMessageDialog(null, Constantes.mensajeExepcionValidacion +  exeption.getMessage(), Constantes.stringError, JOptionPane.INFORMATION_MESSAGE);
             }
-            bus.post(new PedirFiltroUnidadFunciona(Float.valueOf(textField1.getText()), comparador));
+        });
+
+        buscarSaldosButton.addActionListener(e -> {
+            try {
+                String comparador = Constantes.stringVacio;
+                if (igualRadioButton.isSelected()) {
+                    comparador = Constantes.singoIgual;
+                } else if (menorRadioButton.isSelected()) {
+                    comparador = Constantes.signoMenor;
+                } else if (mayorRadioButton.isSelected()) {
+                    comparador = Constantes.signoMayor;
+                }
+                bus.post(new PedirFiltroUnidadFunciona(Float.valueOf(textField1.getText()), comparador));
+            }catch (Exception exeption){
+                JOptionPane.showMessageDialog(null, Constantes.mensajeExepcionValidacion +  exeption.getMessage(), Constantes.stringError, JOptionPane.INFORMATION_MESSAGE);
+            }
+
         });
         mostrarTodoButton.addActionListener(e -> {
             txtNomYApe.setText(Constantes.stringVacio);

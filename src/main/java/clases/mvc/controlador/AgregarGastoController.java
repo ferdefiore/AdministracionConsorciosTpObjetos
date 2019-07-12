@@ -1,12 +1,14 @@
 package clases.mvc.controlador;
 
-import clases.utils.Constantes;
-import clases.utils.EventBusFactory;
 import clases.mvc.modelo.AgregarGastoModel;
 import clases.mvc.vista.AgregarGastoView;
+import clases.utils.Constantes;
+import clases.utils.EventBusFactory;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 
+import javax.activation.MailcapCommandMap;
+import javax.swing.*;
 import java.util.List;
 
 public class AgregarGastoController {
@@ -15,12 +17,17 @@ public class AgregarGastoController {
     private EventBus bus;
 
     public AgregarGastoController() {
-        bus = EventBusFactory.getEventBus();
-        bus.register(this);
-        this.agregarGastoModel = new AgregarGastoModel();
-        List<String> nombresConsorcios = agregarGastoModel.getNombresConsorcios();
-        List<Integer> idGastos = agregarGastoModel.getIdGastos(nombresConsorcios.get(0));
-        this.agregarGastoView = new AgregarGastoView(nombresConsorcios, idGastos);
+        try {
+            bus = EventBusFactory.getEventBus();
+            bus.register(this);
+            this.agregarGastoModel = new AgregarGastoModel();
+            List<String> nombresConsorcios = agregarGastoModel.getNombresConsorcios();
+            List<Integer> idGastos = agregarGastoModel.getIdGastos(nombresConsorcios.get(0));
+            this.agregarGastoView = new AgregarGastoView(nombresConsorcios, idGastos);
+        }catch (Exception exeption){
+            EventBusFactory.unregisterAndGc(this,agregarGastoView,agregarGastoModel);
+            JOptionPane.showMessageDialog(null, Constantes.mensajeErrorInicializacion +  exeption.getMessage(), Constantes.stringError, JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
     @Subscribe
@@ -43,11 +50,7 @@ public class AgregarGastoController {
     @Subscribe
     public void onTerminar(String event) {
         if (event.equals(Constantes.terminarAgregarGasto)) {
-            bus.unregister(this);
-            bus.unregister(agregarGastoView);
-            agregarGastoView = null;
-            agregarGastoModel = null;
-            System.gc();
+            EventBusFactory.unregisterAndGc(this,agregarGastoView,agregarGastoModel);
         }
     }
 }

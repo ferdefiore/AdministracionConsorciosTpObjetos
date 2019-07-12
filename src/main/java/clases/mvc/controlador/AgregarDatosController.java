@@ -1,11 +1,13 @@
 package clases.mvc.controlador;
 
-import clases.utils.Constantes;
-import clases.utils.EventBusFactory;
 import clases.mvc.modelo.AgregarDatosModel;
 import clases.mvc.vista.AgregarDatosView;
+import clases.utils.Constantes;
+import clases.utils.EventBusFactory;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
+
+import javax.swing.*;
 
 public class AgregarDatosController {
     private EventBus bus;
@@ -13,10 +15,15 @@ public class AgregarDatosController {
     private AgregarDatosView view;
 
     public AgregarDatosController() {
-        bus = EventBusFactory.getEventBus();
-        bus.register(this);
-        model = new AgregarDatosModel();
-        view = new AgregarDatosView(model.getListaConsorcios(), model.getListaPropietarios());
+        try {
+            view = new AgregarDatosView(model.getListaConsorcios(), model.getListaPropietarios());
+            model = new AgregarDatosModel();
+            bus = EventBusFactory.getEventBus();
+            bus.register(this);
+        }catch (Exception exeption){
+            EventBusFactory.unregisterAndGc(this,view,model);
+            JOptionPane.showMessageDialog(null, Constantes.mensajeErrorInicializacion +  exeption.getMessage(), Constantes.stringError, JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
     @Subscribe
@@ -40,12 +47,7 @@ public class AgregarDatosController {
     @Subscribe
     public void onTerminarDeAgregarDatos(String event) {
         if (event.equals(Constantes.terminarAgregarDatos)) {
-            bus.unregister(this);
-            bus.unregister(view);
-            view = null;
-            model = null;
-            System.gc();
+            EventBusFactory.unregisterAndGc(this,view,model);
         }
-        ;
     }
 }

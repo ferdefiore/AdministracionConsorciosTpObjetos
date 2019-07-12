@@ -2,7 +2,10 @@ package clases.clasesRelacionales;
 
 import clases.utils.Constantes;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
 import java.util.List;
 
 @Entity

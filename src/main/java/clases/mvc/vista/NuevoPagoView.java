@@ -47,9 +47,13 @@ public class NuevoPagoView {
         guardarPagoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                bus.post(new GenerarPago((Integer) comboUnidadesFuncionales.getSelectedItem(), Double.valueOf(textMonto.getText())));
-                bus.post(Constantes.terminarAgregarPago);
-                frame.dispose();
+                try{
+                    bus.post(new GenerarPago((Integer) comboUnidadesFuncionales.getSelectedItem(), Double.valueOf(textMonto.getText())));
+                    bus.post(Constantes.terminarAgregarPago);
+                    frame.dispose();
+                }catch (Exception exeption){
+                    JOptionPane.showMessageDialog(null, Constantes.mensajeExepcionValidacion +  exeption.getMessage(), Constantes.stringError, JOptionPane.INFORMATION_MESSAGE);
+                }
             }
         });
     }

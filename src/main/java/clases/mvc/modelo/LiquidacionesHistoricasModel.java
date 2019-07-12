@@ -1,7 +1,7 @@
 package clases.mvc.modelo;
 
-import clases.utils.DAOmanager;
 import clases.clasesRelacionales.Liquidacion;
+import clases.utils.DAOmanager;
 import clases.utils.Printer;
 
 import java.io.IOException;
@@ -18,8 +18,7 @@ public class LiquidacionesHistoricasModel {
         return daoManager.getHistoricas(nombreConsorcio);
     }
 
-    public void imprimirLiquidacion(Integer idLiquidacion) throws IOException {
-        Liquidacion liquidacion = daoManager.getLiquidacion(idLiquidacion);
-        Printer.printLiquidacionCierre(liquidacion);
+    public Liquidacion imprimirLiquidacion(Integer idLiquidacion) throws IOException {
+        return daoManager.getLiquidacion(idLiquidacion);
     }
 }

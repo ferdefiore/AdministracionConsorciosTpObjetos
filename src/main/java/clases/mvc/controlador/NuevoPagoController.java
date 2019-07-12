@@ -1,12 +1,13 @@
 package clases.mvc.controlador;
 
-import clases.utils.Constantes;
-import clases.utils.EventBusFactory;
 import clases.mvc.modelo.NuevoPagoModel;
 import clases.mvc.vista.NuevoPagoView;
+import clases.utils.Constantes;
+import clases.utils.EventBusFactory;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 
+import javax.swing.*;
 import java.util.List;
 
 public class NuevoPagoController {
@@ -15,12 +16,17 @@ public class NuevoPagoController {
     private EventBus bus;
 
     public NuevoPagoController() {
+        try {
         bus = EventBusFactory.getEventBus();
         bus.register(this);
         this.nuevoPagoModel = new NuevoPagoModel();
         List<String> listaConsorcios = nuevoPagoModel.getListaConsorcios();
         List<Integer> listaUnidadesFuncionales = nuevoPagoModel.getListaUnidadesFuncionalesConsorcio(listaConsorcios.get(0));
         this.nuevoPagoView = new NuevoPagoView(listaConsorcios, listaUnidadesFuncionales);
+        }catch (Exception exeption){
+            EventBusFactory.unregisterAndGc(this,nuevoPagoView,nuevoPagoModel);
+            JOptionPane.showMessageDialog(null, Constantes.mensajeErrorInicializacion +  exeption.getMessage(), Constantes.stringError, JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
     @Subscribe
@@ -36,12 +42,7 @@ public class NuevoPagoController {
     @Subscribe
     public void onTerminar(String event) {
         if (event.equals(Constantes.terminarAgregarPago)) {
-            bus.unregister(this);
-            bus.unregister(nuevoPagoView);
-            bus.unregister(nuevoPagoModel);
-            nuevoPagoView = null;
-            nuevoPagoModel = null;
-            System.gc();
+            EventBusFactory.unregisterAndGc(this,nuevoPagoView,nuevoPagoModel);
         }
     }
 }

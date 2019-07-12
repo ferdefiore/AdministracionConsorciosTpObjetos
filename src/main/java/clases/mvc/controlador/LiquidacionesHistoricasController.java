@@ -1,13 +1,15 @@
 package clases.mvc.controlador;
 
-import clases.utils.Constantes;
-import clases.utils.EventBusFactory;
 import clases.clasesRelacionales.Liquidacion;
 import clases.mvc.modelo.LiquidacionesHistoricasModel;
 import clases.mvc.vista.LiquidacionesHistoricasView;
+import clases.utils.Constantes;
+import clases.utils.EventBusFactory;
+import clases.utils.Printer;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +21,7 @@ public class LiquidacionesHistoricasController {
     private List<Liquidacion> liquidaciones;
 
     public LiquidacionesHistoricasController() {
+        try {
         bus = EventBusFactory.getEventBus();
         bus.register(this);
         model = new LiquidacionesHistoricasModel();
@@ -29,6 +32,10 @@ public class LiquidacionesHistoricasController {
             periodos.add(lq.getPeriodo().toString());
         }
         view = new LiquidacionesHistoricasView(nombresConsorcios, periodos);
+        }catch (Exception exeption){
+            EventBusFactory.unregisterAndGc(this,view,model);
+            JOptionPane.showMessageDialog(null, Constantes.mensajeErrorInicializacion +  exeption.getMessage(), Constantes.stringError, JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
     @Subscribe
@@ -45,7 +52,7 @@ public class LiquidacionesHistoricasController {
     public void onImprimirLiquidacion(LiquidacionesHistoricasView.ImprimirLiquidacion event) throws IOException {
         for (Liquidacion lq : liquidaciones) {
             if (lq.getPeriodo().toString().equals(event.periodo)) {
-                model.imprimirLiquidacion(lq.getId_liquidacion());
+                Printer.printLiquidacionCierre(model.imprimirLiquidacion(lq.getId_liquidacion()), " Informe Historico Gastos ");
                 return;
             }
         }
@@ -54,11 +61,7 @@ public class LiquidacionesHistoricasController {
     @Subscribe
     public void onCerrarVentanasLiquidacionesHistoricas(String event) {
         if (event.equals(Constantes.terminarLiquidacionesHistoricas)) {
-            bus.unregister(this);
-            bus.unregister(view);
-            view = null;
-            model = null;
-            System.gc();
+            EventBusFactory.unregisterAndGc(this, view, model);
         }
     }
 

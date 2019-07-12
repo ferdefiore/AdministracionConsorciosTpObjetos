@@ -14,4 +14,17 @@ public class EventBusFactory {
         return eventBus;
     }
 
+    public static void unregisterAndGc(Object controller, Object view, Object model) {
+        EventBus bus = EventBusFactory.getEventBus();
+        try {
+            bus.unregister(controller);
+            bus.unregister(view);
+            bus.unregister(model);
+            view = null;
+            model = null;
+            System.gc();
+        }catch (Exception e){
+
+        }
+    }
 }

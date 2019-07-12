@@ -46,25 +46,29 @@ public class AgregarGastoView {
                 String nombreConsorcio = (String) comboConsorcios.getSelectedItem();
                 String idGasto = comboGastos.getSelectedItem().toString();
                 Integer idGastoSeleccionado = Constantes.ceroInteger;
-                if (!(idGasto.equals(Constantes.stringNuevoGasto))) {
-                    idGastoSeleccionado = Integer.valueOf(comboGastos.getSelectedItem().toString());
+                try{
+                    if (!(idGasto.equals(Constantes.stringNuevoGasto))) {
+                        idGastoSeleccionado = Integer.valueOf(comboGastos.getSelectedItem().toString());
+                    }
+                    String concepto = textConcepto.getText();
+                    Float monto = Constantes.ceroFloat;
+                    if (!(textMonto.getText().equals(Constantes.stringVacio))) {
+                        monto = Float.valueOf(textMonto.getText());
+                    }
+                    if (comboGastos.getSelectedItem().equals(Constantes.stringNuevoGasto) && !checkCompuesto.isSelected()) {
+                        bus.post(new AgregarNuevoGasto(nombreConsorcio, concepto, monto));
+                    } else if (comboGastos.getSelectedItem().equals(Constantes.stringNuevoGasto) && checkCompuesto.isSelected()) {
+                        bus.post(new AgregarNuevoGasto(nombreConsorcio, concepto));
+                    } else if (!(comboGastos.getSelectedItem().equals(Constantes.stringNuevoGasto)) && !checkCompuesto.isSelected()) {
+                        bus.post(new AgregarAGasto(nombreConsorcio, idGastoSeleccionado, concepto, monto));
+                    } else {
+                        bus.post(new AgregarAGasto(nombreConsorcio, idGastoSeleccionado, concepto));
+                    }
+                    bus.post(Constantes.terminarAgregarGasto);
+                    frame.dispose();
+                }catch (Exception exeption){
+                    JOptionPane.showMessageDialog(null, Constantes.mensajeExepcionValidacion +  exeption.getMessage(), Constantes.stringError, JOptionPane.INFORMATION_MESSAGE);
                 }
-                String concepto = textConcepto.getText();
-                Float monto = Constantes.ceroFloat;
-                if (!(textMonto.getText().equals(Constantes.stringVacio))) {
-                    monto = Float.valueOf(textMonto.getText());
-                }
-                if (comboGastos.getSelectedItem().equals(Constantes.stringNuevoGasto) && !checkCompuesto.isSelected()) {
-                    bus.post(new AgregarNuevoGasto(nombreConsorcio, concepto, monto));
-                } else if (comboGastos.getSelectedItem().equals(Constantes.stringNuevoGasto) && checkCompuesto.isSelected()) {
-                    bus.post(new AgregarNuevoGasto(nombreConsorcio, concepto));
-                } else if (!(comboGastos.getSelectedItem().equals(Constantes.stringNuevoGasto)) && !checkCompuesto.isSelected()) {
-                    bus.post(new AgregarAGasto(nombreConsorcio, idGastoSeleccionado, concepto, monto));
-                } else {
-                    bus.post(new AgregarAGasto(nombreConsorcio, idGastoSeleccionado, concepto));
-                }
-                bus.post(Constantes.terminarAgregarGasto);
-                frame.dispose();
             }
         });
         checkCompuesto.addActionListener(new ActionListener() {
@@ -76,7 +80,6 @@ public class AgregarGastoView {
                 } else {
                     textMonto.setEnabled(true);
                 }
-
             }
         });
         comboConsorcios.addItemListener(new ItemListener() {

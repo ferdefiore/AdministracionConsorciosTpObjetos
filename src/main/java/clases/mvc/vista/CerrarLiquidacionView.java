@@ -35,13 +35,22 @@ public class CerrarLiquidacionView {
         confirmarCierreButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (generarArchivoDeTotalesCheckBox.isSelected()) {
-                    bus.post(new CerrarLiquidacion((String) comboConsorcios.getSelectedItem(), true));
-                } else {
-                    bus.post(new CerrarLiquidacion((String) comboConsorcios.getSelectedItem(), false));
+                if (null == comboConsorcios.getSelectedItem()){
+                    JOptionPane.showMessageDialog(null, Constantes.mensajeErrorInicializacion + Constantes.comboVacio, Constantes.stringError, JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }else {
+                    try {
+                        if (generarArchivoDeTotalesCheckBox.isSelected()) {
+                            bus.post(new CerrarLiquidacion((String) comboConsorcios.getSelectedItem(), true));
+                        } else {
+                            bus.post(new CerrarLiquidacion((String) comboConsorcios.getSelectedItem(), false));
+                        }
+                        bus.post(Constantes.terminarCerrarLiquidacion);
+                        frame.dispose();
+                    } catch (Exception exeption) {
+                        JOptionPane.showMessageDialog(null, Constantes.mensajeExepcionValidacion + exeption.getMessage(), Constantes.stringError, JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
-                bus.post(Constantes.terminarCerrarLiquidacion);
-                frame.dispose();
             }
         });
     }

@@ -1,9 +1,9 @@
 package clases.mvc.vista;
 
-import clases.utils.Constantes;
-import clases.utils.EventBusFactory;
 import clases.clasesRelacionales.Gasto;
 import clases.clasesRelacionales.UnidadFuncional;
+import clases.utils.Constantes;
+import clases.utils.EventBusFactory;
 import com.google.common.eventbus.EventBus;
 
 import javax.swing.*;
@@ -40,13 +40,31 @@ public class LiquidacionVigenteView {
         buscarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                bus.post(new SolicitudGastosLiquidacion((String) comboConsorcios.getSelectedItem()));
+                if (null == comboConsorcios.getSelectedItem()){
+                    JOptionPane.showMessageDialog(null, Constantes.mensajeErrorInicializacion + Constantes.comboVacio, Constantes.stringError, JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }else {
+                    try {
+                        bus.post(new SolicitudGastosLiquidacion((String) comboConsorcios.getSelectedItem()));
+                    } catch (Exception exeption) {
+                        JOptionPane.showMessageDialog(null, Constantes.mensajeExepcionValidacion + exeption.getMessage(), Constantes.stringError, JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
             }
         });
         verSaldosButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                bus.post(new SolicitudSaldosLiquidacion((String) comboConsorcios.getSelectedItem()));
+                if (null == comboConsorcios.getSelectedItem()){
+                    JOptionPane.showMessageDialog(null, Constantes.mensajeErrorInicializacion + Constantes.comboVacio, Constantes.stringError, JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }else {
+                    try {
+                        bus.post(new SolicitudSaldosLiquidacion((String) comboConsorcios.getSelectedItem()));
+                    } catch (Exception exeption) {
+                        JOptionPane.showMessageDialog(null, Constantes.mensajeExepcionValidacion + exeption.getMessage(), Constantes.stringError, JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
             }
         });
         frame.addWindowListener(new WindowAdapter() {

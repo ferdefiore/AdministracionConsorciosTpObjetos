@@ -1,7 +1,7 @@
 package clases.mvc.modelo;
 
-import clases.utils.DAOmanager;
 import clases.clasesRelacionales.UnidadFuncional;
+import clases.utils.DAOmanager;
 
 import java.util.ArrayList;
 import java.util.List;

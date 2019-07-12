@@ -10,8 +10,8 @@ import java.io.OutputStreamWriter;
 import java.util.List;
 
 public class Printer {
-    public static void printLiquidacionCierre(Liquidacion liquidacion) throws IOException {
-        OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(liquidacion.getConsorcio().getNombre() + " Informe Gastos Y Saldos " + liquidacion.getPeriodo() + ".txt"));
+    public static void printLiquidacionCierre(Liquidacion liquidacion, String nombre) throws IOException {
+        OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(liquidacion.getConsorcio().getNombre() + nombre + liquidacion.getPeriodo() + ".txt"));
         osw.write("Consorcio: " + liquidacion.getConsorcio().getNombre());
         osw.write(System.lineSeparator());
         osw.write("--------------------------------------------------------------------------------------");

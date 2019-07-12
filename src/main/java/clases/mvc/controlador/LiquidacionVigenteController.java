@@ -1,11 +1,11 @@
 package clases.mvc.controlador;
 
-import clases.utils.Constantes;
-import clases.utils.EventBusFactory;
 import clases.clasesRelacionales.Gasto;
 import clases.clasesRelacionales.UnidadFuncional;
 import clases.mvc.modelo.LiquidacionVigenteModel;
 import clases.mvc.vista.LiquidacionVigenteView;
+import clases.utils.Constantes;
+import clases.utils.EventBusFactory;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 
@@ -39,11 +39,7 @@ public class LiquidacionVigenteController {
     @Subscribe
     public void onCerrarVentanaLiquidacionVigente(String event) {
         if (event.equals(Constantes.terminarLiquidacionVigente)) {
-            bus.unregister(this);
-            bus.unregister(liquidacionVigenteView);
-            liquidacionVigenteModel = null;
-            liquidacionVigenteView = null;
-            System.gc();
+            EventBusFactory.unregisterAndGc(this,liquidacionVigenteView,liquidacionVigenteModel);
         }
     }
 }

@@ -1,9 +1,9 @@
 package clases.mvc.controlador;
 
-import clases.utils.Constantes;
-import clases.utils.EventBusFactory;
 import clases.mvc.modelo.PropietariosYSaldosModel;
 import clases.mvc.vista.PropietariosYSaldosView;
+import clases.utils.Constantes;
+import clases.utils.EventBusFactory;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 
@@ -44,12 +44,7 @@ public class PropietariosYSaldosController {
     @Subscribe
     public void onTerminarPropietariosYSaldos(String event) {
         if (event.equals(Constantes.terminarPropietariosYSaldos)) {
-            bus.unregister(this);
-            bus.unregister(view);
-            bus.unregister(model);
-            view = null;
-            model = null;
-            System.gc();
+            EventBusFactory.unregisterAndGc(this,view,model);
         }
     }
 }
