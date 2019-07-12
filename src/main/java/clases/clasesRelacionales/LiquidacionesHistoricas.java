@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//todo liquidacioneshistoricas tendra que ser tratado como un singleton, va a guardar las historicas de todos los consorcios
+// liquidacioneshistoricas tendra que ser tratado como un singleton, va a guardar las historicas de todos los consorcios
 @Entity
 public class LiquidacionesHistoricas {
     @Id
@@ -39,7 +39,6 @@ public class LiquidacionesHistoricas {
         if (null == liquidaciones.get(i)) {
             return new ArrayList<>();
         }
-        List<Liquidacion> ret = liquidaciones.get(i).getLiquidaciones();
-        return ret;
+        return liquidaciones.get(i).getLiquidaciones();
     }
 }

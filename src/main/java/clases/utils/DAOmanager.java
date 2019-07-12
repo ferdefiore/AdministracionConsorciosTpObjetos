@@ -87,7 +87,6 @@ public class DAOmanager {
         manager.getTransaction().begin();
         consorcio.getLiquidacionVigente().agregarGasto(gastoSimple);
         manager.getTransaction().commit();
-        System.out.println(gastoSimple.toString());
     }
 
     public void agregarNuevoGasto(String nombreConsorcio, String concepto) {
@@ -98,7 +97,6 @@ public class DAOmanager {
         manager.getTransaction().begin();
         consorcio.getLiquidacionVigente().agregarGasto(gastoCompuesto);
         manager.getTransaction().commit();
-        System.out.println(gastoCompuesto.toString());
     }
 
     public void agregarAGasto(String nombreConsorcio, Integer idGastoSeleccionado, String concepto, Float monto) {
@@ -110,7 +108,6 @@ public class DAOmanager {
         consorcio.getLiquidacionVigente().agregarAGastoCompuesto(gastoSimple,idGastoSeleccionado);
         manager.persist(gastoSimple);
         manager.getTransaction().commit();
-        System.out.println(gastoSimple.toString());
     }
 
     public void agregarAGasto(String nombreConsorcio, Integer idGastoSeleccionado, String concepto) {
@@ -122,7 +119,6 @@ public class DAOmanager {
         consorcio.getLiquidacionVigente().agregarAGastoCompuesto(gastoCompuesto,idGastoSeleccionado);
         manager.persist(gastoCompuesto);
         manager.getTransaction().commit();
-        System.out.println(gastoCompuesto.toString());
     }
 
     public List<UnidadFuncional> getListaUnidadesFuncionalesConsorcio(String nombreConsorcio) {
@@ -179,8 +175,6 @@ public class DAOmanager {
         manager.getTransaction().begin();
         manager.persist(nuevoConsorcio);
         manager.getTransaction().commit();
-        System.out.println("guardado");
-        System.out.println(nuevoConsorcio.toString());
     }
 
     public List<String> getListaDniNombrePropietario() {
@@ -188,7 +182,7 @@ public class DAOmanager {
         List<Propietario> propietarios = manager.createQuery("FROM Propietario").getResultList();
         List<String> ret = new ArrayList<>();
         for (Propietario p : propietarios) {
-            ret.add(p.getDni() + " " + p.getNombreApellido());
+            ret.add(p.getDni() + Constantes.stringEspacio + p.getNombreApellido());
         }
         return ret;
     }
@@ -240,59 +234,4 @@ public class DAOmanager {
         return (List<UnidadFuncional>) manager.createQuery("FROM UnidadFuncional").getResultList();
     }
 
-    public class Retorno{
-        public String tipo;
-        public Integer id;
-        public String concepto;
-        public double monto;
-
-        public Retorno(String tipo, Integer id, String concepto, double monto) {
-            this.tipo = tipo;
-            this.id = id;
-            this.concepto = concepto;
-            this.monto = monto;
-        }
-
-        public String getTipo() {
-            return tipo;
-        }
-
-        public void setTipo(String tipo) {
-            this.tipo = tipo;
-        }
-
-        public Integer getId() {
-            return id;
-        }
-
-        public void setId(Integer id) {
-            this.id = id;
-        }
-
-        public String getConcepto() {
-            return concepto;
-        }
-
-        public void setConcepto(String concepto) {
-            this.concepto = concepto;
-        }
-
-        public double getMonto() {
-            return monto;
-        }
-
-        @Override
-        public String toString() {
-            return "Retorno{" +
-                    "tipo='" + tipo + '\'' +
-                    ", id=" + id +
-                    ", concepto='" + concepto + '\'' +
-                    ", monto=" + monto +
-                    '}';
-        }
-
-        public void setMonto(double monto) {
-            this.monto = monto;
-        }
-    }
 }
