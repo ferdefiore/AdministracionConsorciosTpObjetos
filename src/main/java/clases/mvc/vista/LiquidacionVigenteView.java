@@ -26,7 +26,7 @@ public class LiquidacionVigenteView {
         bus = EventBusFactory.getEventBus();
         bus.register(this);
         frame = new JFrame(Constantes.tituloLiquidacionVigenteView);
-        frame.setSize(600, 400);
+        frame.setSize(800, 400);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.add(this.panel1);
         frame.setResizable(false);

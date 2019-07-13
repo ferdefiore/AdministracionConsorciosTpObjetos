@@ -4,6 +4,7 @@ import clases.utils.Constantes;
 
 import javax.persistence.*;
 import java.time.YearMonth;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -75,17 +76,18 @@ public class Liquidacion {
         this.gastos.add(g);
     }
 
-    public void agregarAGastoCompuesto(Gasto nuevo, Integer idGastoPadre){
-        for (Gasto g:gastos) {
-            if (g.id == idGastoPadre){
-                GastoCompuesto temporal = (GastoCompuesto) g;
-                temporal.agregarGasto(nuevo);
+    public void agregarGasto(Gasto nuevo, Integer idGastoPadre){
+
+        List<GastoCompuesto> temp = new ArrayList();
+        for (Gasto g : gastos) {
+            if (g instanceof GastoCompuesto)
+                temp.addAll(((GastoCompuesto) g).getCompuestos());
+        }
+        for (GastoCompuesto g:temp) {
+            if (g.getId() == idGastoPadre){
+                g.agregarGastoACompuesto(nuevo);
                 break;
             }
         }
     }
-    public void eliminarGasto(Gasto g) {
-        gastos.remove(g);
-    }
-
 }

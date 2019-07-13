@@ -21,10 +21,6 @@ public class LiquidacionesHistoricas {
         this.liquidaciones = new HashMap<>();
     }
 
-    public void agregarAHistorica(int id, Liquidacion cerrada) {
-        this.liquidaciones.get(id).agregarLiquidacion(cerrada);
-    }
-
     public void agregarHistorica(Integer i, Liquidacion lq) {
         if (liquidaciones.get(i) == null) {
             LiquidacionesGrupo liquidacionesGrupo = new LiquidacionesGrupo();

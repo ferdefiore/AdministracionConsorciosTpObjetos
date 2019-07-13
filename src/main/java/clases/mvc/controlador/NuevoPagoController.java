@@ -11,38 +11,38 @@ import javax.swing.*;
 import java.util.List;
 
 public class NuevoPagoController {
-    private NuevoPagoModel nuevoPagoModel;
-    private NuevoPagoView nuevoPagoView;
+    private NuevoPagoModel model;
+    private NuevoPagoView view;
     private EventBus bus;
 
     public NuevoPagoController() {
         try {
         bus = EventBusFactory.getEventBus();
         bus.register(this);
-        this.nuevoPagoModel = new NuevoPagoModel();
-        List<String> listaConsorcios = nuevoPagoModel.getListaConsorcios();
-        List<Integer> listaUnidadesFuncionales = nuevoPagoModel.getListaUnidadesFuncionalesConsorcio(listaConsorcios.get(0));
-        this.nuevoPagoView = new NuevoPagoView(listaConsorcios, listaUnidadesFuncionales);
+        this.model = new NuevoPagoModel();
+        List<String> listaConsorcios = model.getListaConsorcios();
+        List<Integer> listaUnidadesFuncionales = model.getListaUnidadesFuncionalesConsorcio(listaConsorcios.get(0));
+        this.view = new NuevoPagoView(listaConsorcios, listaUnidadesFuncionales);
         }catch (Exception exeption){
-            EventBusFactory.unregisterAndGc(this,nuevoPagoView,nuevoPagoModel);
+            EventBusFactory.unregisterAndGc(this, view, model);
             JOptionPane.showMessageDialog(null, Constantes.mensajeErrorInicializacion +  exeption.getMessage(), Constantes.stringError, JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
     @Subscribe
     public void onSolicitudListaUf(NuevoPagoView.SolicitudListaUf event) {
-        nuevoPagoView.poblarUnidadesFuncionales(nuevoPagoModel.getListaUnidadesFuncionalesConsorcio(event.nombreConsorcio));
+        view.poblarUnidadesFuncionales(model.getListaUnidadesFuncionalesConsorcio(event.nombreConsorcio));
     }
 
     @Subscribe
     public void onGenerarPago(NuevoPagoView.GenerarPago event) {
-        nuevoPagoModel.generarPago(event.idUnidadFuncional, event.monto);
+        model.generarPago(event.idUnidadFuncional, event.monto);
     }
 
     @Subscribe
     public void onTerminar(String event) {
         if (event.equals(Constantes.terminarAgregarPago)) {
-            EventBusFactory.unregisterAndGc(this,nuevoPagoView,nuevoPagoModel);
+            EventBusFactory.unregisterAndGc(this, view, model);
         }
     }
 }

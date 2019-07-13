@@ -16,8 +16,8 @@ public class AgregarDatosController {
 
     public AgregarDatosController() {
         try {
-            view = new AgregarDatosView(model.getListaConsorcios(), model.getListaPropietarios());
             model = new AgregarDatosModel();
+            view = new AgregarDatosView(model.getListaConsorcios(), model.getListaPropietarios());
             bus = EventBusFactory.getEventBus();
             bus.register(this);
         }catch (Exception exeption){

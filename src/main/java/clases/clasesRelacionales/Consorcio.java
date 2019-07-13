@@ -93,10 +93,6 @@ public class Consorcio {
         unidadesFuncionales.remove(uf);
     }
 
-/*    public void agregarGasto(Gasto g) {
-        this.liquidacionVigente.getGastos().add(g);
-    }*/
-
     public List<UnidadFuncional> getUnidadesFuncionales() {
         return unidadesFuncionales;
     }

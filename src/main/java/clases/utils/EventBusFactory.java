@@ -18,8 +18,12 @@ public class EventBusFactory {
         EventBus bus = EventBusFactory.getEventBus();
         try {
             bus.unregister(controller);
+            if (view != null){
             bus.unregister(view);
+            }
+            if (model != null){
             bus.unregister(model);
+            }
             view = null;
             model = null;
             System.gc();

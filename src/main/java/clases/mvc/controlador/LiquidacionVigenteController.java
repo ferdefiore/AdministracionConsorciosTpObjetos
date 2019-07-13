@@ -12,34 +12,34 @@ import com.google.common.eventbus.Subscribe;
 import java.util.List;
 
 public class LiquidacionVigenteController {
-    LiquidacionVigenteModel liquidacionVigenteModel;
-    LiquidacionVigenteView liquidacionVigenteView;
+    LiquidacionVigenteModel model;
+    LiquidacionVigenteView view;
     EventBus bus;
 
     public LiquidacionVigenteController() {
         bus = EventBusFactory.getEventBus();
         bus.register(this);
-        liquidacionVigenteModel = new LiquidacionVigenteModel();
-        List<String> listaConsorcios = liquidacionVigenteModel.getNombresDeConsorcios();
-        liquidacionVigenteView = new LiquidacionVigenteView(listaConsorcios);
+        model = new LiquidacionVigenteModel();
+        List<String> listaConsorcios = model.getNombresDeConsorcios();
+        view = new LiquidacionVigenteView(listaConsorcios);
     }
 
     @Subscribe
     public void onSolicitudGastosLiquidacion(LiquidacionVigenteView.SolicitudGastosLiquidacion event) {
-        List<Gasto> gastos = liquidacionVigenteModel.getDatosLiquidacionVigente(event.nombreConsorcio);
-        liquidacionVigenteView.poblarListaGasto(gastos);
+        List<Gasto> gastos = model.getDatosLiquidacionVigente(event.nombreConsorcio);
+        view.poblarListaGasto(gastos);
     }
 
     @Subscribe
     public void onSolicitudSaldosLiquidacion(LiquidacionVigenteView.SolicitudSaldosLiquidacion event) {
-        List<UnidadFuncional> uf = liquidacionVigenteModel.getUnidadesFuncionales(event.nombreConsorcio);
-        liquidacionVigenteView.poblarListaUf(uf);
+        List<UnidadFuncional> uf = model.getUnidadesFuncionales(event.nombreConsorcio);
+        view.poblarListaUf(uf);
     }
 
     @Subscribe
     public void onCerrarVentanaLiquidacionVigente(String event) {
         if (event.equals(Constantes.terminarLiquidacionVigente)) {
-            EventBusFactory.unregisterAndGc(this,liquidacionVigenteView,liquidacionVigenteModel);
+            EventBusFactory.unregisterAndGc(this, view, model);
         }
     }
 }

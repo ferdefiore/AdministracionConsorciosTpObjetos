@@ -14,34 +14,34 @@ import java.io.IOException;
 import java.util.List;
 
 public class CerrarLiquidacionController {
-    CerrarLiquidacionModel cerrarLiquidacionModel;
-    CerrarLiquidacionView cerrarLiquidacionView;
+    CerrarLiquidacionModel model;
+    CerrarLiquidacionView view;
     EventBus bus;
 
     public CerrarLiquidacionController() {
         bus = EventBusFactory.getEventBus();
         bus.register(this);
-        cerrarLiquidacionModel = new CerrarLiquidacionModel();
-        List<String> listaConsorcios = cerrarLiquidacionModel.getNombresDeConsorcios();
-        cerrarLiquidacionView = new CerrarLiquidacionView(listaConsorcios);
+        model = new CerrarLiquidacionModel();
+        List<String> listaConsorcios = model.getNombresDeConsorcios();
+        view = new CerrarLiquidacionView(listaConsorcios);
     }
 
     @Subscribe
     public void onCerrarLiquidacion(CerrarLiquidacionView.CerrarLiquidacion event) throws IOException {
         if (event.generarInforme) {
-            Liquidacion liquidacionVieja = cerrarLiquidacionModel.cerrarLiquidacionGenerarInforme(event.nombreConsorcio);
+            Liquidacion liquidacionVieja = model.cerrarYObtenerLiquidacion(event.nombreConsorcio);
             Printer.printLiquidacionCierre(liquidacionVieja," Informe Gastos Y Saldos ");
-            List<UnidadFuncional> ufsAImprimir = cerrarLiquidacionModel.getListaUnidadesFuncionales(event.nombreConsorcio);
+            List<UnidadFuncional> ufsAImprimir = model.getListaUnidadesFuncionales(event.nombreConsorcio);
             Printer.printSaldosCierre(event.nombreConsorcio, liquidacionVieja.getPeriodo().toString(), ufsAImprimir);
         } else {
-            cerrarLiquidacionModel.cerrarLiquidacion(event.nombreConsorcio);
+            model.cerrarLiquidacion(event.nombreConsorcio);
         }
     }
 
     @Subscribe
     public void onTerminoView(String event) {
         if (event.equals(Constantes.terminarCerrarLiquidacion)) {
-            EventBusFactory.unregisterAndGc(this,cerrarLiquidacionView,cerrarLiquidacionModel);
+            EventBusFactory.unregisterAndGc(this, view, model);
         }
     }
 }

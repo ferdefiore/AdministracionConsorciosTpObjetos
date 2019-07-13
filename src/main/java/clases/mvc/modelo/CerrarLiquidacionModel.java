@@ -1,11 +1,11 @@
 package clases.mvc.modelo;
 
+import clases.clasesRelacionales.Consorcio;
 import clases.clasesRelacionales.Liquidacion;
+import clases.clasesRelacionales.LiquidacionesHistoricas;
 import clases.clasesRelacionales.UnidadFuncional;
 import clases.utils.DAOmanager;
-import clases.utils.Printer;
 
-import java.io.IOException;
 import java.util.List;
 
 public class CerrarLiquidacionModel {
@@ -16,16 +16,22 @@ public class CerrarLiquidacionModel {
         return daoManager.getListaNombresConsorcios();
     }
 
-    public void cerrarLiquidacion(String nombreConsorcio) {
-        daoManager.cerrarLiquidacion(nombreConsorcio);
-    }
 
-    public Liquidacion cerrarLiquidacionGenerarInforme(String nombreConsorcio) throws IOException {
-        return daoManager.cerrarLiquidacionGenerarInforme(nombreConsorcio);
-    }
-
-    public List<UnidadFuncional> getListaUnidadesFuncionales(String nombreConsorcio){
+    public List<UnidadFuncional> getListaUnidadesFuncionales(String nombreConsorcio) {
         return daoManager.getListaUnidadesFuncionalesConsorcio(nombreConsorcio);
+    }
+
+    public void cerrarLiquidacion(String nombreConsorcio) {
+        this.cerrarYObtenerLiquidacion(nombreConsorcio);
+    }
+
+    public Liquidacion cerrarYObtenerLiquidacion(String nombreConsorcio){
+        Consorcio consorcio = daoManager.getConsorcio(nombreConsorcio);
+        Liquidacion vieja = consorcio.cerrarLiquidacion();
+        LiquidacionesHistoricas liquidacionesHistoricas = daoManager.getLiquidacionesHistoricas();
+        liquidacionesHistoricas.agregarHistorica(consorcio.getId(),vieja);
+        daoManager.actualizarConsorcioYAgregarHistorica(consorcio,liquidacionesHistoricas);
+        return vieja;
     }
 }
 

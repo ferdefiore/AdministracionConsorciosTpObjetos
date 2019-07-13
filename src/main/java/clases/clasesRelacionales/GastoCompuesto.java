@@ -6,14 +6,48 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class GastoCompuesto extends Gasto {
+    public List<Gasto> getGastos() {
+        return gastos;
+    }
+
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private List<Gasto> gastos;
 
+    public List<GastoCompuesto> getCompuestos() {
+        List<GastoCompuesto> temp = new ArrayList();
+        temp.add(this);
+        for (Gasto g : gastos) {
+            if (g instanceof GastoCompuesto)
+            temp.addAll(((GastoCompuesto) g).getCompuestos());
+        }
+        return temp;
+    }
+
+    @Override
+    public List<GastoCompuesto> devolverCompuestos() {
+        List<GastoCompuesto> temp = new ArrayList<>();
+        temp.add(this);
+        for (Gasto g: gastos){
+            temp.addAll(g.devolverCompuestos());
+        }
+        return temp;
+    }
+
     public GastoCompuesto() {
+    }
+
+    @Override
+    public List<String> pseudoToString() {
+        List<String> ret = new ArrayList<>();
+        for (Gasto g: gastos) {
+            ret.addAll(g.pseudoToString());
+        }
+        return ret;
     }
 
     public GastoCompuesto(String concepto, List<Gasto> gastos) {
@@ -30,7 +64,7 @@ public class GastoCompuesto extends Gasto {
         return total;
     }
 
-    public void agregarGasto(Gasto g) {
+    public void agregarGastoACompuesto(Gasto g) {
         this.gastos.add(g);
     }
 

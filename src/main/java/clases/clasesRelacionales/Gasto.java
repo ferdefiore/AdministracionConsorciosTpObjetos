@@ -1,6 +1,8 @@
 package clases.clasesRelacionales;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Inheritance
@@ -36,6 +38,9 @@ public abstract class Gasto {
 
     public Gasto() {
     }
+    public List<GastoCompuesto> devolverCompuestos(){
+        return new ArrayList<>();
+    }
 
-
+    public abstract List<String> pseudoToString();
 }

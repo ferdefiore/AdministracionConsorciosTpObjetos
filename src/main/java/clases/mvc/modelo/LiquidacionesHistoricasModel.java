@@ -1,6 +1,8 @@
 package clases.mvc.modelo;
 
+import clases.clasesRelacionales.Consorcio;
 import clases.clasesRelacionales.Liquidacion;
+import clases.clasesRelacionales.LiquidacionesHistoricas;
 import clases.utils.DAOmanager;
 import clases.utils.Printer;
 
@@ -15,7 +17,9 @@ public class LiquidacionesHistoricasModel {
     }
 
     public List<Liquidacion> getListaHistoricas(String nombreConsorcio) {
-        return daoManager.getHistoricas(nombreConsorcio);
+        Consorcio consorcio = daoManager.getConsorcio(nombreConsorcio);
+        LiquidacionesHistoricas liquidacionesHistoricas = daoManager.getLiquidacionesHistoricas();
+        return liquidacionesHistoricas.getHashLiquidaciones(consorcio.getId());
     }
 
     public Liquidacion imprimirLiquidacion(Integer idLiquidacion) throws IOException {
