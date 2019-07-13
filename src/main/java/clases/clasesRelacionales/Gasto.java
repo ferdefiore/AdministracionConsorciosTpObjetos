@@ -42,5 +42,4 @@ public abstract class Gasto {
         return new ArrayList<>();
     }
 
-    public abstract List<String> pseudoToString();
 }

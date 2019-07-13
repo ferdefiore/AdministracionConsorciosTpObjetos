@@ -1,7 +1,9 @@
 package clases.mvc.modelo;
 
+import clases.clasesRelacionales.Consorcio;
 import clases.clasesRelacionales.Gasto;
 import clases.clasesRelacionales.GastoCompuesto;
+import clases.clasesRelacionales.GastoSimple;
 import clases.utils.Constantes;
 import clases.utils.DAOmanager;
 
@@ -23,7 +25,7 @@ public class AgregarGastoModel {
 
             List<Gasto> gastos = daoManager.getConsorcio(nombreConsorcio).getLiquidacionVigente().getGastos();
 
-            for (Gasto g:gastos){
+            for (Gasto g : gastos) {
                 compuestos.addAll(g.devolverCompuestos());
             }
             for (GastoCompuesto gc : compuestos) {
@@ -38,18 +40,26 @@ public class AgregarGastoModel {
 
 
     public void agregarNuevoGasto(String nombreConsorcio, String concepto, Float monto) {
+        Gasto nuevoGasto;
+        Consorcio consorcio = daoManager.getConsorcio(nombreConsorcio);
         if (monto == Constantes.discernibleGasto) {
-            daoManager.agregarNuevoGasto(nombreConsorcio, concepto);
+            nuevoGasto = new GastoCompuesto(concepto, new ArrayList<>());
         } else {
-            daoManager.agregarNuevoGasto(nombreConsorcio, concepto, monto);
+            nuevoGasto = new GastoSimple(concepto, monto);
         }
+        consorcio.getLiquidacionVigente().agregarGasto(nuevoGasto);
+        daoManager.actualizarConsorcio(consorcio);
     }
 
-    public void agregarAGasto(String nombreConsorcio, Integer idGastoSeleccionado, String concepto, Float monto) {
+    public void agregarAGasto(Integer idGastoSeleccionado, String concepto, Float monto) {
+        Gasto nuevoGasto;
         if (monto == Constantes.discernibleGasto) {
-            daoManager.agregarAGasto(nombreConsorcio, idGastoSeleccionado, concepto);
+            nuevoGasto = new GastoCompuesto(concepto, new ArrayList<>());
         } else {
-            daoManager.agregarAGasto(nombreConsorcio, idGastoSeleccionado, concepto, monto);
+            nuevoGasto = new GastoSimple(concepto, monto);
         }
+        GastoCompuesto compuesto = daoManager.getGastoCompuesto(idGastoSeleccionado);
+        compuesto.agregarGastoACompuesto(nuevoGasto);
+        daoManager.actualizarGasto(compuesto);
     }
 }

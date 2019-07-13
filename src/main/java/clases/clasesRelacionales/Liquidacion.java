@@ -76,18 +76,4 @@ public class Liquidacion {
         this.gastos.add(g);
     }
 
-    public void agregarGasto(Gasto nuevo, Integer idGastoPadre){
-
-        List<GastoCompuesto> temp = new ArrayList();
-        for (Gasto g : gastos) {
-            if (g instanceof GastoCompuesto)
-                temp.addAll(((GastoCompuesto) g).getCompuestos());
-        }
-        for (GastoCompuesto g:temp) {
-            if (g.getId() == idGastoPadre){
-                g.agregarGastoACompuesto(nuevo);
-                break;
-            }
-        }
-    }
 }

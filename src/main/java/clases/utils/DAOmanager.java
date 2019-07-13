@@ -4,7 +4,6 @@ import clases.clasesRelacionales.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -56,7 +55,7 @@ public class DAOmanager {
         return retorno;
     }
 
-    public void agregarNuevoGasto(String nombreConsorcio, String concepto, Float monto) {
+/*    public void agregarNuevoGasto(String nombreConsorcio, String concepto, Float monto) {
         EntityManager manager = JPAUtility.getEntityManager();
         GastoSimple gastoSimple = new GastoSimple(concepto, monto);
         Integer idConsorcio = DAOmanager.getIdFromNombreConsorcio(nombreConsorcio);
@@ -74,9 +73,9 @@ public class DAOmanager {
         manager.getTransaction().begin();
         consorcio.getLiquidacionVigente().agregarGasto(gastoCompuesto);
         manager.getTransaction().commit();
-    }
+    }*/
 
-    public void agregarAGasto(String nombreConsorcio, Integer idGastoSeleccionado, String concepto, Float monto) {
+/*    public void agregarAGasto(String nombreConsorcio, Integer idGastoSeleccionado, String concepto, Float monto) {
         EntityManager manager = JPAUtility.getEntityManager();
         Integer idConsorcio = getIdFromNombreConsorcio(nombreConsorcio);
         GastoSimple gastoSimple = new GastoSimple(concepto, monto);
@@ -96,7 +95,7 @@ public class DAOmanager {
         consorcio.getLiquidacionVigente().agregarGasto(gastoCompuesto, idGastoSeleccionado);
         manager.persist(gastoCompuesto);
         manager.getTransaction().commit();
-    }
+    }*/
 
     public List<UnidadFuncional> getListaUnidadesFuncionalesConsorcio(String nombreConsorcio) {
         EntityManager manager = JPAUtility.getEntityManager();
@@ -181,4 +180,23 @@ public class DAOmanager {
         manager.getTransaction().commit();
     }
 
+    public void actualizarConsorcio(Consorcio consorcio) {
+        EntityManager manager = JPAUtility.getEntityManager();
+        manager.getTransaction().begin();
+        manager.merge(consorcio);
+        manager.getTransaction().commit();
+    }
+
+    public GastoCompuesto getGastoCompuesto(Integer idGastoSeleccionado) {
+        EntityManager manager = JPAUtility.getEntityManager();
+        return manager.find(GastoCompuesto.class, idGastoSeleccionado);
+
+    }
+
+    public void actualizarGasto(GastoCompuesto compuesto) {
+        EntityManager manager = JPAUtility.getEntityManager();
+        manager.getTransaction().begin();
+        manager.merge(compuesto);
+        manager.getTransaction().commit();
+    }
 }

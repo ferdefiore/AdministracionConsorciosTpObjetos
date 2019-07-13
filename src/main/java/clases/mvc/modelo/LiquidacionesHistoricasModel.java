@@ -4,7 +4,6 @@ import clases.clasesRelacionales.Consorcio;
 import clases.clasesRelacionales.Liquidacion;
 import clases.clasesRelacionales.LiquidacionesHistoricas;
 import clases.utils.DAOmanager;
-import clases.utils.Printer;
 
 import java.io.IOException;
 import java.util.List;

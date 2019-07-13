@@ -3,7 +3,6 @@ package clases.mvc.vista;
 import clases.utils.Constantes;
 import clases.utils.EventBusFactory;
 import com.google.common.eventbus.EventBus;
-import com.sun.xml.bind.v2.runtime.reflect.opt.Const;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -46,7 +45,7 @@ public class AgregarGastoView {
                 String gastoSeleccionado = (String) comboGastos.getSelectedItem();
                 Integer idGasto = Constantes.ceroInteger;
                 if (!(gastoSeleccionado.equals(Constantes.stringNuevoGasto))){
-                    String [] idConceptoGasto = gastoSeleccionado.split(" ",2);
+                    String [] idConceptoGasto = gastoSeleccionado.split(Constantes.stringEspacio,2);
                     idGasto = Integer.valueOf(idConceptoGasto[0]);
                 }
                 try{
@@ -60,9 +59,9 @@ public class AgregarGastoView {
                     } else if (comboGastos.getSelectedItem().equals(Constantes.stringNuevoGasto) && checkCompuesto.isSelected()) {
                         bus.post(new AgregarNuevoGasto(nombreConsorcio, concepto));
                     } else if (!(comboGastos.getSelectedItem().equals(Constantes.stringNuevoGasto)) && !checkCompuesto.isSelected()) {
-                        bus.post(new AgregarAGasto(nombreConsorcio, idGasto , concepto, monto));
+                        bus.post(new AgregarAGasto(idGasto , concepto, monto));
                     } else {
-                        bus.post(new AgregarAGasto(nombreConsorcio, idGasto, concepto));
+                        bus.post(new AgregarAGasto(idGasto, concepto));
                     }
                     bus.post(Constantes.terminarAgregarGasto);
                     frame.dispose();
@@ -124,20 +123,17 @@ public class AgregarGastoView {
     }
 
     public static class AgregarAGasto {
-        public String nombreConsorcio;
         public String concepto;
         public Float monto;
         public Integer idGastoSeleccionado;
 
-        public AgregarAGasto(String nombreConsorcio, Integer idGastoSeleccionado, String concepto, Float monto) {
-            this.nombreConsorcio = nombreConsorcio;
+        public AgregarAGasto(Integer idGastoSeleccionado, String concepto, Float monto) {
             this.idGastoSeleccionado = idGastoSeleccionado;
             this.concepto = concepto;
             this.monto = monto;
         }
 
-        public AgregarAGasto(String nombreConsorcio, Integer idGastoSeleccionado, String concepto) {
-            this.nombreConsorcio = nombreConsorcio;
+        public AgregarAGasto(Integer idGastoSeleccionado, String concepto) {
             this.idGastoSeleccionado = idGastoSeleccionado;
             this.concepto = concepto;
             this.monto = Constantes.discernibleGasto;

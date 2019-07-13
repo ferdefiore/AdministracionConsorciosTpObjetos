@@ -43,7 +43,7 @@ public class AgregarGastoController {
     @Subscribe
     public void onAgregarAGasto(AgregarGastoView.AgregarAGasto event) {
         //bus.unregister(this);
-        model.agregarAGasto(event.nombreConsorcio, event.idGastoSeleccionado, event.concepto, event.monto);
+        model.agregarAGasto(event.idGastoSeleccionado, event.concepto, event.monto);
     }
 
     @Subscribe
