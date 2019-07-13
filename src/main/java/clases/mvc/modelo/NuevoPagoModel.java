@@ -1,5 +1,6 @@
 package clases.mvc.modelo;
 
+import clases.clasesRelacionales.Pago;
 import clases.clasesRelacionales.UnidadFuncional;
 import clases.utils.DAOmanager;
 
@@ -23,6 +24,9 @@ public class NuevoPagoModel {
     }
 
     public void generarPago(Integer idUnidadFuncional, Double monto) {
-        daoManager.generarPago(idUnidadFuncional, monto);
+        UnidadFuncional uf = daoManager.getUnidadFuncionalFromId(idUnidadFuncional);
+        Pago nuevopago = new Pago(monto, uf);
+        uf.modificarSaldo(monto);
+        daoManager.guardarPagoYactualizarUnidadFuncional(nuevopago,uf);
     }
 }

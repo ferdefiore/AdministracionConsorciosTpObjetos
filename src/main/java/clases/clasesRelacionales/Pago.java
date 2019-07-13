@@ -8,7 +8,7 @@ public class Pago {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private Double montoPagado;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "id_unidadFuncional")
     private UnidadFuncional unidadFuncional;
 

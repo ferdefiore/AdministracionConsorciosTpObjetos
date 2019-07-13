@@ -55,63 +55,11 @@ public class DAOmanager {
         return retorno;
     }
 
-/*    public void agregarNuevoGasto(String nombreConsorcio, String concepto, Float monto) {
-        EntityManager manager = JPAUtility.getEntityManager();
-        GastoSimple gastoSimple = new GastoSimple(concepto, monto);
-        Integer idConsorcio = DAOmanager.getIdFromNombreConsorcio(nombreConsorcio);
-        Consorcio consorcio = manager.find(Consorcio.class, idConsorcio);
-        manager.getTransaction().begin();
-        consorcio.getLiquidacionVigente().agregarGasto(gastoSimple);
-        manager.getTransaction().commit();
-    }
-
-    public void agregarNuevoGasto(String nombreConsorcio, String concepto) {
-        EntityManager manager = JPAUtility.getEntityManager();
-        Integer idConsorcio = getIdFromNombreConsorcio(nombreConsorcio);
-        Consorcio consorcio = manager.find(Consorcio.class, idConsorcio);
-        GastoCompuesto gastoCompuesto = new GastoCompuesto(concepto, new ArrayList<Gasto>());
-        manager.getTransaction().begin();
-        consorcio.getLiquidacionVigente().agregarGasto(gastoCompuesto);
-        manager.getTransaction().commit();
-    }*/
-
-/*    public void agregarAGasto(String nombreConsorcio, Integer idGastoSeleccionado, String concepto, Float monto) {
-        EntityManager manager = JPAUtility.getEntityManager();
-        Integer idConsorcio = getIdFromNombreConsorcio(nombreConsorcio);
-        GastoSimple gastoSimple = new GastoSimple(concepto, monto);
-        Consorcio consorcio = manager.find(Consorcio.class, idConsorcio);
-        manager.getTransaction().begin();
-        consorcio.getLiquidacionVigente().agregarGasto(gastoSimple, idGastoSeleccionado);
-        manager.persist(gastoSimple);
-        manager.getTransaction().commit();
-    }
-
-    public void agregarAGasto(String nombreConsorcio, Integer idGastoSeleccionado, String concepto) {
-        EntityManager manager = JPAUtility.getEntityManager();
-        Integer idConsorcio = getIdFromNombreConsorcio(nombreConsorcio);
-        GastoCompuesto gastoCompuesto = new GastoCompuesto(concepto, new ArrayList<Gasto>());
-        Consorcio consorcio = manager.find(Consorcio.class, idConsorcio);
-        manager.getTransaction().begin();
-        consorcio.getLiquidacionVigente().agregarGasto(gastoCompuesto, idGastoSeleccionado);
-        manager.persist(gastoCompuesto);
-        manager.getTransaction().commit();
-    }*/
-
     public List<UnidadFuncional> getListaUnidadesFuncionalesConsorcio(String nombreConsorcio) {
         EntityManager manager = JPAUtility.getEntityManager();
         Integer idConsorcio = getIdFromNombreConsorcio(nombreConsorcio);
         Consorcio c = manager.find(Consorcio.class, idConsorcio);
         return c.getUnidadesFuncionales();
-    }
-
-    public void generarPago(Integer idUnidadFuncional, Double monto) {
-        EntityManager manager = JPAUtility.getEntityManager();
-        UnidadFuncional uf = (UnidadFuncional) manager.createQuery("FROM UnidadFuncional WHERE id =" + idUnidadFuncional).getSingleResult();
-        Pago nuevoPago = new Pago(monto, uf);
-        manager.getTransaction().begin();
-        manager.persist(nuevoPago);
-        uf.modificarSaldo(monto);
-        manager.getTransaction().commit();
     }
 
     public Consorcio getConsorcio(String nombreConsorcio) {
@@ -192,11 +140,24 @@ public class DAOmanager {
         return manager.find(GastoCompuesto.class, idGastoSeleccionado);
 
     }
-
+//todo se puede hacer un actualizer con objetc supongo para no tener tantos pero no difiere mucho
     public void actualizarGasto(GastoCompuesto compuesto) {
         EntityManager manager = JPAUtility.getEntityManager();
         manager.getTransaction().begin();
         manager.merge(compuesto);
+        manager.getTransaction().commit();
+    }
+
+    public UnidadFuncional getUnidadFuncionalFromId(Integer idUnidadFuncional) {
+        EntityManager manager = JPAUtility.getEntityManager();
+        return manager.find(UnidadFuncional.class,idUnidadFuncional);
+    }
+
+    public void guardarPagoYactualizarUnidadFuncional(Pago pago,UnidadFuncional uf) {
+        EntityManager manager = JPAUtility.getEntityManager();
+        manager.getTransaction().begin();
+        manager.persist(pago);
+        manager.merge(uf);
         manager.getTransaction().commit();
     }
 }
