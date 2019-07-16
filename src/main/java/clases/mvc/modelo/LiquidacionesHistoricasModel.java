@@ -5,11 +5,14 @@ import clases.clasesRelacionales.Liquidacion;
 import clases.clasesRelacionales.LiquidacionesHistoricas;
 import clases.utils.DAOmanager;
 
-import java.io.IOException;
 import java.util.List;
 
-public class LiquidacionesHistoricasModel {
+public class LiquidacionesHistoricasModel extends ModeloManejadorHistoricas{
     private DAOmanager daoManager = DAOmanager.getDAOmanager();
+
+    public LiquidacionesHistoricasModel() {
+        inicializadorLiquidacionesHistoricas();
+    }
 
     public List<String> getListaConsorcios() {
         return daoManager.getListaNombresConsorcios();

@@ -32,7 +32,9 @@ public class AgregarDatosModel {
     public void crearUnidadFuncional(String nombreConsorcioPerteneciente, String tipoUf, String dniPropietario, double coeficientePago, String pisoNum, double saldo) {
         Propietario propietario = daoManager.getPropietarioFromDni(dniPropietario);
         UnidadFuncional ufNueva = new UnidadFuncional(tipoUf, propietario, coeficientePago, pisoNum, saldo);
-        daoManager.agregarUnidadFuncional(nombreConsorcioPerteneciente, ufNueva);
+        Consorcio consorcio = daoManager.getConsorcio(nombreConsorcioPerteneciente);
+        consorcio.agregarUnidadFuncional(ufNueva);
+        daoManager.actualizarConsorcio(consorcio);
     }
 
     public void crearPropietarioNuevo(String dni, String nomYApe, String mail, String direccion, String telefono) {

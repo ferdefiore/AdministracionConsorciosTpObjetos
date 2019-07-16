@@ -8,14 +8,17 @@ import clases.utils.DAOmanager;
 
 import java.util.List;
 
-public class CerrarLiquidacionModel {
+public class CerrarLiquidacionModel extends ModeloManejadorHistoricas{
 
     private DAOmanager daoManager = DAOmanager.getDAOmanager();
+
+    public CerrarLiquidacionModel() {
+        inicializadorLiquidacionesHistoricas();
+    }
 
     public List<String> getNombresDeConsorcios() {
         return daoManager.getListaNombresConsorcios();
     }
-
 
     public List<UnidadFuncional> getListaUnidadesFuncionales(String nombreConsorcio) {
         return daoManager.getListaUnidadesFuncionalesConsorcio(nombreConsorcio);
