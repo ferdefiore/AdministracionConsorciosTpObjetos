@@ -10,7 +10,7 @@ import com.google.common.eventbus.Subscribe;
 import javax.swing.*;
 import java.util.List;
 
-public class NuevoPagoController {
+public class NuevoPagoController extends ControllerManejadorDeBusVistaYModelo {
     private NuevoPagoModel model;
     private NuevoPagoView view;
     private EventBus bus;
@@ -24,7 +24,7 @@ public class NuevoPagoController {
         List<String> listaUnidadesFuncionales = model.getDatosUnidadesFuncionalesConsorcio(listaConsorcios.get(0));
         this.view = new NuevoPagoView(listaConsorcios, listaUnidadesFuncionales);
         }catch (Exception exeption){
-            EventBusFactory.unregisterAndGc(this, view, model);
+            unregisterAndGc(this, view, model);
             JOptionPane.showMessageDialog(null, Constantes.mensajeErrorInicializacion +  exeption.getMessage(), Constantes.stringError, JOptionPane.INFORMATION_MESSAGE);
         }
     }
@@ -42,7 +42,7 @@ public class NuevoPagoController {
     @Subscribe
     public void onTerminar(String event) {
         if (event.equals(Constantes.terminarAgregarPago)) {
-            EventBusFactory.unregisterAndGc(this, view, model);
+            unregisterAndGc(this, view, model);
         }
     }
 }

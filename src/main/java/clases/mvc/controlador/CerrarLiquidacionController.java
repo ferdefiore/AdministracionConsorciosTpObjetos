@@ -13,7 +13,7 @@ import com.google.common.eventbus.Subscribe;
 import java.io.IOException;
 import java.util.List;
 
-public class CerrarLiquidacionController {
+public class CerrarLiquidacionController extends ControllerManejadorDeBusVistaYModelo{
     private CerrarLiquidacionModel model;
     private CerrarLiquidacionView view;
     private EventBus bus;
@@ -41,7 +41,7 @@ public class CerrarLiquidacionController {
     @Subscribe
     public void onTerminoView(String event) {
         if (event.equals(Constantes.terminarCerrarLiquidacion)) {
-            EventBusFactory.unregisterAndGc(this, view, model);
+            unregisterAndGc(this, view, model);
         }
     }
 }

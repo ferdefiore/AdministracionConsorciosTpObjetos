@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LiquidacionesHistoricasController {
+public class LiquidacionesHistoricasController extends ControllerManejadorDeBusVistaYModelo{
     private EventBus bus;
     private LiquidacionesHistoricasModel model;
     private LiquidacionesHistoricasView view;
@@ -33,7 +33,7 @@ public class LiquidacionesHistoricasController {
         }
         view = new LiquidacionesHistoricasView(nombresConsorcios, periodos);
         }catch (Exception exeption){
-            EventBusFactory.unregisterAndGc(this,view,model);
+            unregisterAndGc(this,view,model);
             JOptionPane.showMessageDialog(null, Constantes.mensajeErrorInicializacion +  exeption.getMessage(), Constantes.stringError, JOptionPane.INFORMATION_MESSAGE);
         }
     }
@@ -61,7 +61,7 @@ public class LiquidacionesHistoricasController {
     @Subscribe
     public void onCerrarVentanasLiquidacionesHistoricas(String event) {
         if (event.equals(Constantes.terminarLiquidacionesHistoricas)) {
-            EventBusFactory.unregisterAndGc(this, view, model);
+            unregisterAndGc(this, view, model);
         }
     }
 

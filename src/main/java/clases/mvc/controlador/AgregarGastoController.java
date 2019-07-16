@@ -10,7 +10,7 @@ import com.google.common.eventbus.Subscribe;
 import javax.swing.*;
 import java.util.List;
 
-public class AgregarGastoController {
+public class AgregarGastoController extends ControllerManejadorDeBusVistaYModelo {
     private AgregarGastoView view;
     private AgregarGastoModel model;
     private EventBus bus;
@@ -24,7 +24,7 @@ public class AgregarGastoController {
             List<String> idGastos = model.getListaGastosParaConsorcio(nombresConsorcios.get(0));
             this.view = new AgregarGastoView(nombresConsorcios, idGastos);
         }catch (Exception exeption){
-            EventBusFactory.unregisterAndGc(this, view, model);
+            unregisterAndGc(this, view, model);
             JOptionPane.showMessageDialog(null, Constantes.mensajeErrorInicializacion +  exeption.getMessage(), Constantes.stringError, JOptionPane.INFORMATION_MESSAGE);
         }
     }
@@ -49,7 +49,7 @@ public class AgregarGastoController {
     @Subscribe
     public void onTerminar(String event) {
         if (event.equals(Constantes.terminarAgregarGasto)) {
-            EventBusFactory.unregisterAndGc(this, view, model);
+            unregisterAndGc(this, view, model);
         }
     }
 }

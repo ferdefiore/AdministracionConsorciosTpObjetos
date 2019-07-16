@@ -7,7 +7,7 @@ import clases.utils.EventBusFactory;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 
-public class PropietariosYSaldosController {
+public class PropietariosYSaldosController extends ControllerManejadorDeBusVistaYModelo{
     private PropietariosYSaldosView view;
     private PropietariosYSaldosModel model;
     private EventBus bus;
@@ -44,7 +44,7 @@ public class PropietariosYSaldosController {
     @Subscribe
     public void onTerminarPropietariosYSaldos(String event) {
         if (event.equals(Constantes.terminarPropietariosYSaldos)) {
-            EventBusFactory.unregisterAndGc(this,view,model);
+            unregisterAndGc(this,view,model);
         }
     }
 }

@@ -11,7 +11,7 @@ import com.google.common.eventbus.Subscribe;
 
 import java.util.List;
 
-public class LiquidacionVigenteController {
+public class LiquidacionVigenteController extends ControllerManejadorDeBusVistaYModelo{
     private LiquidacionVigenteModel model;
     private LiquidacionVigenteView view;
     private EventBus bus;
@@ -39,7 +39,7 @@ public class LiquidacionVigenteController {
     @Subscribe
     public void onCerrarVentanaLiquidacionVigente(String event) {
         if (event.equals(Constantes.terminarLiquidacionVigente)) {
-            EventBusFactory.unregisterAndGc(this, view, model);
+            unregisterAndGc(this, view, model);
         }
     }
 }

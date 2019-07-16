@@ -15,7 +15,7 @@ public class PropietariosYSaldosModel {
         List<Propietario> propietarios = daoManager.getListaPropietarios();
         List<String> ret = new ArrayList<>();
         for (Propietario p : propietarios) {
-            ret.add(p.toString()); //todo pasar al modelo
+            ret.add(p.toString());
         }
         return ret;
     }

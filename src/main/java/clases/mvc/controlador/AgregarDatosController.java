@@ -9,7 +9,7 @@ import com.google.common.eventbus.Subscribe;
 
 import javax.swing.*;
 
-public class AgregarDatosController {
+public class AgregarDatosController extends ControllerManejadorDeBusVistaYModelo{
     private EventBus bus;
     private AgregarDatosModel model;
     private AgregarDatosView view;
@@ -21,7 +21,7 @@ public class AgregarDatosController {
             bus = EventBusFactory.getEventBus();
             bus.register(this);
         }catch (Exception exeption){
-            EventBusFactory.unregisterAndGc(this,view,model);
+            unregisterAndGc(this,view,model);
             JOptionPane.showMessageDialog(null, Constantes.mensajeErrorInicializacion +  exeption.getMessage(), Constantes.stringError, JOptionPane.INFORMATION_MESSAGE);
         }
     }
@@ -47,7 +47,7 @@ public class AgregarDatosController {
     @Subscribe
     public void onTerminarDeAgregarDatos(String event) {
         if (event.equals(Constantes.terminarAgregarDatos)) {
-            EventBusFactory.unregisterAndGc(this,view,model);
+            unregisterAndGc(this,view,model);
         }
     }
 }
