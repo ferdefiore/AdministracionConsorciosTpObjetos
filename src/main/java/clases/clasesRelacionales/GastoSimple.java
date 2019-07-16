@@ -1,8 +1,6 @@
 package clases.clasesRelacionales;
 
 import javax.persistence.Entity;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 public class GastoSimple extends Gasto {

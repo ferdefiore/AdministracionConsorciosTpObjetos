@@ -22,8 +22,8 @@ public class AgregarGastoModel {
         List<String> retorno = new ArrayList<>();
         List<GastoCompuesto> compuestos = new ArrayList<>();
         try {
-
-            List<Gasto> gastos = daoManager.getConsorcio(nombreConsorcio).getLiquidacionVigente().getGastos();
+            List<Gasto> gastos = daoManager.getGastosLiquidacionVigente(nombreConsorcio);
+            //List<Gasto> gastos = daoManager.getConsorcio(nombreConsorcio).getLiquidacionVigente().getGastos();
 
             for (Gasto g : gastos) {
                 compuestos.addAll(g.devolverCompuestos());

@@ -19,8 +19,8 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 public class MenuPrincipal extends Application {
-    EventBus bus;
-    JFrame frame;
+    private EventBus bus;
+    private JFrame frame;
     private JPanel panel1;
     private JButton informesDeLiquidacionesHistoricasButton;
     private JButton nuevoConsorcioButton;
@@ -32,7 +32,7 @@ public class MenuPrincipal extends Application {
     private JButton borrarBaseDeDatosButton;
     private JButton inicializarConCasosDeButton;
 
-    public MenuPrincipal() throws IOException {
+    public MenuPrincipal() {
         bus = EventBusFactory.getEventBus();
         bus.register(this);
         frame = new JFrame(Constantes.tituloMenuView);
@@ -119,7 +119,7 @@ public class MenuPrincipal extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
     }
 
 }

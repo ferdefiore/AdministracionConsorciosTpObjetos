@@ -15,8 +15,7 @@ public class CerrarLiquidacionView {
     private JCheckBox generarArchivoDeTotalesCheckBox;
     private JPanel panel1;
     private JFrame frame;
-    private JFileChooser jFileChooser;
-    EventBus bus;
+    private EventBus bus;
 
     public CerrarLiquidacionView(List<String> listaConsorcios) {
         bus = EventBusFactory.getEventBus();

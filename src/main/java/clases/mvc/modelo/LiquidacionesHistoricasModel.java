@@ -21,7 +21,7 @@ public class LiquidacionesHistoricasModel {
         return liquidacionesHistoricas.getHashLiquidaciones(consorcio.getId());
     }
 
-    public Liquidacion imprimirLiquidacion(Integer idLiquidacion) throws IOException {
+    public Liquidacion imprimirLiquidacion(Integer idLiquidacion) {
         return daoManager.getLiquidacion(idLiquidacion);
     }
 }

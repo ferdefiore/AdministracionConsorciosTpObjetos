@@ -53,7 +53,7 @@ public class Propietario {
 
     @Override
     public String toString() {
-        return (dni + ", " + nombreApellido + " ," + mail + " ," + direccion + ", " + telefono);
+        return (dni + ", " + nombreApellido + ", " + mail + " ," + direccion + ", " + telefono);
     }
 
     public void setDireccion(String direccion) {

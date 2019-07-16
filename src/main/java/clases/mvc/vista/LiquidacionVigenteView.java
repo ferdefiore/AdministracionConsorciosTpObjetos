@@ -19,7 +19,7 @@ public class LiquidacionVigenteView {
     private JComboBox comboConsorcios;
     private JButton buscarButton;
     private JButton verSaldosButton;
-    EventBus bus;
+    private EventBus bus;
     private JFrame frame;
 
     public LiquidacionVigenteView(List<String> consorcios) {

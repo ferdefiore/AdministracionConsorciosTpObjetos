@@ -21,7 +21,6 @@ public class AgregarGastoView {
     private JTextField textConcepto;
     private JButton guardarGastoButton;
     private JCheckBox checkCompuesto;
-    private JList listaDetalleGasto;
 
     public AgregarGastoView(List<String> listaNombresConsorcios, List<String> listaIdGastos) {
         bus = EventBusFactory.getEventBus();

@@ -12,9 +12,9 @@ import com.google.common.eventbus.Subscribe;
 import java.util.List;
 
 public class LiquidacionVigenteController {
-    LiquidacionVigenteModel model;
-    LiquidacionVigenteView view;
-    EventBus bus;
+    private LiquidacionVigenteModel model;
+    private LiquidacionVigenteView view;
+    private EventBus bus;
 
     public LiquidacionVigenteController() {
         bus = EventBusFactory.getEventBus();

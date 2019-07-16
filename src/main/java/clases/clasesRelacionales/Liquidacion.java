@@ -4,7 +4,6 @@ import clases.utils.Constantes;
 
 import javax.persistence.*;
 import java.time.YearMonth;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity

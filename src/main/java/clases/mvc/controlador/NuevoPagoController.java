@@ -21,7 +21,7 @@ public class NuevoPagoController {
         bus.register(this);
         this.model = new NuevoPagoModel();
         List<String> listaConsorcios = model.getListaConsorcios();
-        List<Integer> listaUnidadesFuncionales = model.getListaUnidadesFuncionalesConsorcio(listaConsorcios.get(0));
+        List<String> listaUnidadesFuncionales = model.getDatosUnidadesFuncionalesConsorcio(listaConsorcios.get(0));
         this.view = new NuevoPagoView(listaConsorcios, listaUnidadesFuncionales);
         }catch (Exception exeption){
             EventBusFactory.unregisterAndGc(this, view, model);
@@ -31,7 +31,7 @@ public class NuevoPagoController {
 
     @Subscribe
     public void onSolicitudListaUf(NuevoPagoView.SolicitudListaUf event) {
-        view.poblarUnidadesFuncionales(model.getListaUnidadesFuncionalesConsorcio(event.nombreConsorcio));
+        view.poblarUnidadesFuncionales(model.getDatosUnidadesFuncionalesConsorcio(event.nombreConsorcio));
     }
 
     @Subscribe

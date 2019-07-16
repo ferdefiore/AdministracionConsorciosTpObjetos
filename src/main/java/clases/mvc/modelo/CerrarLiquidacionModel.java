@@ -10,7 +10,7 @@ import java.util.List;
 
 public class CerrarLiquidacionModel {
 
-    DAOmanager daoManager = DAOmanager.getDAOmanager();
+    private DAOmanager daoManager = DAOmanager.getDAOmanager();
 
     public List<String> getNombresDeConsorcios() {
         return daoManager.getListaNombresConsorcios();

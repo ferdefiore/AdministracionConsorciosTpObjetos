@@ -14,9 +14,9 @@ import java.io.IOException;
 import java.util.List;
 
 public class CerrarLiquidacionController {
-    CerrarLiquidacionModel model;
-    CerrarLiquidacionView view;
-    EventBus bus;
+    private CerrarLiquidacionModel model;
+    private CerrarLiquidacionView view;
+    private EventBus bus;
 
     public CerrarLiquidacionController() {
         bus = EventBusFactory.getEventBus();

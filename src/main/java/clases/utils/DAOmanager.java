@@ -21,7 +21,7 @@ public class DAOmanager {
     }
 
     public void inicDB() {
-        EntityManager manager = JPAUtility.getEntityManager();
+        EntityManager manager = JPAUtility.getEntityManager();//todo cambiar x ==null
         try {
             LiquidacionesHistoricas lh = (LiquidacionesHistoricas) manager.createQuery("FROM LiquidacionesHistoricas").getSingleResult(); //todo quiza se pueda situar en otro lado
         } catch (NoResultException e) {

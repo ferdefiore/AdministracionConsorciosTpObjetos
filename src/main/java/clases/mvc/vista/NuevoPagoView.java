@@ -20,7 +20,7 @@ public class NuevoPagoView {
     private JButton guardarPagoButton;
     private JPanel panel1;
 
-    public NuevoPagoView(List<String> nombresConsorcios, List<Integer> listaUnidadesFuncionales) {
+    public NuevoPagoView(List<String> nombresConsorcios, List<String> listaUnidadesFuncionales) {
         bus = EventBusFactory.getEventBus();
         bus.register(this);
         frame = new JFrame(Constantes.tituloNuevoPagoView);
@@ -33,9 +33,7 @@ public class NuevoPagoView {
         for (String nombre : nombresConsorcios) {
             comboConsorcios.addItem(nombre);
         }
-        for (Integer id : listaUnidadesFuncionales) {
-            comboUnidadesFuncionales.addItem(id);
-        }
+        this.poblarUnidadesFuncionales(listaUnidadesFuncionales);
 
         comboConsorcios.addItemListener(new ItemListener() {
             @Override
@@ -48,7 +46,9 @@ public class NuevoPagoView {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try{
-                    bus.post(new GenerarPago((Integer) comboUnidadesFuncionales.getSelectedItem(), Double.valueOf(textMonto.getText())));
+                    String[] comboUF = ((String)comboUnidadesFuncionales.getSelectedItem()).split(Constantes.stringEspacio,2);
+                    Integer idUf = Integer.valueOf(comboUF[Constantes.ceroInteger]);
+                    bus.post(new GenerarPago(idUf, Double.valueOf(textMonto.getText())));
                     bus.post(Constantes.terminarAgregarPago);
                     frame.dispose();
                 }catch (Exception exeption){
@@ -58,10 +58,10 @@ public class NuevoPagoView {
         });
     }
 
-    public void poblarUnidadesFuncionales(List<Integer> listaUnidadesFuncionalesConsorcio) {
+    public void poblarUnidadesFuncionales(List<String> listaUnidadesFuncionalesConsorcio) {
         comboUnidadesFuncionales.removeAllItems();
-        for (Integer idGasto : listaUnidadesFuncionalesConsorcio) {
-            comboUnidadesFuncionales.addItem(idGasto);
+        for (String unidadFuncional : listaUnidadesFuncionalesConsorcio) {
+            comboUnidadesFuncionales.addItem(unidadFuncional);
         }
     }
 
