@@ -36,11 +36,13 @@ public class AgregarGastoController extends ControllerManejadorDeBusVistaYModelo
 
     @Subscribe
     public void onAgregarNuevoGasto(AgregarGastoView.AgregarNuevoGasto event) {
+        bus.unregister(this);
         model.agregarNuevoGasto(event.nombreConsorcio, event.concepto, event.monto);
     }
 
     @Subscribe
     public void onAgregarAGasto(AgregarGastoView.AgregarAGasto event) {
+        bus.unregister(this);
         model.agregarAGasto(event.idGastoSeleccionado, event.concepto, event.monto);
     }
 

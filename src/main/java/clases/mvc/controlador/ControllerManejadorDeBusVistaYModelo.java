@@ -19,7 +19,7 @@ public class ControllerManejadorDeBusVistaYModelo {
             model = null;
             System.gc();
         }catch (Exception e){
-            e.printStackTrace();
+            //catch
         }
     }
 }
