@@ -53,44 +53,13 @@ public class Consorcio {
         this.nombre = nombre;
     }
 
-    public String getCuit() {
-        return cuit;
-    }
-
-    public void setCuit(String cuit) {
-        this.cuit = cuit;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public String getCiudad() {
-        return ciudad;
-    }
-
-    public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
-    }
-
     public Liquidacion getLiquidacionVigente() {
         return liquidacionVigente;
     }
 
-    public void setLiquidacionVigente(Liquidacion liquidacionVigente) {
-        this.liquidacionVigente = liquidacionVigente;
-    }
 
     public void agregarUnidadFuncional(UnidadFuncional uf) {
         unidadesFuncionales.add(uf);
-    }
-
-    public void eliminarUnidadFuncional(UnidadFuncional uf) {
-        unidadesFuncionales.remove(uf);
     }
 
     public List<UnidadFuncional> getUnidadesFuncionales() {

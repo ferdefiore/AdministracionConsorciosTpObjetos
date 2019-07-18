@@ -27,20 +27,4 @@ public class Pago {
     public void setId(int id) {
         this.id = id;
     }
-
-    public Double getMontoPagado() {
-        return montoPagado;
-    }
-
-    public void setMontoPagado(Double montoPagado) {
-        this.montoPagado = montoPagado;
-    }
-
-    public UnidadFuncional getUnidadFuncional() {
-        return unidadFuncional;
-    }
-
-    public void setUnidadFuncional(UnidadFuncional unidadFuncional) {
-        this.unidadFuncional = unidadFuncional;
-    }
 }

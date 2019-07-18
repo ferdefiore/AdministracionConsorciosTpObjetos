@@ -51,10 +51,6 @@ public class Liquidacion {
         return id_liquidacion;
     }
 
-    public void setId_liquidacion(int id_liquidacion) {
-        this.id_liquidacion = id_liquidacion;
-    }
-
     public List<Gasto> getGastos() {
         return gastos;
     }
@@ -65,10 +61,6 @@ public class Liquidacion {
 
     public YearMonth getPeriodo() {
         return periodo;
-    }
-
-    public void setPeriodo(YearMonth periodo) {
-        this.periodo = periodo;
     }
 
     public void agregarGasto(Gasto g) {

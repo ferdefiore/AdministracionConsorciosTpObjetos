@@ -30,14 +30,6 @@ public class UnidadFuncional {
         this.saldo = saldo;
     }
 
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
     public int getId() {
         return id;
     }
@@ -50,32 +42,15 @@ public class UnidadFuncional {
         return propietario;
     }
 
-    public void setPropietario(Propietario propietario) {
-        this.propietario = propietario;
-    }
-
     public double getCoeficiente() {
         return coeficiente;
-    }
-
-    public void setCoeficiente(double coeficiente) {
-        this.coeficiente = coeficiente;
     }
 
     public String getPisoNum() {
         return pisoNum;
     }
-
-    public void setPisoNum(String pisoNum) {
-        this.pisoNum = pisoNum;
-    }
-
     public double getSaldo() {
         return saldo;
-    }
-
-    public void setSaldo(double saldo) {
-        this.saldo = saldo;
     }
 
     public void modificarSaldo(double valor) {

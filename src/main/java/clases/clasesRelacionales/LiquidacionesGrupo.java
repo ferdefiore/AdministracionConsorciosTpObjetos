@@ -29,11 +29,4 @@ public class LiquidacionesGrupo {
         return liquidaciones;
     }
 
-    public void setLiquidaciones(List<Liquidacion> liquidaciones) {
-        this.liquidaciones = liquidaciones;
-    }
-
-    public void agregarLiquidacion(Liquidacion lq) {
-        liquidaciones.add(lq);
-    }
 }
