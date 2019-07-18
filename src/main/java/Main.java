@@ -9,7 +9,7 @@ public class Main {
     private static EntityManager manager;
     private static EntityManagerFactory emf;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args){
 
         DAOmanager.getDAOmanager().inicDB();
         new MenuPrincipal();

@@ -15,6 +15,7 @@ public class Constantes {
     public static String stringError = "Error!";
     public static String mensajeErrorInicializacion = "Ocurrio un error, verifique que haya datos cargados para poder trabajar.\n ErrorMessage: ";
     public static String comboVacio = "Combo vacio, no hay datos para mostrar";
+    public static String nombreCarpetaReportes = "Reportes\\";
 
     //////----------------------------MENSAJES BUS-------------------------------------------//////
     public static String terminarAgregarDatos = "Termino de agregar datos";
@@ -39,4 +40,5 @@ public class Constantes {
     public static String pathArchivoBaseDatos = "\\dataBase.mv.db";
     public static String nombreCarpetaContenedoraBaseDatosInicial = "\\DBInicFile";
     public static String nombreBaseDatos = "dataBase.mv.db";
+
 }

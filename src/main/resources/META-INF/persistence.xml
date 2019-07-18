@@ -5,25 +5,13 @@
              version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
 
     <persistence-unit name="Persistencia">
-
-        <!---represnacion de clases-->
-        <class>clases.clasesRelacionales.Consorcio</class>
-        <class>clases.clasesRelacionales.GastoSimple</class>
-        <class>clases.clasesRelacionales.GastoCompuesto</class>
-        <class>clases.clasesRelacionales.Liquidacion</class>
-        <class>clases.clasesRelacionales.LiquidacionesHistoricas</class>
-        <class>clases.clasesRelacionales.Propietario</class>
-        <class>clases.clasesRelacionales.UnidadFuncional</class>
-
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
-            <!--<property name="javax.persistence.jdbc.url" value="jdbc:h2:~/test"/>-->
             <property name="javax.persistence.jdbc.url" value="jdbc:h2:./dataBase"/>
-            <!--<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test"/>-->
             <property name="javax.persistence.jdbc.user" value="sa"/>
             <property name="javax.persistence.jdbc.password" value=""/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
-            <property name="hibernate.hbm2ddl.auto" value="update"/> <!--cambiar por create cuando terminemos-->
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
         </properties>
     </persistence-unit>
 

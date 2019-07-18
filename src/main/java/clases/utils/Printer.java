@@ -4,6 +4,7 @@ import clases.clasesRelacionales.Gasto;
 import clases.clasesRelacionales.Liquidacion;
 import clases.clasesRelacionales.UnidadFuncional;
 
+import java.awt.*;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class Printer {
     public static void printLiquidacionCierre(Liquidacion liquidacion, String nombre) throws IOException {
-        OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(liquidacion.getConsorcio().getNombre() + nombre + liquidacion.getPeriodo() + ".txt"));
+        OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(Constantes.nombreCarpetaReportes + liquidacion.getConsorcio().getNombre() + nombre + liquidacion.getPeriodo() + ".txt"));
         osw.write("Consorcio: " + liquidacion.getConsorcio().getNombre());
         osw.write(System.lineSeparator());
         osw.write("--------------------------------------------------------------------------------------");
@@ -33,7 +34,7 @@ public class Printer {
     }
 
     public static void printSaldosCierre(String nombreConsorcio, String periodo, List<UnidadFuncional> ufs) throws IOException {
-        OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(nombreConsorcio + " Informe Gastos Y Saldos " + periodo + ".txt", true));
+        OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(Constantes.nombreCarpetaReportes +nombreConsorcio + " Informe Gastos Y Saldos " + periodo + ".txt", true));
         osw.write("--------------------------------------------------------------------------------------");
         osw.write(System.lineSeparator());
         osw.write("--------------------------------------------------------------------------------------");
