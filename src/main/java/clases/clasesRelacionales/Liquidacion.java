@@ -8,7 +8,6 @@ import java.util.List;
 
 @Entity
 public class Liquidacion {
-    //atributos
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_liquidacion;
@@ -20,7 +19,6 @@ public class Liquidacion {
     @JoinColumn(name = "id_liq_perteneciente")
     private List<Gasto> gastos;
 
-    //constructores
     public Liquidacion() {
     }
 

@@ -42,7 +42,9 @@ public class LiquidacionesHistoricasView {
         comboConsorcios.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                bus.post(new SolicitudPeriodos((String) comboConsorcios.getSelectedItem()));
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    bus.post(new SolicitudPeriodos((String) comboConsorcios.getSelectedItem()));
+                }
             }
         });
         importarLiquidacionAArchivoButton.addActionListener(new ActionListener() {

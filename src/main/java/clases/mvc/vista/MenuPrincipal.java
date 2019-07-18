@@ -92,6 +92,8 @@ public class MenuPrincipal extends Application {
                 File file = new File(localDir + Constantes.pathArchivoBaseDatos);
                 file.delete();
                 DAOmanager.getDAOmanager().inicDB();
+                JOptionPane.showMessageDialog(null, Constantes.accionCompletada , Constantes.accionCompletada, JOptionPane.INFORMATION_MESSAGE);
+
             }
         });
         inicializarConCasosDeButton.addActionListener(new ActionListener() {
@@ -114,6 +116,7 @@ public class MenuPrincipal extends Application {
                     System.out.println("El fichero "+fichero+" no existe en el directorio "+pathOrigen);
                 }
                 DAOmanager.getDAOmanager().inicDB();
+                JOptionPane.showMessageDialog(null, Constantes.accionCompletada , Constantes.accionCompletada, JOptionPane.INFORMATION_MESSAGE);
             }
         });
     }

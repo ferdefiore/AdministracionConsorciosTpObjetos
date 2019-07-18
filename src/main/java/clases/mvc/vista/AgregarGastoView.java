@@ -83,7 +83,9 @@ public class AgregarGastoView {
         comboConsorcios.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED){
                 bus.post(new SolicitudListaGastos((String) comboConsorcios.getSelectedItem()));
+                }
             }
         });
     }

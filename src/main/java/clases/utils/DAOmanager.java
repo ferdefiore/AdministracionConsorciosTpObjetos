@@ -26,7 +26,14 @@ public class DAOmanager {
     public Consorcio getConsorcio(String nombreConsorcio) {
         EntityManager manager = JPAUtility.getEntityManager();
         Integer idConsorcio = DAOmanager.getIdFromNombreConsorcio(nombreConsorcio);
-        return manager.find(Consorcio.class, idConsorcio);
+        Consorcio consorcio = manager.find(Consorcio.class, idConsorcio);
+        return consorcio;
+    }
+
+    public Liquidacion getLiquidacion(Integer idLiquidacion) {
+        EntityManager manager = JPAUtility.getEntityManager();
+        Liquidacion liquidacion = manager.find(Liquidacion.class, idLiquidacion);
+        return liquidacion;
     }
 
     public Propietario getPropietarioFromDni(String dniPropietario) {
@@ -41,11 +48,6 @@ public class DAOmanager {
         }catch (NoResultException e){
             return null;
         }
-    }
-
-    public Liquidacion getLiquidacion(Integer idLiquidacion) {
-        EntityManager manager = JPAUtility.getEntityManager();
-        return manager.find(Liquidacion.class, idLiquidacion);
     }
 
     public GastoCompuesto getGastoCompuesto(Integer idGastoSeleccionado) {
@@ -72,12 +74,9 @@ public class DAOmanager {
         EntityManager manager = JPAUtility.getEntityManager();
         Integer idConsorcio = DAOmanager.getIdFromNombreConsorcio(nombreConsorcio);
         Consorcio consorcio = (Consorcio) manager.createQuery("FROM Consorcio WHERE id = " + idConsorcio).getSingleResult();
-        List<Gasto> retorno = consorcio.getLiquidacionVigente().getGastos();
-        Set<Gasto> set = new HashSet<>();
-        set.addAll(retorno);
-        retorno.clear();
-        retorno.addAll(set);
-        return retorno;
+        //Liquidacion ret = this.eliminarRepetidos(consorcio.getLiquidacionVigente());
+        Liquidacion ret = consorcio.getLiquidacionVigente();
+        return ret.getGastos();
     }
 
     public List<String> getListaNombresConsorcios() {

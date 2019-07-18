@@ -38,7 +38,9 @@ public class NuevoPagoView {
         comboConsorcios.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                bus.post(new SolicitudListaUf((String) comboConsorcios.getSelectedItem()));
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    bus.post(new SolicitudListaUf((String) comboConsorcios.getSelectedItem()));
+                }
             }
         });
 

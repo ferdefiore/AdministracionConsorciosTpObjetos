@@ -9,9 +9,8 @@ import java.util.List;
 public abstract class Gasto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
-    String concepto;
-    float monto;
+    private int id;
+    private String concepto;
 
     public int getId() {
         return id;
@@ -21,15 +20,14 @@ public abstract class Gasto {
         return concepto;
     }
 
-    public void setMonto(float monto) {
-        this.monto = monto;
+    public void setConcepto(String concepto){
+        this.concepto = concepto;
     }
 
     public abstract float getMonto();
 
-    public Gasto(String concepto, float monto) {
+    public Gasto(String concepto) {
         this.concepto = concepto;
-        this.monto = monto;
     }
 
     public Gasto() {

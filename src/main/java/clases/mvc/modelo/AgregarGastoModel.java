@@ -6,6 +6,7 @@ import clases.clasesRelacionales.GastoCompuesto;
 import clases.clasesRelacionales.GastoSimple;
 import clases.utils.Constantes;
 import clases.utils.DAOmanager;
+import org.hibernate.event.spi.SaveOrUpdateEvent;
 
 import java.util.ArrayList;
 import java.util.List;

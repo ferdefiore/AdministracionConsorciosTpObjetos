@@ -2,10 +2,7 @@ package clases.clasesRelacionales;
 
 import clases.utils.Constantes;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +10,8 @@ import java.util.List;
 public class GastoCompuesto extends Gasto {
 
 
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_gastoCompuesto_padre")
     private List<Gasto> gastos;
 
     public List<Gasto> getGastos() {
@@ -34,7 +32,7 @@ public class GastoCompuesto extends Gasto {
     }
 
     public GastoCompuesto(String concepto, List<Gasto> gastos) {
-        super(concepto, Constantes.ceroInteger);
+        setConcepto(concepto);
         this.gastos = gastos;
     }
 
@@ -53,7 +51,7 @@ public class GastoCompuesto extends Gasto {
 
     @Override
     public String toString() {
-        String retorno = "Gasto compuesto, concepto: " + this.concepto + " Detalles: ";
+        String retorno = "Gasto compuesto, concepto: " + this.getConcepto() + " Detalles: ";
         for (Gasto g: gastos) {
             retorno += g.toString();
         }

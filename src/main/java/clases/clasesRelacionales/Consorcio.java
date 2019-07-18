@@ -37,6 +37,10 @@ public class Consorcio {
         this.unidadesFuncionales = unidadesFuncionales;
     }
 
+    public void setLiquidacionVigente(Liquidacion liquidacionVigente){
+        this.liquidacionVigente=liquidacionVigente;
+    }
+
     public int getId() {
         return id;
     }
@@ -56,7 +60,6 @@ public class Consorcio {
     public Liquidacion getLiquidacionVigente() {
         return liquidacionVigente;
     }
-
 
     public void agregarUnidadFuncional(UnidadFuncional uf) {
         unidadesFuncionales.add(uf);

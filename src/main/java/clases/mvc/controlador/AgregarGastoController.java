@@ -7,6 +7,7 @@ import clases.utils.EventBusFactory;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 
+import javax.sound.midi.Soundbank;
 import javax.swing.*;
 import java.util.List;
 
@@ -36,13 +37,11 @@ public class AgregarGastoController extends ControllerManejadorDeBusVistaYModelo
 
     @Subscribe
     public void onAgregarNuevoGasto(AgregarGastoView.AgregarNuevoGasto event) {
-        bus.unregister(this);
         model.agregarNuevoGasto(event.nombreConsorcio, event.concepto, event.monto);
     }
 
     @Subscribe
     public void onAgregarAGasto(AgregarGastoView.AgregarAGasto event) {
-        bus.unregister(this);
         model.agregarAGasto(event.idGastoSeleccionado, event.concepto, event.monto);
     }
 

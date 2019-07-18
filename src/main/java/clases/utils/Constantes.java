@@ -41,4 +41,5 @@ public class Constantes {
     public static String nombreCarpetaContenedoraBaseDatosInicial = "\\DBInicFile";
     public static String nombreBaseDatos = "dataBase.mv.db";
 
+    public static String accionCompletada = "Accion completada!";
 }
