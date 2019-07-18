@@ -4,7 +4,6 @@ import clases.clasesRelacionales.Gasto;
 import clases.clasesRelacionales.Liquidacion;
 import clases.clasesRelacionales.UnidadFuncional;
 
-import java.awt.*;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;

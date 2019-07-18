@@ -12,7 +12,6 @@ public class DAOmanager {
 
     private static DAOmanager DAOmanager;
 
-    //singleton
     public static DAOmanager getDAOmanager() {
         if (DAOmanager == null) {
             DAOmanager = new DAOmanager();

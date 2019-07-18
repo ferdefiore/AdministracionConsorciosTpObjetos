@@ -3,7 +3,7 @@ package clases.mvc.modelo;
 import clases.clasesRelacionales.LiquidacionesHistoricas;
 import clases.utils.DAOmanager;
 
-public class ModeloManejadorHistoricas {
+class ModeloManejadorHistoricas {
 
     private DAOmanager daoManager = DAOmanager.getDAOmanager();
 

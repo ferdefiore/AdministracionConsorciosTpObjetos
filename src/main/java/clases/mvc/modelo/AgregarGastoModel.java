@@ -29,7 +29,7 @@ public class AgregarGastoModel {
                 compuestos.addAll(g.devolverCompuestos());
             }
             for (GastoCompuesto gc : compuestos) {
-                retorno.add(gc.getId() + " " + gc.getConcepto());
+                retorno.add(gc.getId() + Constantes.stringEspacio + gc.getConcepto());
             }
 
         } catch (Exception e) {
