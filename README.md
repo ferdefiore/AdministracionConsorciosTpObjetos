@@ -1,6 +1,8 @@
 # AdministracionConsorciosTpObjetos
-Downloads:
----
-Necesario instalar H2 DataBase: 
-http://www.h2database.com/h2-setup-2019-03-13.exe
-Hibernate deberia andar con la importacion desde el maven
+
+Trabajo final para la catedra Programacion Orientada a Objetos.
+
+Software para administracion de consorcios.
+
+Informe:
+https://drive.google.com/open?id=1hnxtnAlT3wmjF26o2M1axPUg94Z15ZUu
